@@ -1,6 +1,7 @@
 from typing import Literal, Dict, List
 
-from grafana_dashboard.model import piechartpanelcfg_types_gen, timeseriespanelcfg_types_gen, tablepanelcfg_types_gen
+from grafana_dashboard.model import piechartpanelcfg_types_gen, timeseriespanelcfg_types_gen, tablepanelcfg_types_gen, \
+    dashboardlistpanelcfg_types_gen, textpanelcfg_types_gen, logspanelcfg_types_gen
 from grafana_dashboard.model.dashboard_types_gen import Panel, ModeEnum, FieldColor
 
 
@@ -30,6 +31,23 @@ class Table(Panel):
         if self.fieldConfig.defaults.color is None:
             self.fieldConfig.defaults.color = FieldColor(mode=ModeEnum.thresholds)
 
+
+class DashboardList(Panel):
+    type: Literal['dashlist'] = 'dashlist'
+    options: dashboardlistpanelcfg_types_gen.PanelOptions = dashboardlistpanelcfg_types_gen.PanelOptions()
+
+
+class Text(Panel):
+    type: Literal['text'] = 'text'
+    options: textpanelcfg_types_gen.PanelOptions = textpanelcfg_types_gen.PanelOptions()
+
+
+class Logs(Panel):
+    type: Literal['logs'] = 'logs'
+    options: logspanelcfg_types_gen.PanelOptions = logspanelcfg_types_gen.PanelOptions()
+
+
+# TODO other types
 
 def _dict_nested_fill_default_value(d: Dict, keys: List[str], value):
     if len(keys) == 1:
