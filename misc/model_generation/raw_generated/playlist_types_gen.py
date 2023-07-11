@@ -6,7 +6,8 @@ from datetime import datetime
 from enum import Enum
 from typing import Any, Dict, List, Optional
 
-from pydantic import BaseModel, Field
+from grafana_dashboard.utils import MyBaseModel
+from pydantic import Field
 
 
 class Type(Enum):
@@ -15,7 +16,7 @@ class Type(Enum):
     dashboard_by_tag = 'dashboard_by_tag'
 
 
-class PlaylistItem(BaseModel):
+class PlaylistItem(MyBaseModel):
     type: Type = Field(..., description='Type of the item.')
     value: str = Field(
         ...,
@@ -27,7 +28,7 @@ class PlaylistItem(BaseModel):
     )
 
 
-class FieldKubeObjectMetadata(BaseModel):
+class FieldKubeObjectMetadata(MyBaseModel):
     uid: str
     creationTimestamp: datetime
     deletionTimestamp: Optional[datetime] = None
@@ -46,7 +47,7 @@ class Metadata(FieldKubeObjectMetadata):
     )
 
 
-class Spec(BaseModel):
+class Spec(MyBaseModel):
     uid: str = Field(
         ...,
         description='Unique playlist identifier. Generated on creation, either by the\ncreator of the playlist of by the application.',
@@ -68,7 +69,7 @@ class State(Enum):
     failed = 'failed'
 
 
-class JoinSchemaStatusOperatorState(BaseModel):
+class JoinSchemaStatusOperatorState(MyBaseModel):
     lastEvaluation: str = Field(
         ..., description='lastEvaluation is the ResourceVersion last evaluated'
     )
@@ -86,7 +87,7 @@ class JoinSchemaStatusOperatorState(BaseModel):
     )
 
 
-class StatusOperatorState(BaseModel):
+class StatusOperatorState(MyBaseModel):
     lastEvaluation: str = Field(
         ..., description='lastEvaluation is the ResourceVersion last evaluated'
     )
@@ -104,7 +105,7 @@ class StatusOperatorState(BaseModel):
     )
 
 
-class Status(BaseModel):
+class Status(MyBaseModel):
     operatorStates: Optional[Dict[str, JoinSchemaStatusOperatorState]] = Field(
         None,
         description='operatorStates is a map of operator ID to operator state evaluations.\nAny operator which consumes this kind SHOULD add its state evaluation information to this field.',
@@ -114,7 +115,7 @@ class Status(BaseModel):
     )
 
 
-class Playlist(BaseModel):
+class Playlist(MyBaseModel):
     metadata: Metadata = Field(
         ...,
         description='metadata contains embedded CommonMetadata and can be extended with custom string fields\nTODO: use CommonMetadata instead of redefining here; currently needs to be defined here\nwithout external reference as using the CommonMetadata reference breaks thema codegen.',

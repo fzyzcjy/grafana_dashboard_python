@@ -5,7 +5,8 @@ from __future__ import annotations
 from enum import Enum
 from typing import Any, List, Optional, Union
 
-from pydantic import BaseModel, Field
+from grafana_dashboard.utils import MyBaseModel
+from pydantic import Field
 
 
 class Kind(Enum):
@@ -16,7 +17,7 @@ class Kind1(Enum):
     AppInsightsMetricNameQuery = 'AppInsightsMetricNameQuery'
 
 
-class AzureMetricDimension(BaseModel):
+class AzureMetricDimension(MyBaseModel):
     dimension: Optional[str] = Field(
         None, description='Name of Dimension to be filtered on.'
     )
@@ -33,11 +34,11 @@ class AzureMetricDimension(BaseModel):
     )
 
 
-class AzureMonitorDataQuery(BaseModel):
+class AzureMonitorDataQuery(MyBaseModel):
     pass
 
 
-class AzureMonitorResource(BaseModel):
+class AzureMonitorResource(MyBaseModel):
     subscription: Optional[str] = None
     resourceGroup: Optional[str] = None
     resourceName: Optional[str] = None
@@ -60,7 +61,7 @@ class AzureQueryType(Enum):
     Grafana_Template_Variable_Function = 'Grafana Template Variable Function'
 
 
-class AzureResourceGraphQuery(BaseModel):
+class AzureResourceGraphQuery(MyBaseModel):
     query: Optional[str] = Field(
         None, description='Azure Resource Graph KQL query to be executed.'
     )
@@ -70,7 +71,7 @@ class AzureResourceGraphQuery(BaseModel):
     )
 
 
-class AzureTracesFilter(BaseModel):
+class AzureTracesFilter(MyBaseModel):
     property: str = Field(
         ..., description='Property name, auto-populated based on available traces.'
     )
@@ -80,11 +81,11 @@ class AzureTracesFilter(BaseModel):
     filters: List[str] = Field(..., description='Values to filter by.')
 
 
-class BaseGrafanaTemplateVariableQuery(BaseModel):
+class BaseGrafanaTemplateVariableQuery(MyBaseModel):
     rawQuery: Optional[str] = None
 
 
-class DataQuery(BaseModel):
+class DataQuery(MyBaseModel):
     refId: str = Field(
         ...,
         description='A unique identifier for the query within the list of targets.\nIn server side expressions, the refId is used as a variable name to identify results.\nBy default, the UI will assign A->Z; however setting meaningful names may be useful.',
@@ -211,7 +212,7 @@ class AppInsightsMetricNameQuery(BaseGrafanaTemplateVariableQuery):
     kind: Kind1
 
 
-class AzureLogsQuery(BaseModel):
+class AzureLogsQuery(MyBaseModel):
     query: Optional[str] = Field(None, description='KQL query to be executed.')
     resultFormat: Optional[ResultFormat] = None
     resources: Optional[List[str]] = Field(
@@ -226,7 +227,7 @@ class AzureLogsQuery(BaseModel):
     )
 
 
-class AzureMetricQuery(BaseModel):
+class AzureMetricQuery(MyBaseModel):
     resources: Optional[List[AzureMonitorResource]] = Field(
         None, description='Array of resource URIs to be queried.'
     )
@@ -291,7 +292,7 @@ class AzureMetricQuery(BaseModel):
     )
 
 
-class AzureTracesQuery(BaseModel):
+class AzureTracesQuery(MyBaseModel):
     resultFormat: Optional[ResultFormat] = None
     resources: Optional[List[str]] = Field(
         None, description='Array of resource URIs to be queried.'
@@ -308,7 +309,7 @@ class AzureTracesQuery(BaseModel):
     query: Optional[str] = Field(None, description='KQL query to be executed.')
 
 
-class GrafanaTemplateVariableQuery(BaseModel):
+class GrafanaTemplateVariableQuery(MyBaseModel):
     __root__: Union[
         AppInsightsMetricNameQuery,
         AppInsightsGroupByQuery,

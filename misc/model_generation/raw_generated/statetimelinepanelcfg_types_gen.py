@@ -5,16 +5,17 @@ from __future__ import annotations
 from enum import Enum
 from typing import Any, List, Optional, Union
 
-from pydantic import BaseModel, Field, confloat, conint
+from grafana_dashboard.utils import MyBaseModel
+from pydantic import Field, confloat, conint
 
 
-class HideSeriesConfig(BaseModel):
+class HideSeriesConfig(MyBaseModel):
     tooltip: bool
     legend: bool
     viz: bool
 
 
-class HideableFieldConfig(BaseModel):
+class HideableFieldConfig(MyBaseModel):
     hideFrom: Optional[HideSeriesConfig] = None
 
 
@@ -44,7 +45,7 @@ class TimeZoneEnum(Enum):
     utc = 'utc'
 
 
-class TimeZone(BaseModel):
+class TimeZone(MyBaseModel):
     __root__: Optional[Union[TimeZoneEnum, Any]] = Field(
         'browser',
         description='A specific timezone from https://en.wikipedia.org/wiki/Tz_database',
@@ -69,7 +70,7 @@ class VisibilityMode(Enum):
     always = 'always'
 
 
-class VizLegendOptions(BaseModel):
+class VizLegendOptions(MyBaseModel):
     displayMode: LegendDisplayMode
     placement: LegendPlacement
     showLegend: bool
@@ -81,20 +82,20 @@ class VizLegendOptions(BaseModel):
     calcs: List[str]
 
 
-class VizTooltipOptions(BaseModel):
+class VizTooltipOptions(MyBaseModel):
     mode: TooltipDisplayMode
     sort: SortOrder
 
 
-class OptionsWithLegend(BaseModel):
+class OptionsWithLegend(MyBaseModel):
     legend: VizLegendOptions
 
 
-class OptionsWithTimezones(BaseModel):
+class OptionsWithTimezones(MyBaseModel):
     timezone: Optional[List[TimeZone]] = None
 
 
-class OptionsWithTooltip(BaseModel):
+class OptionsWithTooltip(MyBaseModel):
     tooltip: VizTooltipOptions
 
 
@@ -109,6 +110,6 @@ class PanelOptions(OptionsWithLegend, OptionsWithTooltip, OptionsWithTimezones):
     )
 
 
-class StateTimelinePanelCfg(BaseModel):
+class StateTimelinePanelCfg(MyBaseModel):
     PanelOptions: PanelOptions
     PanelFieldConfig: PanelFieldConfig

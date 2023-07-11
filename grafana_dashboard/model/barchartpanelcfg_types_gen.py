@@ -5,7 +5,8 @@ from __future__ import annotations
 from enum import Enum
 from typing import List, Optional
 
-from pydantic import BaseModel, Field, confloat, conint
+from grafana_dashboard.utils import MyBaseModel
+from pydantic import Field, confloat, conint
 
 
 class AxisColorMode(Enum):
@@ -39,13 +40,13 @@ class GraphTresholdsStyleMode(Enum):
     series = 'series'
 
 
-class HideSeriesConfig(BaseModel):
+class HideSeriesConfig(MyBaseModel):
     tooltip: bool
     legend: bool
     viz: bool
 
 
-class HideableFieldConfig(BaseModel):
+class HideableFieldConfig(MyBaseModel):
     hideFrom: Optional[HideSeriesConfig] = None
 
 
@@ -67,7 +68,7 @@ class ScaleDistribution(Enum):
     symlog = 'symlog'
 
 
-class ScaleDistributionConfig(BaseModel):
+class ScaleDistributionConfig(MyBaseModel):
     type: ScaleDistribution
     log: Optional[float] = None
     linearThreshold: Optional[float] = None
@@ -97,7 +98,7 @@ class VisibilityMode(Enum):
     always = 'always'
 
 
-class VizLegendOptions(BaseModel):
+class VizLegendOptions(MyBaseModel):
     displayMode: LegendDisplayMode
     placement: LegendPlacement
     showLegend: bool
@@ -115,17 +116,17 @@ class VizOrientation(Enum):
     horizontal = 'horizontal'
 
 
-class VizTextDisplayOptions(BaseModel):
+class VizTextDisplayOptions(MyBaseModel):
     titleSize: Optional[float] = Field(None, description='Explicit title text size')
     valueSize: Optional[float] = Field(None, description='Explicit value text size')
 
 
-class VizTooltipOptions(BaseModel):
+class VizTooltipOptions(MyBaseModel):
     mode: TooltipDisplayMode
     sort: SortOrder
 
 
-class AxisConfig(BaseModel):
+class AxisConfig(MyBaseModel):
     axisPlacement: Optional[AxisPlacement] = None
     axisColorMode: Optional[AxisColorMode] = None
     axisLabel: Optional[str] = None
@@ -137,19 +138,19 @@ class AxisConfig(BaseModel):
     axisCenteredZero: Optional[bool] = None
 
 
-class GraphThresholdsStyleConfig(BaseModel):
+class GraphThresholdsStyleConfig(MyBaseModel):
     mode: GraphTresholdsStyleMode
 
 
-class OptionsWithLegend(BaseModel):
+class OptionsWithLegend(MyBaseModel):
     legend: VizLegendOptions
 
 
-class OptionsWithTextFormatting(BaseModel):
+class OptionsWithTextFormatting(MyBaseModel):
     text: Optional[VizTextDisplayOptions] = None
 
 
-class OptionsWithTooltip(BaseModel):
+class OptionsWithTooltip(MyBaseModel):
     tooltip: VizTooltipOptions
 
 
@@ -214,6 +215,6 @@ class PanelFieldConfig(AxisConfig, HideableFieldConfig):
     thresholdsStyle: Optional[GraphThresholdsStyleConfig] = None
 
 
-class BarChartPanelCfg(BaseModel):
+class BarChartPanelCfg(MyBaseModel):
     PanelOptions: PanelOptions
     PanelFieldConfig: PanelFieldConfig

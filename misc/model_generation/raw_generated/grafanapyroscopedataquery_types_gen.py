@@ -5,10 +5,11 @@ from __future__ import annotations
 from enum import Enum
 from typing import Any, List, Optional
 
-from pydantic import BaseModel, Field
+from grafana_dashboard.utils import MyBaseModel
+from pydantic import Field
 
 
-class DataQuery(BaseModel):
+class DataQuery(MyBaseModel):
     refId: str = Field(
         ...,
         description='A unique identifier for the query within the list of targets.\nIn server side expressions, the refId is used as a variable name to identify results.\nBy default, the UI will assign A->Z; however setting meaningful names may be useful.',

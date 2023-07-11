@@ -5,7 +5,7 @@ from __future__ import annotations
 from enum import Enum
 from typing import Optional
 
-from pydantic import BaseModel
+from grafana_dashboard.utils import MyBaseModel
 
 
 class DebugMode(Enum):
@@ -16,18 +16,18 @@ class DebugMode(Enum):
     ThrowError = 'ThrowError'
 
 
-class UpdateConfig(BaseModel):
+class UpdateConfig(MyBaseModel):
     render: bool
     dataChanged: bool
     schemaChanged: bool
 
 
-class PanelOptions(BaseModel):
+class PanelOptions(MyBaseModel):
     mode: DebugMode
     counters: Optional[UpdateConfig] = None
 
 
-class DebugPanelCfg(BaseModel):
+class DebugPanelCfg(MyBaseModel):
     UpdateConfig: UpdateConfig
     DebugMode: DebugMode
     PanelOptions: PanelOptions

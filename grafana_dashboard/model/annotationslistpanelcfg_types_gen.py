@@ -4,10 +4,11 @@ from __future__ import annotations
 
 from typing import List, Optional
 
-from pydantic import BaseModel, conint
+from grafana_dashboard.utils import MyBaseModel
+from pydantic import conint
 
 
-class PanelOptions(BaseModel):
+class PanelOptions(MyBaseModel):
     onlyFromThisDashboard: Optional[bool] = False
     onlyInTimeRange: Optional[bool] = False
     tags: List[str]
@@ -20,5 +21,5 @@ class PanelOptions(BaseModel):
     navigateAfter: Optional[str] = '10m'
 
 
-class AnnotationsListPanelCfg(BaseModel):
+class AnnotationsListPanelCfg(MyBaseModel):
     PanelOptions: PanelOptions

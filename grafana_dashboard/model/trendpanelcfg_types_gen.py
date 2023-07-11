@@ -5,7 +5,8 @@ from __future__ import annotations
 from enum import Enum
 from typing import List, Optional, Union
 
-from pydantic import BaseModel, Field
+from grafana_dashboard.utils import MyBaseModel
+from pydantic import Field
 
 
 class AxisColorMode(Enum):
@@ -28,13 +29,13 @@ class BarAlignment(Enum):
     integer_1 = 1
 
 
-class BarConfig(BaseModel):
+class BarConfig(MyBaseModel):
     barAlignment: Optional[BarAlignment] = None
     barWidthFactor: Optional[float] = None
     barMaxWidth: Optional[float] = None
 
 
-class FillConfig(BaseModel):
+class FillConfig(MyBaseModel):
     fillColor: Optional[str] = None
     fillOpacity: Optional[float] = None
     fillBelowTo: Optional[str] = None
@@ -68,13 +69,13 @@ class GraphTresholdsStyleMode(Enum):
     series = 'series'
 
 
-class HideSeriesConfig(BaseModel):
+class HideSeriesConfig(MyBaseModel):
     tooltip: bool
     legend: bool
     viz: bool
 
 
-class HideableFieldConfig(BaseModel):
+class HideableFieldConfig(MyBaseModel):
     hideFrom: Optional[HideSeriesConfig] = None
 
 
@@ -103,7 +104,7 @@ class Fill(Enum):
     square = 'square'
 
 
-class LineStyle(BaseModel):
+class LineStyle(MyBaseModel):
     fill: Optional[Fill] = None
     dash: Optional[List[float]] = None
 
@@ -115,7 +116,7 @@ class ScaleDistribution(Enum):
     symlog = 'symlog'
 
 
-class ScaleDistributionConfig(BaseModel):
+class ScaleDistributionConfig(MyBaseModel):
     type: ScaleDistribution
     log: Optional[float] = None
     linearThreshold: Optional[float] = None
@@ -145,7 +146,7 @@ class VisibilityMode(Enum):
     always = 'always'
 
 
-class VizLegendOptions(BaseModel):
+class VizLegendOptions(MyBaseModel):
     displayMode: LegendDisplayMode
     placement: LegendPlacement
     showLegend: bool
@@ -157,12 +158,12 @@ class VizLegendOptions(BaseModel):
     calcs: List[str]
 
 
-class VizTooltipOptions(BaseModel):
+class VizTooltipOptions(MyBaseModel):
     mode: TooltipDisplayMode
     sort: SortOrder
 
 
-class AxisConfig(BaseModel):
+class AxisConfig(MyBaseModel):
     axisPlacement: Optional[AxisPlacement] = None
     axisColorMode: Optional[AxisColorMode] = None
     axisLabel: Optional[str] = None
@@ -174,11 +175,11 @@ class AxisConfig(BaseModel):
     axisCenteredZero: Optional[bool] = None
 
 
-class GraphThresholdsStyleConfig(BaseModel):
+class GraphThresholdsStyleConfig(MyBaseModel):
     mode: GraphTresholdsStyleMode
 
 
-class LineConfig(BaseModel):
+class LineConfig(MyBaseModel):
     lineColor: Optional[str] = None
     lineWidth: Optional[float] = None
     lineInterpolation: Optional[LineInterpolation] = None
@@ -189,19 +190,19 @@ class LineConfig(BaseModel):
     )
 
 
-class PointsConfig(BaseModel):
+class PointsConfig(MyBaseModel):
     showPoints: Optional[VisibilityMode] = None
     pointSize: Optional[float] = None
     pointColor: Optional[str] = None
     pointSymbol: Optional[str] = None
 
 
-class StackingConfig(BaseModel):
+class StackingConfig(MyBaseModel):
     mode: Optional[StackingMode] = None
     group: Optional[str] = None
 
 
-class PanelOptions(BaseModel):
+class PanelOptions(MyBaseModel):
     legend: VizLegendOptions
     tooltip: VizTooltipOptions
     xField: Optional[str] = Field(
@@ -209,7 +210,7 @@ class PanelOptions(BaseModel):
     )
 
 
-class StackableFieldConfig(BaseModel):
+class StackableFieldConfig(MyBaseModel):
     stacking: Optional[StackingConfig] = None
 
 
@@ -228,7 +229,7 @@ class GraphFieldConfig(
     transform: Optional[GraphTransform] = None
 
 
-class TrendPanelCfg(BaseModel):
+class TrendPanelCfg(MyBaseModel):
     PanelOptions: PanelOptions = Field(
         ...,
         description='Identical to timeseries... except it does not have timezone settings',

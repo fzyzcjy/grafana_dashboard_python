@@ -4,10 +4,11 @@ from __future__ import annotations
 
 from typing import List, Optional
 
-from pydantic import BaseModel, Field
+from grafana_dashboard.utils import MyBaseModel
+from pydantic import Field
 
 
-class ArcOption(BaseModel):
+class ArcOption(MyBaseModel):
     field: Optional[str] = Field(
         None,
         description='Field from which to get the value. Values should be less than 1, representing fraction of a circle.',
@@ -15,7 +16,7 @@ class ArcOption(BaseModel):
     color: Optional[str] = Field(None, description='The color of the arc.')
 
 
-class EdgeOptions(BaseModel):
+class EdgeOptions(MyBaseModel):
     mainStatUnit: Optional[str] = Field(
         None,
         description='Unit for the main stat to override what ever is set in the data frame.',
@@ -26,7 +27,7 @@ class EdgeOptions(BaseModel):
     )
 
 
-class NodeOptions(BaseModel):
+class NodeOptions(MyBaseModel):
     mainStatUnit: Optional[str] = Field(
         None,
         description='Unit for the main stat to override what ever is set in the data frame.',
@@ -41,12 +42,12 @@ class NodeOptions(BaseModel):
     )
 
 
-class PanelOptions(BaseModel):
+class PanelOptions(MyBaseModel):
     nodes: Optional[NodeOptions] = None
     edges: Optional[EdgeOptions] = None
 
 
-class NodeGraphPanelCfg(BaseModel):
+class NodeGraphPanelCfg(MyBaseModel):
     ArcOption: ArcOption
     NodeOptions: NodeOptions
     EdgeOptions: EdgeOptions

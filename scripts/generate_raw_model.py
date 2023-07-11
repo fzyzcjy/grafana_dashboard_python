@@ -14,7 +14,8 @@ def _execute_datamodel_codegen(
         '--input-file-type openapi '
         f'--output {path_output} '
         "--custom-file-header '# AUTO GENERATED, PLEASE DO NOT MODIFY BY HAND' "
-        '--use-default'  # #10115
+        '--use-default '  # #10115
+        '--base-class grafana_dashboard.utils.MyBaseModel '  # #10118
     )
     if ret != 0:
         print('ERROR WHEN EXECUTING CODEGEN!')

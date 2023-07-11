@@ -5,7 +5,8 @@ from __future__ import annotations
 from enum import Enum
 from typing import Any, Optional, Union
 
-from pydantic import BaseModel, Field, conint
+from grafana_dashboard.utils import MyBaseModel
+from pydantic import Field, conint
 
 
 class AxisColorMode(Enum):
@@ -22,18 +23,18 @@ class AxisPlacement(Enum):
     hidden = 'hidden'
 
 
-class CellValues(BaseModel):
+class CellValues(MyBaseModel):
     unit: Optional[str] = Field(None, description='Controls the cell value unit')
     decimals: Optional[float] = Field(
         None, description='Controls the number of decimals for cell values'
     )
 
 
-class ExemplarConfig(BaseModel):
+class ExemplarConfig(MyBaseModel):
     color: str = Field(..., description='Sets the color of the exemplar markers')
 
 
-class FilterValueRange(BaseModel):
+class FilterValueRange(MyBaseModel):
     le: Optional[float] = Field(
         None,
         description='Sets the filter range to values less than or equal to the given value',
@@ -66,11 +67,11 @@ class HeatmapColorScale(Enum):
     exponential = 'exponential'
 
 
-class HeatmapLegend(BaseModel):
+class HeatmapLegend(MyBaseModel):
     show: bool = Field(..., description='Controls if the legend is shown')
 
 
-class HeatmapColorOptions(BaseModel):
+class HeatmapColorOptions(MyBaseModel):
     mode: Optional[HeatmapColorMode] = None
     scheme: str = Field(..., description='Controls the color scheme used')
     fill: str = Field(..., description='Controls the color fill when in opacity mode')
@@ -90,7 +91,7 @@ class HeatmapColorOptions(BaseModel):
     )
 
 
-class HeatmapTooltip(BaseModel):
+class HeatmapTooltip(MyBaseModel):
     show: bool = Field(..., description='Controls if the tooltip is shown')
     yHistogram: Optional[bool] = Field(
         None,
@@ -98,7 +99,7 @@ class HeatmapTooltip(BaseModel):
     )
 
 
-class RowsHeatmapOptions(BaseModel):
+class RowsHeatmapOptions(MyBaseModel):
     value: Optional[str] = Field(
         None, description='Sets the name of the cell when not calculating from data'
     )
@@ -125,7 +126,7 @@ class Steps(Enum):
     integer_64 = 64
 
 
-class ColorItem(BaseModel):
+class ColorItem(MyBaseModel):
     scheme: Scheme = Field(
         ...,
         description='mode:     HeatmapColorMode // TODO: fix after remove when https://github.com/grafana/cuetsy/issues/74 is fixed',
@@ -143,17 +144,17 @@ class Le(Enum):
     field_1e_09 = '1e-09'
 
 
-class FilterValue(BaseModel):
+class FilterValue(MyBaseModel):
     le: Le
 
 
-class HideSeriesConfig(BaseModel):
+class HideSeriesConfig(MyBaseModel):
     tooltip: bool
     legend: bool
     viz: bool
 
 
-class HideableFieldConfig(BaseModel):
+class HideableFieldConfig(MyBaseModel):
     hideFrom: Optional[HideSeriesConfig] = None
 
 
@@ -164,7 +165,7 @@ class ScaleDistribution(Enum):
     symlog = 'symlog'
 
 
-class ScaleDistributionConfig(BaseModel):
+class ScaleDistributionConfig(MyBaseModel):
     type: ScaleDistribution
     log: Optional[float] = None
     linearThreshold: Optional[float] = None
@@ -176,7 +177,7 @@ class VisibilityMode(Enum):
     always = 'always'
 
 
-class AxisConfig(BaseModel):
+class AxisConfig(MyBaseModel):
     axisPlacement: Optional[AxisPlacement] = None
     axisColorMode: Optional[AxisColorMode] = None
     axisLabel: Optional[str] = None
@@ -188,7 +189,7 @@ class AxisConfig(BaseModel):
     axisCenteredZero: Optional[bool] = None
 
 
-class HeatmapCalculationBucketConfig(BaseModel):
+class HeatmapCalculationBucketConfig(MyBaseModel):
     mode: Optional[HeatmapCalculationMode] = None
     value: Optional[str] = Field(
         None, description='The number of buckets to use for the axis in the heatmap'
@@ -196,7 +197,7 @@ class HeatmapCalculationBucketConfig(BaseModel):
     scale: Optional[ScaleDistributionConfig] = None
 
 
-class HeatmapCalculationOptions(BaseModel):
+class HeatmapCalculationOptions(MyBaseModel):
     xBuckets: Optional[HeatmapCalculationBucketConfig] = None
     yBuckets: Optional[HeatmapCalculationBucketConfig] = None
 
@@ -219,7 +220,7 @@ class PanelFieldConfig(HideableFieldConfig):
     scaleDistribution: Optional[ScaleDistributionConfig] = None
 
 
-class PanelOptions(BaseModel):
+class PanelOptions(MyBaseModel):
     calculate: Optional[bool] = Field(
         False, description='Controls if the heatmap should be calculated from data'
     )
@@ -255,7 +256,7 @@ class PanelOptions(BaseModel):
     exemplars: ExemplarConfig
 
 
-class HeatmapPanelCfg(BaseModel):
+class HeatmapPanelCfg(MyBaseModel):
     HeatmapColorMode: HeatmapColorMode = Field(
         ..., description='Controls the color mode of the heatmap'
     )

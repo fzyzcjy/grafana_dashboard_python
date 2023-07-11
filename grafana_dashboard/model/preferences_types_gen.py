@@ -6,16 +6,17 @@ from datetime import datetime
 from enum import Enum
 from typing import Any, Dict, List, Optional
 
-from pydantic import BaseModel, Field
+from grafana_dashboard.utils import MyBaseModel
+from pydantic import Field
 
 
-class QueryHistoryPreference(BaseModel):
+class QueryHistoryPreference(MyBaseModel):
     homeTab: Optional[str] = Field(
         None, description="one of: '' | 'query' | 'starred';"
     )
 
 
-class FieldKubeObjectMetadata(BaseModel):
+class FieldKubeObjectMetadata(MyBaseModel):
     uid: str
     creationTimestamp: datetime
     deletionTimestamp: Optional[datetime] = None
@@ -34,7 +35,7 @@ class Metadata(FieldKubeObjectMetadata):
     )
 
 
-class Spec(BaseModel):
+class Spec(MyBaseModel):
     homeDashboardUID: Optional[str] = Field(
         None, description='UID for the home dashboard'
     )
@@ -56,7 +57,7 @@ class State(Enum):
     failed = 'failed'
 
 
-class JoinSchemaStatusOperatorState(BaseModel):
+class JoinSchemaStatusOperatorState(MyBaseModel):
     lastEvaluation: str = Field(
         ..., description='lastEvaluation is the ResourceVersion last evaluated'
     )
@@ -74,7 +75,7 @@ class JoinSchemaStatusOperatorState(BaseModel):
     )
 
 
-class StatusOperatorState(BaseModel):
+class StatusOperatorState(MyBaseModel):
     lastEvaluation: str = Field(
         ..., description='lastEvaluation is the ResourceVersion last evaluated'
     )
@@ -92,7 +93,7 @@ class StatusOperatorState(BaseModel):
     )
 
 
-class Status(BaseModel):
+class Status(MyBaseModel):
     operatorStates: Optional[Dict[str, JoinSchemaStatusOperatorState]] = Field(
         None,
         description='operatorStates is a map of operator ID to operator state evaluations.\nAny operator which consumes this kind SHOULD add its state evaluation information to this field.',
@@ -102,7 +103,7 @@ class Status(BaseModel):
     )
 
 
-class Preferences(BaseModel):
+class Preferences(MyBaseModel):
     metadata: Metadata = Field(
         ...,
         description='metadata contains embedded CommonMetadata and can be extended with custom string fields\nTODO: use CommonMetadata instead of redefining here; currently needs to be defined here\nwithout external reference as using the CommonMetadata reference breaks thema codegen.',

@@ -4,15 +4,16 @@ from __future__ import annotations
 
 from typing import Optional
 
-from pydantic import BaseModel, Field
+from grafana_dashboard.utils import MyBaseModel
+from pydantic import Field
 
 
-class PanelOptions(BaseModel):
+class PanelOptions(MyBaseModel):
     feedUrl: Optional[str] = Field(
         None, description='empty/missing will default to grafana blog'
     )
     showImage: Optional[bool] = True
 
 
-class NewsPanelCfg(BaseModel):
+class NewsPanelCfg(MyBaseModel):
     PanelOptions: PanelOptions

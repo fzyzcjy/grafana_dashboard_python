@@ -5,10 +5,11 @@ from __future__ import annotations
 from enum import Enum
 from typing import Any, Dict, List, Optional, Union
 
-from pydantic import BaseModel, Field, confloat
+from grafana_dashboard.utils import MyBaseModel
+from pydantic import Field, confloat
 
 
-class CloudWatchDataQuery(BaseModel):
+class CloudWatchDataQuery(MyBaseModel):
     pass
 
 
@@ -18,7 +19,7 @@ class CloudWatchQueryMode(Enum):
     Annotations = 'Annotations'
 
 
-class DataQuery(BaseModel):
+class DataQuery(MyBaseModel):
     refId: str = Field(
         ...,
         description='A unique identifier for the query within the list of targets.\nIn server side expressions, the refId is used as a variable name to identify results.\nBy default, the UI will assign A->Z; however setting meaningful names may be useful.',
@@ -37,11 +38,11 @@ class DataQuery(BaseModel):
     )
 
 
-class Dimensions(BaseModel):
+class Dimensions(MyBaseModel):
     __root__: Optional[Dict[str, Union[str, List[str]]]] = None
 
 
-class LogGroup(BaseModel):
+class LogGroup(MyBaseModel):
     arn: str = Field(..., description='ARN of the log group')
     name: str = Field(..., description='Name of the log group')
     accountId: Optional[str] = Field(None, description='AccountId of the log group')
@@ -58,7 +59,7 @@ class MetricQueryType(Enum):
     integer_1 = 1
 
 
-class MetricStat(BaseModel):
+class MetricStat(MyBaseModel):
     region: str = Field(..., description='AWS region to query for the metric')
     namespace: str = Field(
         ...,
@@ -102,18 +103,18 @@ class QueryEditorExpressionType(Enum):
     functionParameter = 'functionParameter'
 
 
-class QueryEditorFunctionParameterExpression(BaseModel):
+class QueryEditorFunctionParameterExpression(MyBaseModel):
     type: QueryEditorExpressionType
     name: Optional[str] = None
 
 
-class QueryEditorOperatorType(BaseModel):
+class QueryEditorOperatorType(MyBaseModel):
     __root__: Union[
         str, bool, confloat(ge=-9.223372036854776e18, le=9.223372036854776e18)
     ]
 
 
-class QueryEditorOperatorValueType(BaseModel):
+class QueryEditorOperatorValueType(MyBaseModel):
     __root__: Union[
         str,
         bool,
@@ -159,13 +160,13 @@ class CloudWatchLogsQuery(DataQuery):
     )
 
 
-class QueryEditorFunctionExpression(BaseModel):
+class QueryEditorFunctionExpression(MyBaseModel):
     type: QueryEditorExpressionType
     name: Optional[str] = None
     parameters: Optional[List[QueryEditorFunctionParameterExpression]] = None
 
 
-class QueryEditorOperator(BaseModel):
+class QueryEditorOperator(MyBaseModel):
     name: Optional[str] = None
     value: Optional[
         Union[
@@ -177,22 +178,22 @@ class QueryEditorOperator(BaseModel):
     ] = None
 
 
-class QueryEditorProperty(BaseModel):
+class QueryEditorProperty(MyBaseModel):
     type: QueryEditorPropertyType
     name: Optional[str] = None
 
 
-class QueryEditorPropertyExpression(BaseModel):
+class QueryEditorPropertyExpression(MyBaseModel):
     type: QueryEditorExpressionType
     property: QueryEditorProperty
 
 
-class QueryEditorGroupByExpression(BaseModel):
+class QueryEditorGroupByExpression(MyBaseModel):
     type: QueryEditorExpressionType
     property: QueryEditorProperty
 
 
-class QueryEditorOperatorExpression(BaseModel):
+class QueryEditorOperatorExpression(MyBaseModel):
     type: QueryEditorExpressionType
     property: QueryEditorProperty
     operator: QueryEditorOperator
@@ -221,12 +222,12 @@ class CloudWatchMetricsQuery(DataQuery, MetricStat):
     sql: Optional[SQLExpression] = None
 
 
-class QueryEditorArrayExpression(BaseModel):
+class QueryEditorArrayExpression(MyBaseModel):
     type: Type
     expressions: List[QueryEditorExpression]
 
 
-class QueryEditorExpression(BaseModel):
+class QueryEditorExpression(MyBaseModel):
     __root__: Union[
         QueryEditorArrayExpression,
         QueryEditorPropertyExpression,
@@ -237,7 +238,7 @@ class QueryEditorExpression(BaseModel):
     ]
 
 
-class SQLExpression(BaseModel):
+class SQLExpression(MyBaseModel):
     select: Optional[QueryEditorFunctionExpression] = None
     from_: Optional[
         Union[QueryEditorPropertyExpression, QueryEditorFunctionExpression]

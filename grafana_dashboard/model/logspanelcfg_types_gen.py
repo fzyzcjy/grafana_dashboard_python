@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from enum import Enum
 
-from pydantic import BaseModel
+from grafana_dashboard.utils import MyBaseModel
 
 
 class LogsDedupStrategy(Enum):
@@ -19,7 +19,7 @@ class LogsSortOrder(Enum):
     Ascending = 'Ascending'
 
 
-class PanelOptions(BaseModel):
+class PanelOptions(MyBaseModel):
     showLabels: bool
     showCommonLabels: bool
     showTime: bool
@@ -30,5 +30,5 @@ class PanelOptions(BaseModel):
     dedupStrategy: LogsDedupStrategy
 
 
-class LogsPanelCfg(BaseModel):
+class LogsPanelCfg(MyBaseModel):
     PanelOptions: PanelOptions

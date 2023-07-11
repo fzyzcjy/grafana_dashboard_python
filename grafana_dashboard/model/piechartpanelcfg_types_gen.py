@@ -5,16 +5,17 @@ from __future__ import annotations
 from enum import Enum
 from typing import List, Optional
 
-from pydantic import BaseModel, Field
+from grafana_dashboard.utils import MyBaseModel
+from pydantic import Field
 
 
-class HideSeriesConfig(BaseModel):
+class HideSeriesConfig(MyBaseModel):
     tooltip: bool
     legend: bool
     viz: bool
 
 
-class HideableFieldConfig(BaseModel):
+class HideableFieldConfig(MyBaseModel):
     hideFrom: Optional[HideSeriesConfig] = None
 
 
@@ -45,7 +46,7 @@ class PieChartType(Enum):
     donut = 'donut'
 
 
-class ReduceDataOptions(BaseModel):
+class ReduceDataOptions(MyBaseModel):
     values: Optional[bool] = Field(None, description='If true show each row value')
     limit: Optional[float] = Field(None, description='if showing all values limit')
     calcs: List[str] = Field(
@@ -69,7 +70,7 @@ class TooltipDisplayMode(Enum):
     none = 'none'
 
 
-class VizLegendOptions(BaseModel):
+class VizLegendOptions(MyBaseModel):
     displayMode: LegendDisplayMode
     placement: LegendPlacement
     showLegend: bool
@@ -87,21 +88,21 @@ class VizOrientation(Enum):
     horizontal = 'horizontal'
 
 
-class VizTextDisplayOptions(BaseModel):
+class VizTextDisplayOptions(MyBaseModel):
     titleSize: Optional[float] = Field(None, description='Explicit title text size')
     valueSize: Optional[float] = Field(None, description='Explicit value text size')
 
 
-class VizTooltipOptions(BaseModel):
+class VizTooltipOptions(MyBaseModel):
     mode: TooltipDisplayMode
     sort: SortOrder
 
 
-class OptionsWithTextFormatting(BaseModel):
+class OptionsWithTextFormatting(MyBaseModel):
     text: Optional[VizTextDisplayOptions] = None
 
 
-class OptionsWithTooltip(BaseModel):
+class OptionsWithTooltip(MyBaseModel):
     tooltip: VizTooltipOptions
 
 
@@ -120,7 +121,7 @@ class PanelOptions(OptionsWithTooltip, SingleStatBaseOptions):
     legend: PieChartLegendOptions
 
 
-class PieChartPanelCfg(BaseModel):
+class PieChartPanelCfg(MyBaseModel):
     PieChartType: PieChartType = Field(
         ..., description='Select the pie chart display style.'
     )

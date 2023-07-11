@@ -5,7 +5,8 @@ from __future__ import annotations
 from enum import Enum
 from typing import Any, Dict, List, Optional, Union
 
-from pydantic import BaseModel, Field
+from grafana_dashboard.utils import MyBaseModel
+from pydantic import Field
 
 
 class BucketAggregationType(Enum):
@@ -17,11 +18,11 @@ class BucketAggregationType(Enum):
     nested = 'nested'
 
 
-class Settings2(BaseModel):
+class Settings2(MyBaseModel):
     format: Optional[str] = None
 
 
-class DataQuery(BaseModel):
+class DataQuery(MyBaseModel):
     refId: str = Field(
         ...,
         description='A unique identifier for the query within the list of targets.\nIn server side expressions, the refId is used as a variable name to identify results.\nBy default, the UI will assign A->Z; however setting meaningful names may be useful.',
@@ -40,7 +41,7 @@ class DataQuery(BaseModel):
     )
 
 
-class DateHistogramSettings(BaseModel):
+class DateHistogramSettings(MyBaseModel):
     interval: Optional[str] = None
     min_doc_count: Optional[str] = None
     trimEdges: Optional[str] = None
@@ -48,7 +49,7 @@ class DateHistogramSettings(BaseModel):
     timeZone: Optional[str] = None
 
 
-class Settings3(BaseModel):
+class Settings3(MyBaseModel):
     unit: Optional[str] = None
 
 
@@ -63,37 +64,37 @@ class ExtendedStatMetaType(Enum):
     std_deviation_bounds_lower = 'std_deviation_bounds_lower'
 
 
-class Filter(BaseModel):
+class Filter(MyBaseModel):
     query: str
     label: str
 
 
-class FiltersSettings(BaseModel):
+class FiltersSettings(MyBaseModel):
     filters: Optional[List[Filter]] = None
 
 
-class GeoHashGridSettings(BaseModel):
+class GeoHashGridSettings(MyBaseModel):
     precision: Optional[str] = None
 
 
-class HistogramSettings(BaseModel):
+class HistogramSettings(MyBaseModel):
     interval: Optional[str] = None
     min_doc_count: Optional[str] = None
 
 
-class InlineScriptItem(BaseModel):
+class InlineScriptItem(MyBaseModel):
     inline: Optional[str] = None
 
 
-class InlineScript(BaseModel):
+class InlineScript(MyBaseModel):
     __root__: Union[str, InlineScriptItem]
 
 
-class Settings5(BaseModel):
+class Settings5(MyBaseModel):
     limit: Optional[str] = None
 
 
-class Settings6(BaseModel):
+class Settings6(MyBaseModel):
     script: Optional[InlineScript] = None
     missing: Optional[str] = None
 
@@ -120,29 +121,29 @@ class MetricAggregationType(Enum):
     bucket_script = 'bucket_script'
 
 
-class Settings7(BaseModel):
+class Settings7(MyBaseModel):
     script: Optional[InlineScript] = None
 
 
-class Settings8(BaseModel):
+class Settings8(MyBaseModel):
     missing: Optional[str] = None
 
 
-class Settings9(BaseModel):
+class Settings9(MyBaseModel):
     script: Optional[InlineScript] = None
     missing: Optional[str] = None
 
 
-class Settings10(BaseModel):
+class Settings10(MyBaseModel):
     alpha: Optional[str] = None
 
 
-class Settings11(BaseModel):
+class Settings11(MyBaseModel):
     alpha: Optional[str] = None
     beta: Optional[str] = None
 
 
-class Settings12(BaseModel):
+class Settings12(MyBaseModel):
     alpha: Optional[str] = None
     beta: Optional[str] = None
     gamma: Optional[str] = None
@@ -158,18 +159,18 @@ class MovingAverageModel(Enum):
     holt_winters = 'holt_winters'
 
 
-class MovingAverageModelOption(BaseModel):
+class MovingAverageModelOption(MyBaseModel):
     label: str
     value: MovingAverageModel
 
 
-class Settings13(BaseModel):
+class Settings13(MyBaseModel):
     window: Optional[str] = None
     script: Optional[InlineScript] = None
     shift: Optional[str] = None
 
 
-class Settings14(BaseModel):
+class Settings14(MyBaseModel):
     script: Optional[InlineScript] = None
     missing: Optional[str] = None
     percents: Optional[List[str]] = None
@@ -184,25 +185,25 @@ class PipelineMetricAggregationType(Enum):
     bucket_script = 'bucket_script'
 
 
-class PipelineVariable(BaseModel):
+class PipelineVariable(MyBaseModel):
     name: str
     pipelineAgg: str
 
 
-class Settings15(BaseModel):
+class Settings15(MyBaseModel):
     unit: Optional[str] = None
     mode: Optional[str] = None
 
 
-class Settings16(BaseModel):
+class Settings16(MyBaseModel):
     size: Optional[str] = None
 
 
-class Settings18(BaseModel):
+class Settings18(MyBaseModel):
     lag: Optional[str] = None
 
 
-class Settings19(BaseModel):
+class Settings19(MyBaseModel):
     script: Optional[InlineScript] = None
     missing: Optional[str] = None
 
@@ -212,7 +213,7 @@ class TermsOrder(Enum):
     asc = 'asc'
 
 
-class TermsSettings(BaseModel):
+class TermsSettings(MyBaseModel):
     order: Optional[TermsOrder] = None
     size: Optional[str] = None
     min_doc_count: Optional[str] = None
@@ -220,35 +221,35 @@ class TermsSettings(BaseModel):
     missing: Optional[str] = None
 
 
-class Settings20(BaseModel):
+class Settings20(MyBaseModel):
     order: Optional[str] = None
     orderBy: Optional[str] = None
     metrics: Optional[List[str]] = None
 
 
-class Settings21(BaseModel):
+class Settings21(MyBaseModel):
     precision_threshold: Optional[str] = None
     missing: Optional[str] = None
 
 
-class Settings(BaseModel):
+class Settings(MyBaseModel):
     script: Optional[InlineScript] = None
     missing: Optional[str] = None
 
 
-class BaseBucketAggregation(BaseModel):
+class BaseBucketAggregation(MyBaseModel):
     id: str
     type: BucketAggregationType
     settings: Optional[Any] = None
 
 
-class BaseMetricAggregation(BaseModel):
+class BaseMetricAggregation(MyBaseModel):
     type: MetricAggregationType
     id: str
     hide: Optional[bool] = None
 
 
-class BaseMovingAverageModelSettings(BaseModel):
+class BaseMovingAverageModelSettings(MyBaseModel):
     model: MovingAverageModel
     window: str
     predict: str
@@ -258,7 +259,7 @@ class BucketAggregationWithField(BaseBucketAggregation):
     field: Optional[str] = None
 
 
-class Settings1(BaseModel):
+class Settings1(MyBaseModel):
     script: Optional[InlineScript] = None
 
 
@@ -271,12 +272,12 @@ class DateHistogram(BucketAggregationWithField):
     settings: Optional[DateHistogramSettings] = None
 
 
-class ExtendedStat(BaseModel):
+class ExtendedStat(MyBaseModel):
     label: str
     value: ExtendedStatMetaType
 
 
-class Settings4(BaseModel):
+class Settings4(MyBaseModel):
     script: Optional[InlineScript] = None
     missing: Optional[str] = None
     sigma: Optional[str] = None
@@ -408,7 +409,7 @@ class BasePipelineMetricAggregation(MetricAggregationWithField):
     type: PipelineMetricAggregationType
 
 
-class BucketAggregation(BaseModel):
+class BucketAggregation(MyBaseModel):
     __root__: Union[DateHistogram, Histogram, Terms, Filters, GeoHashGrid, Nested]
 
 
@@ -448,7 +449,7 @@ class MovingFunction(BasePipelineMetricAggregation):
     settings: Optional[Settings13] = None
 
 
-class PipelineMetricAggregation(BaseModel):
+class PipelineMetricAggregation(MyBaseModel):
     __root__: Union[MovingAverage, Derivative, CumulativeSum, BucketScript]
 
 
@@ -457,7 +458,7 @@ class SerialDiff(BasePipelineMetricAggregation):
     settings: Optional[Settings18] = None
 
 
-class MetricAggregationWithSettings(BaseModel):
+class MetricAggregationWithSettings(MyBaseModel):
     __root__: Union[
         BucketScript,
         CumulativeSum,
@@ -480,7 +481,7 @@ class MetricAggregationWithSettings(BaseModel):
     ]
 
 
-class MetricAggregation(BaseModel):
+class MetricAggregation(MyBaseModel):
     __root__: Union[Count, PipelineMetricAggregation, MetricAggregationWithSettings]
 
 

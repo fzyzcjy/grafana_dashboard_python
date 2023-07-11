@@ -2,10 +2,11 @@
 
 from __future__ import annotations
 
-from pydantic import BaseModel, Field
+from grafana_dashboard.utils import MyBaseModel
+from pydantic import Field
 
 
-class PanelOptions(BaseModel):
+class PanelOptions(MyBaseModel):
     labels: str = Field(
         ..., description='Comma-separated list of values used to filter alert results'
     )
@@ -15,5 +16,5 @@ class PanelOptions(BaseModel):
     expandAll: bool = Field(..., description='Expand all alert groups by default')
 
 
-class AlertGroupsPanelCfg(BaseModel):
+class AlertGroupsPanelCfg(MyBaseModel):
     PanelOptions: PanelOptions

@@ -6,13 +6,14 @@ from datetime import datetime
 from enum import Enum
 from typing import Any, Dict, List, Optional, Union
 
-from pydantic import BaseModel, Field, conint, constr
+from pydantic import Field, conint, constr
 
 from grafana_dashboard.model.lokidataquery_types_gen import LokiDataQuery
 from grafana_dashboard.model.prometheusdataquery_types_gen import PrometheusDataQuery
+from grafana_dashboard.utils import MyBaseModel
 
 
-class AnnotationPanelFilter(BaseModel):
+class AnnotationPanelFilter(MyBaseModel):
     exclude: Optional[bool] = Field(
         False, description='Should the specified panels be included or excluded'
     )
@@ -21,12 +22,12 @@ class AnnotationPanelFilter(BaseModel):
     )
 
 
-class Datasource(BaseModel):
+class Datasource(MyBaseModel):
     type: Optional[str] = None
     uid: Optional[str] = None
 
 
-class AnnotationTarget(BaseModel):
+class AnnotationTarget(MyBaseModel):
     limit: int = Field(
         ...,
         description='Only required/valid for the grafana datasource...\nbut code+tests is already depending on it so hard to change',
@@ -56,12 +57,12 @@ class DashboardLinkType(Enum):
     dashboards = 'dashboards'
 
 
-class DataSourceRef(BaseModel):
+class DataSourceRef(MyBaseModel):
     type: Optional[str] = Field(None, description='The plugin type-id')
     uid: Optional[str] = Field(None, description='Specific datasource instance')
 
 
-class DynamicConfigValue(BaseModel):
+class DynamicConfigValue(MyBaseModel):
     id: Optional[str] = ''
     value: Optional[Any] = None
 
@@ -92,20 +93,20 @@ class Type(Enum):
     graph = 'graph'
 
 
-class Legend(BaseModel):
+class Legend(MyBaseModel):
     show: Optional[bool] = True
     sort: Optional[str] = None
     sortDesc: Optional[bool] = None
 
 
-class GraphPanel(BaseModel):
+class GraphPanel(MyBaseModel):
     type: Type
     legend: Optional[Legend] = Field(
         None, description='@deprecated this is part of deprecated graph panel'
     )
 
 
-class GridPos(BaseModel):
+class GridPos(MyBaseModel):
     h: Optional[conint(le=4294967295, gt=0)] = Field(9, description='Panel')
     w: Optional[conint(le=24, gt=0)] = Field(12, description='Panel')
     x: Optional[conint(ge=0, lt=24)] = Field(0, description='Panel x')
@@ -117,11 +118,11 @@ class Type1(Enum):
     heatmap = 'heatmap'
 
 
-class HeatmapPanel(BaseModel):
+class HeatmapPanel(MyBaseModel):
     type: Type1
 
 
-class LibraryPanelRef(BaseModel):
+class LibraryPanelRef(MyBaseModel):
     name: str
     uid: str
 
@@ -141,7 +142,7 @@ class MappingType(Enum):
     special = 'special'
 
 
-class MatcherConfig(BaseModel):
+class MatcherConfig(MyBaseModel):
     id: Optional[str] = ''
     options: Optional[Any] = None
 
@@ -155,7 +156,7 @@ class Type2(Enum):
     row = 'row'
 
 
-class Snapshot(BaseModel):
+class Snapshot(MyBaseModel):
     created: datetime = Field(..., description='TODO docs')
     expires: str = Field(..., description='TODO docs')
     external: bool = Field(..., description='TODO docs')
@@ -184,11 +185,11 @@ class SpecialValueMatch(Enum):
 
 
 # NOTE REMOVED
-# class Target(BaseModel):
+# class Target(MyBaseModel):
 #     pass
 
 
-class Threshold(BaseModel):
+class Threshold(MyBaseModel):
     value: Optional[float] = Field(
         None,
         description='TODO docs\nFIXME the corresponding typescript field is required/non-optional, but nulls currently appear here when serializing -Infinity to JSON',
@@ -209,7 +210,7 @@ class ThresholdsMode(Enum):
     percentage = 'percentage'
 
 
-class ValueMappingResult(BaseModel):
+class ValueMappingResult(MyBaseModel):
     text: Optional[str] = None
     color: Optional[str] = None
     icon: Optional[str] = None
@@ -233,7 +234,7 @@ class VariableType(Enum):
     system = 'system'
 
 
-class FieldKubeObjectMetadata(BaseModel):
+class FieldKubeObjectMetadata(MyBaseModel):
     uid: str
     creationTimestamp: datetime
     deletionTimestamp: Optional[datetime] = None
@@ -257,12 +258,12 @@ class Style(Enum):
     light = 'light'
 
 
-class Time(BaseModel):
+class Time(MyBaseModel):
     from_: Optional[str] = Field('now-6h', alias='from')
     to: Optional[str] = 'now'
 
 
-class Timepicker(BaseModel):
+class Timepicker(MyBaseModel):
     collapse: Optional[bool] = Field(
         False, description='Whether timepicker is collapsed or not.'
     )
@@ -292,7 +293,7 @@ class State(Enum):
     failed = 'failed'
 
 
-class JoinSchemaStatusOperatorState(BaseModel):
+class JoinSchemaStatusOperatorState(MyBaseModel):
     lastEvaluation: str = Field(
         ..., description='lastEvaluation is the ResourceVersion last evaluated'
     )
@@ -310,7 +311,7 @@ class JoinSchemaStatusOperatorState(BaseModel):
     )
 
 
-class StatusOperatorState(BaseModel):
+class StatusOperatorState(MyBaseModel):
     lastEvaluation: str = Field(
         ..., description='lastEvaluation is the ResourceVersion last evaluated'
     )
@@ -328,7 +329,7 @@ class StatusOperatorState(BaseModel):
     )
 
 
-class AnnotationQuery(BaseModel):
+class AnnotationQuery(MyBaseModel):
     name: str = Field(..., description='Name of annotation.')
     datasource: Datasource = Field(..., description='TODO: Should be DataSourceRef')
     enable: Optional[bool] = Field(
@@ -350,7 +351,7 @@ class AnnotationQuery(BaseModel):
     )
 
 
-class DashboardLink(BaseModel):
+class DashboardLink(MyBaseModel):
     title: str
     type: DashboardLinkType
     icon: str
@@ -363,7 +364,7 @@ class DashboardLink(BaseModel):
     keepTime: Optional[bool] = False
 
 
-class DataTransformerConfig(BaseModel):
+class DataTransformerConfig(MyBaseModel):
     id: str = Field(..., description='Unique identifier of transformer')
     disabled: Optional[bool] = Field(
         None, description='Disabled transformations are skipped'
@@ -375,7 +376,7 @@ class DataTransformerConfig(BaseModel):
     )
 
 
-class FieldColor(BaseModel):
+class FieldColor(MyBaseModel):
     mode: Union[ModeEnum, Any] = Field(..., description='The main color scheme mode')
     fixedColor: Optional[str] = Field(
         None, description='Stores the fixed color value if mode is fixed'
@@ -383,12 +384,12 @@ class FieldColor(BaseModel):
     seriesBy: Optional[FieldColorSeriesByMode] = None
 
 
-class Override(BaseModel):
+class Override(MyBaseModel):
     matcher: MatcherConfig
     properties: List[DynamicConfigValue]
 
 
-class Options(BaseModel):
+class Options(MyBaseModel):
     from_: float = Field(
         ...,
         alias='from',
@@ -398,51 +399,51 @@ class Options(BaseModel):
     result: ValueMappingResult
 
 
-class RangeMap(BaseModel):
+class RangeMap(MyBaseModel):
     type: MappingType
     options: Options
 
 
-class Options1(BaseModel):
+class Options1(MyBaseModel):
     pattern: str
     result: ValueMappingResult
 
 
-class RegexMap(BaseModel):
+class RegexMap(MyBaseModel):
     type: MappingType
     options: Options1
 
 
-class Options2(BaseModel):
+class Options2(MyBaseModel):
     match: Match
     pattern: str
     result: ValueMappingResult
 
 
-class SpecialValueMap(BaseModel):
+class SpecialValueMap(MyBaseModel):
     type: MappingType
     options: Options2
 
 
-class ThresholdsConfig(BaseModel):
+class ThresholdsConfig(MyBaseModel):
     mode: ThresholdsMode
     steps: List[Threshold] = Field(
         ..., description="Must be sorted by 'value', first value is always -Infinity"
     )
 
 
-class ValueMap(BaseModel):
+class ValueMap(MyBaseModel):
     type: MappingType
     options: Dict[str, ValueMappingResult]
 
 
-class ValueMapping(BaseModel):
+class ValueMapping(MyBaseModel):
     __root__: Union[ValueMap, RangeMap, RegexMap, SpecialValueMap] = Field(
         ..., description='TODO docs'
     )
 
 
-class VariableModel(BaseModel):
+class VariableModel(MyBaseModel):
     id: Optional[str] = '00000000-0000-0000-0000-000000000000'
     type: VariableType
     name: str
@@ -461,11 +462,11 @@ class VariableModel(BaseModel):
     datasource: Optional[DataSourceRef] = None
 
 
-class Templating(BaseModel):
+class Templating(MyBaseModel):
     list: Optional[List[VariableModel]] = None
 
 
-class Status(BaseModel):
+class Status(MyBaseModel):
     operatorStates: Optional[Dict[str, JoinSchemaStatusOperatorState]] = Field(
         None,
         description='operatorStates is a map of operator ID to operator state evaluations.\nAny operator which consumes this kind SHOULD add its state evaluation information to this field.',
@@ -475,11 +476,11 @@ class Status(BaseModel):
     )
 
 
-class AnnotationContainer(BaseModel):
+class AnnotationContainer(MyBaseModel):
     list: Optional[List[AnnotationQuery]] = None
 
 
-class FieldConfig(BaseModel):
+class FieldConfig(MyBaseModel):
     displayName: Optional[str] = Field(
         None,
         description='The display value for this field.  This supports template variables blank is auto',
@@ -523,12 +524,12 @@ class FieldConfig(BaseModel):
     )
 
 
-class FieldConfigSource(BaseModel):
+class FieldConfigSource(MyBaseModel):
     defaults: FieldConfig
     overrides: List[Override]
 
 
-class Panel(BaseModel):
+class Panel(MyBaseModel):
     type: constr(min_length=1) = Field(
         ..., description='The panel plugin type id. May not be empty.'
     )
@@ -584,7 +585,7 @@ class Panel(BaseModel):
     fieldConfig: FieldConfigSource
 
 
-class RowPanel(BaseModel):
+class RowPanel(MyBaseModel):
     type: Type2
     collapsed: Optional[bool] = False
     title: Optional[str] = None
@@ -599,7 +600,7 @@ class RowPanel(BaseModel):
     )
 
 
-class Spec(BaseModel):
+class Spec(MyBaseModel):
     id: Optional[int] = Field(
         None,
         description='Unique numeric identifier for the dashboard.\nTODO must isolate or remove identifiers local to a Grafana instance...?',
@@ -666,7 +667,7 @@ class Spec(BaseModel):
     snapshot: Optional[Snapshot] = None
 
 
-class Dashboard(BaseModel):
+class Dashboard(MyBaseModel):
     metadata: Metadata = Field(
         ...,
         description='metadata contains embedded CommonMetadata and can be extended with custom string fields\nTODO: use CommonMetadata instead of redefining here; currently needs to be defined here\nwithout external reference as using the CommonMetadata reference breaks thema codegen.',

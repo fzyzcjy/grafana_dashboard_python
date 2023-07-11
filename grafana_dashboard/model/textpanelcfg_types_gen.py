@@ -5,7 +5,7 @@ from __future__ import annotations
 from enum import Enum
 from typing import Optional
 
-from pydantic import BaseModel
+from grafana_dashboard.utils import MyBaseModel
 
 
 class CodeLanguage(Enum):
@@ -20,7 +20,7 @@ class CodeLanguage(Enum):
     json = 'json'
 
 
-class CodeOptions(BaseModel):
+class CodeOptions(MyBaseModel):
     language: CodeLanguage
     showLineNumbers: Optional[bool] = False
     showMiniMap: Optional[bool] = False
@@ -32,7 +32,7 @@ class TextMode(Enum):
     code = 'code'
 
 
-class PanelOptions(BaseModel):
+class PanelOptions(MyBaseModel):
     mode: TextMode
     code: Optional[CodeOptions] = None
     content: Optional[
@@ -40,7 +40,7 @@ class PanelOptions(BaseModel):
     ] = '# Title\n\nFor markdown syntax help: [commonmark.org/help](https://commonmark.org/help/)'
 
 
-class TextPanelCfg(BaseModel):
+class TextPanelCfg(MyBaseModel):
     TextMode: TextMode
     CodeLanguage: Optional[CodeLanguage] = 'plaintext'
     CodeOptions: CodeOptions

@@ -5,7 +5,8 @@ from __future__ import annotations
 from enum import Enum
 from typing import List, Optional
 
-from pydantic import BaseModel, Field, conint
+from grafana_dashboard.utils import MyBaseModel
+from pydantic import Field, conint
 
 
 class AxisColorMode(Enum):
@@ -29,13 +30,13 @@ class GraphGradientMode(Enum):
     scheme = 'scheme'
 
 
-class HideSeriesConfig(BaseModel):
+class HideSeriesConfig(MyBaseModel):
     tooltip: bool
     legend: bool
     viz: bool
 
 
-class HideableFieldConfig(BaseModel):
+class HideableFieldConfig(MyBaseModel):
     hideFrom: Optional[HideSeriesConfig] = None
 
 
@@ -57,7 +58,7 @@ class ScaleDistribution(Enum):
     symlog = 'symlog'
 
 
-class ScaleDistributionConfig(BaseModel):
+class ScaleDistributionConfig(MyBaseModel):
     type: ScaleDistribution
     log: Optional[float] = None
     linearThreshold: Optional[float] = None
@@ -75,7 +76,7 @@ class TooltipDisplayMode(Enum):
     none = 'none'
 
 
-class VizLegendOptions(BaseModel):
+class VizLegendOptions(MyBaseModel):
     displayMode: LegendDisplayMode
     placement: LegendPlacement
     showLegend: bool
@@ -87,12 +88,12 @@ class VizLegendOptions(BaseModel):
     calcs: List[str]
 
 
-class VizTooltipOptions(BaseModel):
+class VizTooltipOptions(MyBaseModel):
     mode: TooltipDisplayMode
     sort: SortOrder
 
 
-class AxisConfig(BaseModel):
+class AxisConfig(MyBaseModel):
     axisPlacement: Optional[AxisPlacement] = None
     axisColorMode: Optional[AxisColorMode] = None
     axisLabel: Optional[str] = None
@@ -117,11 +118,11 @@ class PanelFieldConfig(AxisConfig, HideableFieldConfig):
     )
 
 
-class OptionsWithLegend(BaseModel):
+class OptionsWithLegend(MyBaseModel):
     legend: VizLegendOptions
 
 
-class OptionsWithTooltip(BaseModel):
+class OptionsWithTooltip(MyBaseModel):
     tooltip: VizTooltipOptions
 
 
@@ -135,6 +136,6 @@ class PanelOptions(OptionsWithLegend, OptionsWithTooltip):
     )
 
 
-class HistogramPanelCfg(BaseModel):
+class HistogramPanelCfg(MyBaseModel):
     PanelOptions: PanelOptions
     PanelFieldConfig: PanelFieldConfig

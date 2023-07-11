@@ -4,10 +4,10 @@ from __future__ import annotations
 
 from typing import List, Optional
 
-from pydantic import BaseModel
+from grafana_dashboard.utils import MyBaseModel
 
 
-class PanelOptions(BaseModel):
+class PanelOptions(MyBaseModel):
     keepTime: Optional[bool] = False
     includeVars: Optional[bool] = False
     showStarred: Optional[bool] = True
@@ -20,5 +20,5 @@ class PanelOptions(BaseModel):
     tags: List[str]
 
 
-class DashboardListPanelCfg(BaseModel):
+class DashboardListPanelCfg(MyBaseModel):
     PanelOptions: PanelOptions

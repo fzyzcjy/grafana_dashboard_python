@@ -5,17 +5,18 @@ from __future__ import annotations
 from enum import Enum
 from typing import Any, Dict, List, Optional, Union
 
-from pydantic import BaseModel, Field, confloat
+from grafana_dashboard.utils import MyBaseModel
+from pydantic import Field, confloat
 
 
-class CSVWave(BaseModel):
+class CSVWave(MyBaseModel):
     timeStep: Optional[int] = None
     name: Optional[str] = None
     valuesCSV: Optional[str] = None
     labels: Optional[str] = None
 
 
-class DataQuery(BaseModel):
+class DataQuery(MyBaseModel):
     refId: str = Field(
         ...,
         description='A unique identifier for the query within the list of targets.\nIn server side expressions, the refId is used as a variable name to identify results.\nBy default, the UI will assign A->Z; however setting meaningful names may be useful.',
@@ -40,12 +41,12 @@ class Type(Enum):
     random_edges = 'random edges'
 
 
-class NodesQuery(BaseModel):
+class NodesQuery(MyBaseModel):
     type: Optional[Type] = None
     count: Optional[int] = None
 
 
-class PulseWaveQuery(BaseModel):
+class PulseWaveQuery(MyBaseModel):
     timeStep: Optional[int] = None
     onCount: Optional[int] = None
     offCount: Optional[int] = None
@@ -53,7 +54,7 @@ class PulseWaveQuery(BaseModel):
     offValue: Optional[float] = None
 
 
-class Scenario(BaseModel):
+class Scenario(MyBaseModel):
     id: str
     name: str
     stringInput: str
@@ -61,13 +62,13 @@ class Scenario(BaseModel):
     hideAliasField: Optional[bool] = None
 
 
-class Key(BaseModel):
+class Key(MyBaseModel):
     type: str
     tick: float
     uid: Optional[str] = None
 
 
-class SimulationQuery(BaseModel):
+class SimulationQuery(MyBaseModel):
     key: Key
     config: Optional[Dict[str, Any]] = None
     stream: Optional[bool] = None
@@ -80,7 +81,7 @@ class Type1(Enum):
     fetch = 'fetch'
 
 
-class StreamingQuery(BaseModel):
+class StreamingQuery(MyBaseModel):
     type: Type1
     speed: int
     spread: int
@@ -127,7 +128,7 @@ class TestDataQueryType(Enum):
     variables_query = 'variables-query'
 
 
-class USAQuery(BaseModel):
+class USAQuery(MyBaseModel):
     mode: Optional[str] = None
     period: Optional[str] = None
     fields: Optional[List[str]] = None

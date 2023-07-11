@@ -5,10 +5,11 @@ from __future__ import annotations
 from enum import Enum
 from typing import Any, List, Optional
 
-from pydantic import BaseModel, Field, conint
+from grafana_dashboard.utils import MyBaseModel
+from pydantic import Field, conint
 
 
-class ControlsOptions(BaseModel):
+class ControlsOptions(MyBaseModel):
     showZoom: Optional[bool] = Field(None, description='Zoom (upper left)')
     mouseWheelZoom: Optional[bool] = Field(None, description='let the mouse wheel zoom')
     showAttribution: Optional[bool] = Field(None, description='Lower right')
@@ -24,7 +25,7 @@ class FrameGeometrySourceMode(Enum):
     lookup = 'lookup'
 
 
-class MapViewConfig(BaseModel):
+class MapViewConfig(MyBaseModel):
     id: Optional[str] = 'zero'
     lat: Optional[conint(ge=-9223372036854775808, le=9223372036854775807)] = 0
     lon: Optional[conint(ge=-9223372036854775808, le=9223372036854775807)] = 0
@@ -49,11 +50,11 @@ class MapCenterID(Enum):
     fit = 'fit'
 
 
-class TooltipOptions(BaseModel):
+class TooltipOptions(MyBaseModel):
     mode: TooltipMode
 
 
-class FrameGeometrySource(BaseModel):
+class FrameGeometrySource(MyBaseModel):
     mode: FrameGeometrySourceMode
     geohash: Optional[str] = Field(None, description='Field mappings')
     latitude: Optional[str] = None
@@ -63,7 +64,7 @@ class FrameGeometrySource(BaseModel):
     gazetteer: Optional[str] = Field(None, description='Path to Gazetteer')
 
 
-class MapLayerOptions(BaseModel):
+class MapLayerOptions(MyBaseModel):
     type: str
     name: str = Field(..., description='configured unique display name')
     config: Optional[Any] = Field(
@@ -83,7 +84,7 @@ class MapLayerOptions(BaseModel):
     )
 
 
-class PanelOptions(BaseModel):
+class PanelOptions(MyBaseModel):
     view: MapViewConfig
     controls: ControlsOptions
     basemap: MapLayerOptions
@@ -91,7 +92,7 @@ class PanelOptions(BaseModel):
     tooltip: TooltipOptions
 
 
-class GeomapPanelCfg(BaseModel):
+class GeomapPanelCfg(MyBaseModel):
     PanelOptions: PanelOptions
     MapViewConfig: MapViewConfig
     ControlsOptions: ControlsOptions

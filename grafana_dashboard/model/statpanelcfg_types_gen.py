@@ -5,7 +5,8 @@ from __future__ import annotations
 from enum import Enum
 from typing import List, Optional
 
-from pydantic import BaseModel, Field
+from grafana_dashboard.utils import MyBaseModel
+from pydantic import Field
 
 
 class BigValueColorMode(Enum):
@@ -34,7 +35,7 @@ class BigValueTextMode(Enum):
     none = 'none'
 
 
-class ReduceDataOptions(BaseModel):
+class ReduceDataOptions(MyBaseModel):
     values: Optional[bool] = Field(None, description='If true show each row value')
     limit: Optional[float] = Field(None, description='if showing all values limit')
     calcs: List[str] = Field(
@@ -52,12 +53,12 @@ class VizOrientation(Enum):
     horizontal = 'horizontal'
 
 
-class VizTextDisplayOptions(BaseModel):
+class VizTextDisplayOptions(MyBaseModel):
     titleSize: Optional[float] = Field(None, description='Explicit title text size')
     valueSize: Optional[float] = Field(None, description='Explicit value text size')
 
 
-class OptionsWithTextFormatting(BaseModel):
+class OptionsWithTextFormatting(MyBaseModel):
     text: Optional[VizTextDisplayOptions] = None
 
 
@@ -73,5 +74,5 @@ class PanelOptions(SingleStatBaseOptions):
     textMode: BigValueTextMode
 
 
-class StatPanelCfg(BaseModel):
+class StatPanelCfg(MyBaseModel):
     PanelOptions: PanelOptions

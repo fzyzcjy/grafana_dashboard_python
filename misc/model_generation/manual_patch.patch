@@ -1,30 +1,34 @@
 Common subdirectories: ../misc/model_generation/raw_generated/__pycache__ and ../grafana_dashboard/model/__pycache__
 diff -Nau ../misc/model_generation/raw_generated/dashboard_types_gen.py ../grafana_dashboard/model/dashboard_types_gen.py
---- ../misc/model_generation/raw_generated/dashboard_types_gen.py	2023-07-11 13:22:31.000000000 +0800
-+++ ../grafana_dashboard/model/dashboard_types_gen.py	2023-07-11 13:46:10.000000000 +0800
-@@ -8,6 +8,9 @@
+--- ../misc/model_generation/raw_generated/dashboard_types_gen.py	2023-07-11 14:03:28.000000000 +0800
++++ ../grafana_dashboard/model/dashboard_types_gen.py	2023-07-11 14:05:07.000000000 +0800
+@@ -6,9 +6,12 @@
+ from enum import Enum
+ from typing import Any, Dict, List, Optional, Union
  
- from pydantic import BaseModel, Field, conint, constr
+-from grafana_dashboard.utils import MyBaseModel
+ from pydantic import Field, conint, constr
  
 +from grafana_dashboard.model.lokidataquery_types_gen import LokiDataQuery
 +from grafana_dashboard.model.prometheusdataquery_types_gen import PrometheusDataQuery
++from grafana_dashboard.utils import MyBaseModel
 +
  
- class AnnotationPanelFilter(BaseModel):
+ class AnnotationPanelFilter(MyBaseModel):
      exclude: Optional[bool] = Field(
-@@ -180,8 +183,9 @@
+@@ -181,8 +184,9 @@
      empty = 'empty'
  
  
--class Target(BaseModel):
+-class Target(MyBaseModel):
 -    pass
 +# NOTE REMOVED
-+# class Target(BaseModel):
++# class Target(MyBaseModel):
 +#     pass
  
  
- class Threshold(BaseModel):
-@@ -534,7 +538,7 @@
+ class Threshold(MyBaseModel):
+@@ -535,7 +539,7 @@
          description='FIXME this almost certainly has to be changed in favor of scuemata versions',
      )
      tags: Optional[List[str]] = Field(None, description='TODO docs')

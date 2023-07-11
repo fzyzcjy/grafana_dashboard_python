@@ -5,7 +5,8 @@ from __future__ import annotations
 from enum import Enum
 from typing import List, Optional, Union
 
-from pydantic import BaseModel, Field
+from grafana_dashboard.utils import MyBaseModel
+from pydantic import Field
 
 
 class TableCellHeight(Enum):
@@ -14,7 +15,7 @@ class TableCellHeight(Enum):
     lg = 'lg'
 
 
-class TableFooterOptions(BaseModel):
+class TableFooterOptions(MyBaseModel):
     show: bool
     reducer: List[str]
     fields: Optional[List[str]] = None
@@ -34,7 +35,7 @@ class Reducer(Enum):
     array___ = []
 
 
-class FooterItem(BaseModel):
+class FooterItem(MyBaseModel):
     show: Show = Field(..., description='Controls whether the footer should be shown')
     countRows: CountRows = Field(
         ...,
@@ -45,7 +46,7 @@ class FooterItem(BaseModel):
     )
 
 
-class TableSortByFieldState(BaseModel):
+class TableSortByFieldState(MyBaseModel):
     displayName: str = Field(
         ..., description='Sets the display name of the field to sort by'
     )
@@ -54,7 +55,7 @@ class TableSortByFieldState(BaseModel):
     )
 
 
-class PanelOptions(BaseModel):
+class PanelOptions(MyBaseModel):
     frameIndex: Optional[float] = Field(
         0, description='Represents the index of the selected frame'
     )
@@ -77,5 +78,5 @@ class PanelOptions(BaseModel):
     )
 
 
-class TablePanelCfg(BaseModel):
+class TablePanelCfg(MyBaseModel):
     PanelOptions: PanelOptions

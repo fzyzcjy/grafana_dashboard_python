@@ -6,16 +6,17 @@ from datetime import datetime
 from enum import Enum
 from typing import Any, Dict, List, Optional
 
-from pydantic import BaseModel, Field, conint, constr
+from grafana_dashboard.utils import MyBaseModel
+from pydantic import Field, conint, constr
 
 
-class LibraryElementDTOMetaUser(BaseModel):
+class LibraryElementDTOMetaUser(MyBaseModel):
     id: int
     name: str
     avatarUrl: str
 
 
-class FieldKubeObjectMetadata(BaseModel):
+class FieldKubeObjectMetadata(MyBaseModel):
     uid: str
     creationTimestamp: datetime
     deletionTimestamp: Optional[datetime] = None
@@ -40,7 +41,7 @@ class State(Enum):
     failed = 'failed'
 
 
-class JoinSchemaStatusOperatorState(BaseModel):
+class JoinSchemaStatusOperatorState(MyBaseModel):
     lastEvaluation: str = Field(
         ..., description='lastEvaluation is the ResourceVersion last evaluated'
     )
@@ -58,7 +59,7 @@ class JoinSchemaStatusOperatorState(BaseModel):
     )
 
 
-class StatusOperatorState(BaseModel):
+class StatusOperatorState(MyBaseModel):
     lastEvaluation: str = Field(
         ..., description='lastEvaluation is the ResourceVersion last evaluated'
     )
@@ -76,7 +77,7 @@ class StatusOperatorState(BaseModel):
     )
 
 
-class LibraryElementDTOMeta(BaseModel):
+class LibraryElementDTOMeta(MyBaseModel):
     folderName: str
     folderUid: str
     connectedDashboards: int
@@ -86,7 +87,7 @@ class LibraryElementDTOMeta(BaseModel):
     updatedBy: LibraryElementDTOMetaUser
 
 
-class Spec(BaseModel):
+class Spec(MyBaseModel):
     folderUid: Optional[str] = Field(None, description='Folder UID')
     uid: str = Field(..., description='Library element UID')
     name: constr(min_length=1) = Field(
@@ -110,7 +111,7 @@ class Spec(BaseModel):
     meta: Optional[LibraryElementDTOMeta] = None
 
 
-class Status(BaseModel):
+class Status(MyBaseModel):
     operatorStates: Optional[Dict[str, JoinSchemaStatusOperatorState]] = Field(
         None,
         description='operatorStates is a map of operator ID to operator state evaluations.\nAny operator which consumes this kind SHOULD add its state evaluation information to this field.',
@@ -120,7 +121,7 @@ class Status(BaseModel):
     )
 
 
-class Librarypanel(BaseModel):
+class Librarypanel(MyBaseModel):
     metadata: Metadata = Field(
         ...,
         description='metadata contains embedded CommonMetadata and can be extended with custom string fields\nTODO: use CommonMetadata instead of redefining here; currently needs to be defined here\nwithout external reference as using the CommonMetadata reference breaks thema codegen.',
