@@ -8,6 +8,36 @@ Grafana's [official best practice](https://grafana.com/docs/grafana/latest/dashb
 
 [Grafanalib](https://github.com/weaveworks/grafanalib) is a library for that purpose, and I have enjoyed it in my system. However, I also want to use (download and customize) the dashboards already built by other people (https://grafana.com/grafana/dashboards/). Therefore, I create this tiny utility.
 
+## Sample workflow 1: Customize an existing dashboard
+
+### Step 1: Convert standard Grafana dashboard into Python code
+
+To begin with, get your dashboard from wherever you like, such as https://grafana.com/grafana/dashboards/, or your legacy dashboards. Then convert it to Python code:
+
+```py
+grafana_dashboard json-to-python --json-path ... --python-path ...
+```
+
+Currently, you may need a bit of cleanup for the generated code, mostly add a few `import`s. (Should be automated in future releases.)
+
+### Step 2: Customize it in Python
+
+Since it is nothing but normal Python code, you can customize it freely, and it can be easily made consistent with other dashboards written in Python.
+
+For example, I personally have a few annotations that should be applied to every dashboard, then I can just add `annotations=get_common_annotations()` and that's all - no need to copy-and-paste dozens of lines.
+
+### Step 3: Deploy it
+
+Same as Grafanalib, just convert Python into JSON, and use you favorite approach to send the JSON to Grafana. As for the arguments of the conversion command:
+
+```py
+grafana_dashboard python-to-json --python-base-dir ... --python-base-package ... --json-dir ...
+```
+
+## Sample workflow 2: Create a dashboard from scratch
+
+Just throw away "step 1" in the sample above :)
+
 ## Stability / bugs / tests
 
 Firstly, it works well for my own cases, and I have ensured the parts that I use looks correct. However, there are definitely rough edges that I have not manually optimized, since Grafana's auto-generated schema will not solve everything.
