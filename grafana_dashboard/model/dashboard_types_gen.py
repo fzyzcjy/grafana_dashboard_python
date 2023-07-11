@@ -558,7 +558,7 @@ class Panel(MyBaseModel):
     transparent: Optional[bool] = Field(
         False, description='Whether to display the panel without a background.'
     )
-    datasource: Optional[Datasource] = Field(
+    datasource: Optional[Union[str, Datasource]] = Field(  # NOTE MODIFIED add `str`
         None, description='The datasource used in all targets.'
     )
     gridPos: Optional[GridPos] = None
