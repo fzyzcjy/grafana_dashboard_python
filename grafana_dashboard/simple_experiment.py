@@ -1,4 +1,4 @@
-from grafana_dashboard.generated.dashboard_types_gen import Dashboard
+from grafana_dashboard.generated.dashboard_types_gen import Spec
 
 # experiment, just create one from GUI and copy it here
 sample_json = {
@@ -140,5 +140,5 @@ sample_json = {
     "weekStart": ""
 }
 
-sample_dashboard = Dashboard.parse_obj(sample_json)
+sample_dashboard = Spec.parse_obj(sample_json)
 print(sample_dashboard)
