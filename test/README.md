@@ -1,1 +1,1 @@
-The logic is so simple (only some Pydantic models and thin utilities) that it is hard to have bugs. More importantly, you can always check the output JSON to see whether there is a problem. For example, I let Git to track those JSON, thus if anything changes, I have a clear diff and history. However, I may add some tests later if I have some time.
+Please see the `test` section of the primary README on GitHub.
