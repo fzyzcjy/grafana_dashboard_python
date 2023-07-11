@@ -1,5 +1,7 @@
 # AUTO GENERATED, PLEASE DO NOT MODIFY BY HAND
+from grafana_dashboard.extracted_generated_common_models import *
 
+from __future__ import annotations
 
 from enum import Enum
 from typing import Optional

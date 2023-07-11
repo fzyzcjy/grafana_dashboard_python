@@ -1,13 +1,14 @@
 # AUTO GENERATED, PLEASE DO NOT MODIFY BY HAND
+from grafana_dashboard.extracted_generated_common_models import *
 
+from __future__ import annotations
 
 from datetime import datetime
 from enum import Enum
 from typing import Any, Dict, List, Optional
 
-from pydantic import Field, conint, constr
-
 from grafana_dashboard.utils import MyBaseModel
+from pydantic import Field, conint, constr
 
 
 class LibraryElementDTOMetaUser(MyBaseModel):

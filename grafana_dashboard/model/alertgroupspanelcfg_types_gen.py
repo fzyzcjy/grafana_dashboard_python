@@ -1,9 +1,10 @@
 # AUTO GENERATED, PLEASE DO NOT MODIFY BY HAND
+from grafana_dashboard.extracted_generated_common_models import *
 
-
-from pydantic import Field
+from __future__ import annotations
 
 from grafana_dashboard.utils import MyBaseModel
+from pydantic import Field
 
 
 class PanelOptions(MyBaseModel):

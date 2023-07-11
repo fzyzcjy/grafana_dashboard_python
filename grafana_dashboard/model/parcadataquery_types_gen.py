@@ -1,12 +1,13 @@
 # AUTO GENERATED, PLEASE DO NOT MODIFY BY HAND
+from grafana_dashboard.extracted_generated_common_models import *
 
+from __future__ import annotations
 
 from enum import Enum
 from typing import Any, Optional
 
-from pydantic import Field
-
 from grafana_dashboard.utils import MyBaseModel
+from pydantic import Field
 
 
 class DataQuery(MyBaseModel):
