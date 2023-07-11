@@ -212,6 +212,6 @@ assert sample_json == sample_dashboard_json
 # %%
 
 buf = StringIO()
-rich.print(sample_dashboard, file=buf)
+rich.console.Console(file=buf).print(sample_dashboard, overflow='ignore', width=100000000, crop=False)
 s = buf.getvalue()
 print(s)
