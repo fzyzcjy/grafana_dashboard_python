@@ -455,7 +455,7 @@ class VariableModel(MyBaseModel):
     hide: VariableHide
     skipUrlSync: Optional[bool] = False
     index: Optional[conint(ge=-2147483648, le=2147483647)] = -1
-    state: LoadingState
+    state: LoadingState = None  # NOTE MODIFIED
     error: Optional[Dict[str, Any]] = None
     description: Optional[str] = None
     query: Optional[Union[str, Dict[str, Any]]] = Field(
@@ -480,7 +480,7 @@ class Status(MyBaseModel):
 
 class AnnotationContainer(MyBaseModel):
     # NOTE MODIFIED - should allow any dict for custom data source
-    list: Optional[List[Union[AnnotationQuery, Dict[str, Any]]]] = None
+    list: Optional[List[Union[AnnotationQuery, Dict[str, Any]]]] = []  # NOTE MODIFIED
 
 
 class FieldConfig(MyBaseModel):
@@ -681,7 +681,7 @@ class Spec(MyBaseModel):
     )
     panels: Optional[List[Union[Panel, RowPanel, GraphPanel, HeatmapPanel]]] = None
     templating: Templating = Field(Templating(list=[]), description='TODO docs')  # NOTE MODIFIED
-    annotations: Optional[AnnotationContainer] = None
+    annotations: Optional[AnnotationContainer] = AnnotationContainer()  # NOTE MODIFIED
     links: Optional[List[DashboardLink]] = Field(None, description='TODO docs')
     snapshot: Optional[Snapshot] = None
 
