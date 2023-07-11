@@ -8,6 +8,7 @@ from typing import Any, Dict, List, Optional, Union
 
 from pydantic import Field, conint, constr
 
+from grafana_dashboard.model import timeseriespanelcfg_types_gen
 from grafana_dashboard.model.lokidataquery_types_gen import LokiDataQuery
 from grafana_dashboard.model.prometheusdataquery_types_gen import PrometheusDataQuery
 from grafana_dashboard.utils import MyBaseModel
@@ -578,7 +579,12 @@ class Panel(MyBaseModel):
         None, description='TODO docs\nTODO tighter constraint'
     )
     libraryPanel: Optional[LibraryPanelRef] = None
-    options: Dict[str, Any] = Field(
+    # NOTE MODIFIED
+    # TODO add other panel options...
+    options: Union[
+        timeseriespanelcfg_types_gen.PanelOptions,
+        Dict[str, Any]
+    ] = Field(
         ...,
         description='options is specified by the PanelOptions field in panel\nplugin schemas.',
     )
