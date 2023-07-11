@@ -5,8 +5,9 @@ from __future__ import annotations
 from enum import Enum
 from typing import List, Optional, Union
 
-from grafana_dashboard.utils import MyBaseModel
 from pydantic import Field
+
+from grafana_dashboard.utils import MyBaseModel
 
 
 class TableCellHeight(Enum):
@@ -67,7 +68,7 @@ class PanelOptions(MyBaseModel):
         description='Controls whether the header should show icons for the column types',
     )
     sortBy: Optional[List[TableSortByFieldState]] = Field(
-        None, description='Used to control row sorting'
+        [], description='Used to control row sorting'  # NOTE MODIFIED
     )
     footer: Optional[Union[TableFooterOptions, FooterItem]] = Field(
         {'show': False, 'countRows': False, 'reducer': []},
