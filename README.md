@@ -1,12 +1,14 @@
 # grafana-dashboard-python
 
-Write Grafana dashboards in Python, without losing thousands of dashboards in the zoo (tiny utility)
+Write Grafana dashboards in Python, without losing thousands of dashboards in the zoo
+
+![](doc/logo.svg)
 
 ## Introduction
 
 Grafana's [official best practice](https://grafana.com/docs/grafana/latest/dashboards/build-dashboards/best-practices/#high---optimized-use) recommends **using scripts to generate dashboards**, instead of creating it in GUI manually. This avoids a lot of repetition, and also ensures consistency.
 
-[Grafanalib](https://github.com/weaveworks/grafanalib) is a library for that purpose, and I have enjoyed it in my system. However, I also want to **use (download and customize) the dashboards already built by other people** (https://grafana.com/grafana/dashboards/). Therefore, I create this tiny utility.
+[Grafanalib](https://github.com/weaveworks/grafanalib) is a library for that purpose, and I have enjoyed it in my system. However, I also want to **use (download and customize) the dashboards already built by other people** (https://grafana.com/grafana/dashboards/). Therefore, I create this small tool.
 
 ## Sample workflow 1: Customize an existing dashboard
 
