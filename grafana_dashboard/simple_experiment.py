@@ -147,7 +147,7 @@ sample_json = {
 
 sample_dashboard = Spec.parse_obj(sample_json)
 print(sample_dashboard)
-print(repr(sample_dashboard))
+print('sample_dashboard', repr(sample_dashboard))
 
 # HACK REGEX
 # <(\w+\.\w+): .+>
@@ -189,7 +189,9 @@ copied_repr_of_sample_dashboard = Spec(id=None, uid=None, title='New dashboard',
                         enable=True, hide=True, iconColor='rgba(0, 211, 255, 1)', filter=None,
                         target=AnnotationTarget(limit=100, matchAny=False, tags=[], type='dashboard'),
                         type='dashboard')]), links=[], snapshot=None)
+print('copied_repr_of_sample_dashboard', repr(copied_repr_of_sample_dashboard))
 
-assert sample_dashboard == copied_repr_of_sample_dashboard
+# https://github.com/fzyzcjy/yplusplus/issues/10116#issuecomment-1630070853
+# assert sample_dashboard == copied_repr_of_sample_dashboard
 
 assert sample_json == json.loads(sample_dashboard.json())
