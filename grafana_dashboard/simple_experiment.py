@@ -1,3 +1,5 @@
+import json
+
 from grafana_dashboard.generated.dashboard_types_gen import *
 
 # experiment, just create one from GUI and copy it here
@@ -182,4 +184,6 @@ copied_repr_of_sample_dashboard = Spec(id=None, uid=None, title='New dashboard',
                         target=AnnotationTarget(limit=100, matchAny=False, tags=[], type='dashboard'),
                         type='dashboard')]), links=[], snapshot=None)
 
-print(sample_dashboard == copied_repr_of_sample_dashboard)
+assert sample_dashboard == copied_repr_of_sample_dashboard
+
+assert sample_json == json.loads(sample_dashboard.json())
