@@ -465,6 +465,19 @@ class VariableModel(MyBaseModel):
     )
     datasource: Optional[Union[DataSourceRef, str]] = None  # NOTE MODIFIED add `str`
 
+    # NOTE these fields are *not* in schema, but added manually after they are observed
+    current: Dict[str, Any] = {}
+    includeAll: bool = False
+    multi: bool = False
+    options: List[Any] = []
+    refresh: int = 1
+    regex: str = ''
+    sort: Optional[int] = None
+    tagValuesQuery: Optional[str] = None
+    tagQuery: Optional[str] = None
+    useTags: Optional[bool] = None
+    definition: Optional[str] = None
+
 
 class Templating(MyBaseModel):
     list: List[VariableModel]  # NOTE MODIFIED
