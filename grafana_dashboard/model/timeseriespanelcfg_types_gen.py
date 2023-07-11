@@ -5,8 +5,9 @@ from __future__ import annotations
 from enum import Enum
 from typing import Any, List, Optional, Union
 
-from grafana_dashboard.utils import MyBaseModel
 from pydantic import Field
+
+from grafana_dashboard.utils import MyBaseModel
 
 
 class AxisColorMode(Enum):
@@ -160,13 +161,13 @@ class VisibilityMode(Enum):
 class VizLegendOptions(MyBaseModel):
     displayMode: LegendDisplayMode
     placement: LegendPlacement
-    showLegend: bool
+    showLegend: bool = True  # NOTE MODIFIED
     asTable: Optional[bool] = None
     isVisible: Optional[bool] = None
     sortBy: Optional[str] = None
     sortDesc: Optional[bool] = None
     width: Optional[float] = None
-    calcs: List[str]
+    calcs: List[str] = []  # NOTE MODIFIED
 
 
 class VizTooltipOptions(MyBaseModel):

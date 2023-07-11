@@ -1,7 +1,7 @@
 Common subdirectories: ../misc/model_generation/raw_generated/__pycache__ and ../grafana_dashboard/model/__pycache__
 diff -Nau ../misc/model_generation/raw_generated/dashboard_types_gen.py ../grafana_dashboard/model/dashboard_types_gen.py
 --- ../misc/model_generation/raw_generated/dashboard_types_gen.py	2023-07-11 14:03:28.000000000 +0800
-+++ ../grafana_dashboard/model/dashboard_types_gen.py	2023-07-11 14:54:39.000000000 +0800
++++ ../grafana_dashboard/model/dashboard_types_gen.py	2023-07-11 15:18:33.000000000 +0800
 @@ -6,9 +6,13 @@
  from enum import Enum
  from typing import Any, Dict, List, Optional, Union
@@ -9,7 +9,7 @@ diff -Nau ../misc/model_generation/raw_generated/dashboard_types_gen.py ../grafa
 -from grafana_dashboard.utils import MyBaseModel
  from pydantic import Field, conint, constr
  
-+from grafana_dashboard.model import timeseriespanelcfg_types_gen
++from grafana_dashboard.model import timeseriespanelcfg_types_gen, piechartpanelcfg_types_gen
 +from grafana_dashboard.model.lokidataquery_types_gen import LokiDataQuery
 +from grafana_dashboard.model.prometheusdataquery_types_gen import PrometheusDataQuery
 +from grafana_dashboard.utils import MyBaseModel
@@ -43,16 +43,30 @@ diff -Nau ../misc/model_generation/raw_generated/dashboard_types_gen.py ../grafa
          None,
          description='custom is specified by the PanelFieldConfig field\nin panel plugin schemas.',
      )
-@@ -535,7 +545,7 @@
+@@ -535,7 +545,12 @@
          description='FIXME this almost certainly has to be changed in favor of scuemata versions',
      )
      tags: Optional[List[str]] = Field(None, description='TODO docs')
 -    targets: Optional[List[Target]] = Field(None, description='TODO docs')
-+    targets: Optional[List[Union[PrometheusDataQuery, LokiDataQuery, Dict]]] = Field(None)  # NOTE MODIFIED
++    # NOTE MODIFIED, originally it is (empty class) `Target`
++    targets: Optional[List[Union[
++        PrometheusDataQuery,
++        LokiDataQuery,
++        Dict[str, Any]
++    ]]] = Field(None)
      title: Optional[str] = Field(None, description='Panel title.')
      description: Optional[str] = Field(None, description='Description.')
      transparent: Optional[bool] = Field(
-@@ -574,7 +584,12 @@
+@@ -563,7 +578,7 @@
+         description='TODO docs - seems to be an old field from old dashboard alerts?',
+     )
+     timeRegions: Optional[List] = Field(None, description='TODO docs')
+-    transformations: List[DataTransformerConfig]
++    transformations: List[DataTransformerConfig] = []  # NOTE MODIFIED
+     interval: Optional[str] = Field(
+         None, description='TODO docs\nTODO tighter constraint'
+     )
+@@ -574,23 +589,29 @@
          None, description='TODO docs\nTODO tighter constraint'
      )
      libraryPanel: Optional[LibraryPanelRef] = None
@@ -61,12 +75,14 @@ diff -Nau ../misc/model_generation/raw_generated/dashboard_types_gen.py ../grafa
 +    # TODO add other panel options...
 +    options: Union[
 +        timeseriespanelcfg_types_gen.PanelOptions,
++        piechartpanelcfg_types_gen.PanelOptions,
 +        Dict[str, Any]
 +    ] = Field(
          ...,
          description='options is specified by the PanelOptions field in panel\nplugin schemas.',
      )
-@@ -582,7 +597,7 @@
+-    fieldConfig: FieldConfigSource
++    fieldConfig: FieldConfigSource = None  # NOTE MODIFIED
  
  
  class RowPanel(MyBaseModel):
@@ -75,12 +91,115 @@ diff -Nau ../misc/model_generation/raw_generated/dashboard_types_gen.py ../grafa
      collapsed: Optional[bool] = False
      title: Optional[str] = None
      datasource: Optional[Datasource] = Field(
-@@ -590,7 +605,7 @@
+         None, description='Name of default datasource.'
      )
      gridPos: Optional[GridPos] = None
-     id: conint(ge=0, le=4294967295)
+-    id: conint(ge=0, le=4294967295)
 -    panels: List[Union[Panel, GraphPanel, HeatmapPanel]]
++    id: Optional[conint(ge=0, le=4294967295)] = None  # NOTE MODIFIED
 +    panels: List[Union[Panel, GraphPanel, HeatmapPanel]] = []  # NOTE MODIFIED
      repeat: Optional[str] = Field(
          None, description='Name of template variable to repeat for.'
      )
+diff -Nau ../misc/model_generation/raw_generated/piechartpanelcfg_types_gen.py ../grafana_dashboard/model/piechartpanelcfg_types_gen.py
+--- ../misc/model_generation/raw_generated/piechartpanelcfg_types_gen.py	2023-07-11 14:03:36.000000000 +0800
++++ ../grafana_dashboard/model/piechartpanelcfg_types_gen.py	2023-07-11 15:18:00.000000000 +0800
+@@ -5,9 +5,10 @@
+ from enum import Enum
+ from typing import List, Optional
+ 
+-from grafana_dashboard.utils import MyBaseModel
+ from pydantic import Field
+ 
++from grafana_dashboard.utils import MyBaseModel
++
+ 
+ class HideSeriesConfig(MyBaseModel):
+     tooltip: bool
+@@ -73,13 +74,13 @@
+ class VizLegendOptions(MyBaseModel):
+     displayMode: LegendDisplayMode
+     placement: LegendPlacement
+-    showLegend: bool
++    showLegend: bool = True  # NOTE MODIFIED
+     asTable: Optional[bool] = None
+     isVisible: Optional[bool] = None
+     sortBy: Optional[str] = None
+     sortDesc: Optional[bool] = None
+     width: Optional[float] = None
+-    calcs: List[str]
++    calcs: List[str] = []  # NOTE MODIFIED
+ 
+ 
+ class VizOrientation(Enum):
+@@ -103,7 +104,7 @@
+ 
+ 
+ class OptionsWithTooltip(MyBaseModel):
+-    tooltip: VizTooltipOptions
++    tooltip: Optional[VizTooltipOptions] = None  # NOTE MODIFIED
+ 
+ 
+ class PieChartLegendOptions(VizLegendOptions):
+@@ -111,8 +112,8 @@
+ 
+ 
+ class SingleStatBaseOptions(OptionsWithTextFormatting):
+-    reduceOptions: ReduceDataOptions
+-    orientation: VizOrientation
++    reduceOptions: Optional[ReduceDataOptions] = None  # NOTE MODIFIED
++    orientation: Optional[VizOrientation] = None  # NOTE MODIFIED
+ 
+ 
+ class PanelOptions(OptionsWithTooltip, SingleStatBaseOptions):
+diff -Nau ../misc/model_generation/raw_generated/prometheusdataquery_types_gen.py ../grafana_dashboard/model/prometheusdataquery_types_gen.py
+--- ../misc/model_generation/raw_generated/prometheusdataquery_types_gen.py	2023-07-11 14:03:40.000000000 +0800
++++ ../grafana_dashboard/model/prometheusdataquery_types_gen.py	2023-07-11 15:08:59.000000000 +0800
+@@ -5,13 +5,14 @@
+ from enum import Enum
+ from typing import Any, Optional
+ 
+-from grafana_dashboard.utils import MyBaseModel
+ from pydantic import Field
+ 
++from grafana_dashboard.utils import MyBaseModel
++
+ 
+ class DataQuery(MyBaseModel):
+     refId: str = Field(
+-        ...,
++        '',  # NOTE MODIFIED
+         description='A unique identifier for the query within the list of targets.\nIn server side expressions, the refId is used as a variable name to identify results.\nBy default, the UI will assign A->Z; however setting meaningful names may be useful.',
+     )
+     hide: Optional[bool] = Field(
+diff -Nau ../misc/model_generation/raw_generated/timeseriespanelcfg_types_gen.py ../grafana_dashboard/model/timeseriespanelcfg_types_gen.py
+--- ../misc/model_generation/raw_generated/timeseriespanelcfg_types_gen.py	2023-07-11 14:03:34.000000000 +0800
++++ ../grafana_dashboard/model/timeseriespanelcfg_types_gen.py	2023-07-11 15:13:33.000000000 +0800
+@@ -5,9 +5,10 @@
+ from enum import Enum
+ from typing import Any, List, Optional, Union
+ 
+-from grafana_dashboard.utils import MyBaseModel
+ from pydantic import Field
+ 
++from grafana_dashboard.utils import MyBaseModel
++
+ 
+ class AxisColorMode(Enum):
+     text = 'text'
+@@ -160,13 +161,13 @@
+ class VizLegendOptions(MyBaseModel):
+     displayMode: LegendDisplayMode
+     placement: LegendPlacement
+-    showLegend: bool
++    showLegend: bool = True  # NOTE MODIFIED
+     asTable: Optional[bool] = None
+     isVisible: Optional[bool] = None
+     sortBy: Optional[str] = None
+     sortDesc: Optional[bool] = None
+     width: Optional[float] = None
+-    calcs: List[str]
++    calcs: List[str] = []  # NOTE MODIFIED
+ 
+ 
+ class VizTooltipOptions(MyBaseModel):

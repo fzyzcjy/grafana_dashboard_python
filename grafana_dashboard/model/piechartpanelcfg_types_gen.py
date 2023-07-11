@@ -5,8 +5,9 @@ from __future__ import annotations
 from enum import Enum
 from typing import List, Optional
 
-from grafana_dashboard.utils import MyBaseModel
 from pydantic import Field
+
+from grafana_dashboard.utils import MyBaseModel
 
 
 class HideSeriesConfig(MyBaseModel):
@@ -73,13 +74,13 @@ class TooltipDisplayMode(Enum):
 class VizLegendOptions(MyBaseModel):
     displayMode: LegendDisplayMode
     placement: LegendPlacement
-    showLegend: bool
+    showLegend: bool = True  # NOTE MODIFIED
     asTable: Optional[bool] = None
     isVisible: Optional[bool] = None
     sortBy: Optional[str] = None
     sortDesc: Optional[bool] = None
     width: Optional[float] = None
-    calcs: List[str]
+    calcs: List[str] = []  # NOTE MODIFIED
 
 
 class VizOrientation(Enum):
@@ -103,7 +104,7 @@ class OptionsWithTextFormatting(MyBaseModel):
 
 
 class OptionsWithTooltip(MyBaseModel):
-    tooltip: VizTooltipOptions
+    tooltip: Optional[VizTooltipOptions] = None  # NOTE MODIFIED
 
 
 class PieChartLegendOptions(VizLegendOptions):
@@ -111,8 +112,8 @@ class PieChartLegendOptions(VizLegendOptions):
 
 
 class SingleStatBaseOptions(OptionsWithTextFormatting):
-    reduceOptions: ReduceDataOptions
-    orientation: VizOrientation
+    reduceOptions: Optional[ReduceDataOptions] = None  # NOTE MODIFIED
+    orientation: Optional[VizOrientation] = None  # NOTE MODIFIED
 
 
 class PanelOptions(OptionsWithTooltip, SingleStatBaseOptions):

@@ -8,7 +8,7 @@ from typing import Any, Dict, List, Optional, Union
 
 from pydantic import Field, conint, constr
 
-from grafana_dashboard.model import timeseriespanelcfg_types_gen
+from grafana_dashboard.model import timeseriespanelcfg_types_gen, piechartpanelcfg_types_gen
 from grafana_dashboard.model.lokidataquery_types_gen import LokiDataQuery
 from grafana_dashboard.model.prometheusdataquery_types_gen import PrometheusDataQuery
 from grafana_dashboard.utils import MyBaseModel
@@ -478,7 +478,8 @@ class Status(MyBaseModel):
 
 
 class AnnotationContainer(MyBaseModel):
-    list: Optional[List[AnnotationQuery]] = None
+    # NOTE MODIFIED - should allow any dict for custom data source
+    list: Optional[List[Union[AnnotationQuery, Dict[str, Any]]]] = None
 
 
 class FieldConfig(MyBaseModel):
@@ -593,12 +594,13 @@ class Panel(MyBaseModel):
     # TODO add other panel options...
     options: Union[
         timeseriespanelcfg_types_gen.PanelOptions,
+        piechartpanelcfg_types_gen.PanelOptions,
         Dict[str, Any]
     ] = Field(
         ...,
         description='options is specified by the PanelOptions field in panel\nplugin schemas.',
     )
-    fieldConfig: FieldConfigSource
+    fieldConfig: FieldConfigSource = None  # NOTE MODIFIED
 
 
 class RowPanel(MyBaseModel):
