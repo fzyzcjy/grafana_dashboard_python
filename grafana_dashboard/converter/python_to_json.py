@@ -5,7 +5,7 @@ from pathlib import Path
 from grafana_dashboard.model.dashboard_types_gen import Spec
 
 
-def convert(
+def convert_package(
         python_base_dir: Path,
         python_package: str,
         json_dir: Path,
@@ -24,7 +24,11 @@ def convert(
         assert isinstance(dashboard, Spec)
 
         path_json = json_dir / path_python.parent.relative_to(python_package_dir) / f'{path_python.stem}.json'
-        path_json.write_text(dashboard.to_grafana_json())
+        convert_single(dashboard=dashboard, json_path=path_json)
+
+
+def convert_single(dashboard: Spec, json_path: Path):
+    json_path.write_text(dashboard.to_grafana_json())
 
 
 def _python_package_to_dir(s: str) -> str:
