@@ -33,7 +33,7 @@ class TextMode(Enum):
 
 
 class PanelOptions(MyBaseModel):
-    mode: TextMode
+    mode: TextMode = TextMode.markdown  # NOTE MODIFIED
     code: Optional[CodeOptions] = None
     content: Optional[
         str

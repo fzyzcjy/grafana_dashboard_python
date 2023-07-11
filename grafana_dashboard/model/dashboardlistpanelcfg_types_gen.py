@@ -17,7 +17,7 @@ class PanelOptions(MyBaseModel):
     maxItems: Optional[int] = 10
     query: Optional[str] = ''
     folderId: Optional[int] = None
-    tags: List[str]
+    tags: List[str] = []  # NOTE MODIFIED
 
 
 class DashboardListPanelCfg(MyBaseModel):

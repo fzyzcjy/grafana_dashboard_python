@@ -20,14 +20,14 @@ class LogsSortOrder(Enum):
 
 
 class PanelOptions(MyBaseModel):
-    showLabels: bool
-    showCommonLabels: bool
-    showTime: bool
-    wrapLogMessage: bool
-    prettifyLogMessage: bool
-    enableLogDetails: bool
-    sortOrder: LogsSortOrder
-    dedupStrategy: LogsDedupStrategy
+    showLabels: bool = False  # NOTE MODIFIED
+    showCommonLabels: bool = False  # NOTE MODIFIED
+    showTime: bool = False  # NOTE MODIFIED
+    wrapLogMessage: bool = False  # NOTE MODIFIED # NOTE MODIFIED
+    prettifyLogMessage: bool = False  # NOTE MODIFIED
+    enableLogDetails: bool = False  # NOTE MODIFIED
+    sortOrder: LogsSortOrder = LogsSortOrder.Descending  # NOTE MODIFIED
+    dedupStrategy: LogsDedupStrategy = LogsDedupStrategy.none  # NOTE MODIFIED
 
 
 class LogsPanelCfg(MyBaseModel):
