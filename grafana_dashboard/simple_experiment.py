@@ -1,6 +1,7 @@
 import json
 
 from grafana_dashboard.model.dashboard_types_gen import *
+from grafana_dashboard.model.prometheusdataquery_types_gen import *
 
 # experiment, just create one from GUI and copy it here
 sample_json = {
@@ -162,7 +163,12 @@ copied_repr_of_sample_dashboard = Spec(id=None, uid=None, title='New dashboard',
                                                              time_options=['5m', '15m', '1h', '6h', '12h', '24h', '2d',
                                                                            '7d', '30d']), fiscalYearStartMonth=0,
                                        liveNow=False, weekStart='', refresh=None, schemaVersion=37, version=0, panels=[
-        Panel(type='timeseries', id=2, pluginVersion=None, tags=None, targets=[Target()], title='Panel Title',
+        Panel(type='timeseries', id=2, pluginVersion=None, tags=None, targets=[
+            PrometheusDataQuery(refId='A', hide=None, queryType=None,
+                                datasource={'type': 'prometheus', 'uid': 'PBFA97CFB590B2093'},
+                                expr='avg(1 - rate(node_cpu_seconds_total{mode="idle"}[$__rate_interval])) by (instance, job)',
+                                instant=None, range=True, exemplar=None, editorMode=QueryEditorMode.code, format=None,
+                                legendFormat='__auto', intervalFactor=None)], title='Panel Title',
               description=None, transparent=False, datasource=Datasource(type='prometheus', uid='PBFA97CFB590B2093'),
               gridPos=GridPos(h=9, w=12, x=0, y=0, static=None), links=None, repeat=None, repeatDirection='h',
               repeatPanelId=None, maxDataPoints=None, thresholds=None, timeRegions=None, transformations=[],
