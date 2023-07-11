@@ -463,7 +463,7 @@ class VariableModel(MyBaseModel):
     query: Optional[Union[str, Dict[str, Any]]] = Field(
         None, description='TODO: Move this into a separated QueryVariableModel type'
     )
-    datasource: Optional[DataSourceRef] = None
+    datasource: Optional[Union[DataSourceRef, str]] = None  # NOTE MODIFIED add `str`
 
 
 class Templating(MyBaseModel):
