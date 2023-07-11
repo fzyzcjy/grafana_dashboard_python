@@ -1,6 +1,6 @@
 import json
 
-from grafana_dashboard.generated.dashboard_types_gen import *
+from grafana_dashboard.model.dashboard_types_gen import *
 
 # experiment, just create one from GUI and copy it here
 sample_json = {
