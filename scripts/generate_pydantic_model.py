@@ -2,18 +2,21 @@ import os
 from pathlib import Path
 
 
-def _execute_datamodel_codegen():
+def _execute_datamodel_codegen(
+        path_input: Path,
+        path_output: Path,
+):
     os.system(
         'datamodel-codegen '
-        '--input a.yaml '
+        f'--input {path_input} '
         '--input-file-type openapi '
-        '--output ../grafana_dashboard/models/dashboard_types_gen.py '
+        f'--output {path_output} '
         "--custom-file-header '# AUTO GENERATED, PLEASE DO NOT MODIFY BY HAND'"
     )
 
 
 def _ensure_python_package(d: Path):
-    d.mkdir(exist_ok=True)
+    d.mkdir(parents=True, exist_ok=True)
     (d / '__init__.py').write_text('')
 
 
@@ -22,4 +25,11 @@ dir_target = Path(__file__).parents[1] / 'grafana_dashboard/generated'
 
 _ensure_python_package(dir_target)
 
-_execute_datamodel_codegen()
+for p_src in dir_src.glob('**/*.json'):
+    p_target = dir_target / f'{p_src.stem}.py'
+    print(f'Handle: {p_src} -> {p_target}')
+
+    _execute_datamodel_codegen(
+        path_input=p_src,
+        path_output=p_target,
+    )
