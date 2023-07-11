@@ -31,6 +31,9 @@ sample_json = {
     "liveNow": False,
     "panels": [
         {
+            # NOTE HACK START (maybe b/c grafana 10 add fields?
+            "transformations": [],
+            # NOTE HACK END
             "datasource": {
                 "type": "prometheus",
                 "uid": "PBFA97CFB590B2093"
