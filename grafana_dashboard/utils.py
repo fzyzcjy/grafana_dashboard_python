@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from enum import Enum
 from typing import TYPE_CHECKING
 
-from pydantic import BaseModel, Extra
+from pydantic import BaseModel
 
 if TYPE_CHECKING:
     from grafana_dashboard.model.dashboard_types_gen import Spec
@@ -17,8 +17,9 @@ class MyBaseModel(BaseModel):
             if _repr_should_keep_arg(self.__class__, k, v)
         ]
 
-    class Config:
-        extra = Extra.forbid
+    # NOTE do *not* forbid extra fields, making JSON->Py easier #10120
+    # class Config:
+    #     extra = Extra.forbid
 
 
 def _repr_transform_arg_value(v):
