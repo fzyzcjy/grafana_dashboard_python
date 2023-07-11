@@ -5,8 +5,9 @@ from __future__ import annotations
 from enum import Enum
 from typing import List, Optional
 
-from grafana_dashboard.utils import MyBaseModel
 from pydantic import Field
+
+from grafana_dashboard.utils import MyBaseModel
 
 
 class BigValueColorMode(Enum):
@@ -36,13 +37,13 @@ class BigValueTextMode(Enum):
 
 
 class ReduceDataOptions(MyBaseModel):
-    values: Optional[bool] = Field(None, description='If true show each row value')
+    values: Optional[bool] = Field(False, description='If true show each row value')  # NOTE MODIFIED
     limit: Optional[float] = Field(None, description='if showing all values limit')
     calcs: List[str] = Field(
-        ..., description='When !values, pick one value for the whole field'
+        [], description='When !values, pick one value for the whole field'  # NOTE MODIFIED
     )
     fields: Optional[str] = Field(
-        None,
+        '',  # NOTE MODIFIED
         description='Which fields to show.  By default this is only numeric fields',
     )
 
@@ -63,15 +64,15 @@ class OptionsWithTextFormatting(MyBaseModel):
 
 
 class SingleStatBaseOptions(OptionsWithTextFormatting):
-    reduceOptions: ReduceDataOptions
-    orientation: VizOrientation
+    reduceOptions: ReduceDataOptions = ReduceDataOptions()  # NOTE MODIFIED
+    orientation: VizOrientation = VizOrientation.auto  # NOTE MODIFIED
 
 
 class PanelOptions(SingleStatBaseOptions):
-    graphMode: BigValueGraphMode
-    colorMode: BigValueColorMode
-    justifyMode: BigValueJustifyMode
-    textMode: BigValueTextMode
+    graphMode: BigValueGraphMode = BigValueGraphMode.area  # NOTE MODIFIED
+    colorMode: BigValueColorMode = BigValueColorMode.value  # NOTE MODIFIED
+    justifyMode: BigValueJustifyMode = BigValueJustifyMode.auto  # NOTE MODIFIED
+    textMode: BigValueTextMode = BigValueTextMode.auto  # NOTE MODIFIED
 
 
 class StatPanelCfg(MyBaseModel):
