@@ -57,7 +57,7 @@ def _transform_openapi_schema(raw_str: str) -> str:
 
 
 dir_src = Path(__file__).parents[1] / 'third_party/grok/jsonschema/v10.0.0/kinds'
-dir_target = Path(__file__).parents[1] / 'grafana_dashboard/generated'
+dir_target = Path(__file__).parents[1] / 'misc/model_generation/raw_generated'
 
 _ensure_python_package(dir_target)
 
