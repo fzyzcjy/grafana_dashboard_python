@@ -133,7 +133,9 @@ sample_json = {
         "from": "now-6h",
         "to": "now"
     },
-    "timepicker": {},
+    # NOTE HACK
+    "timerpicker": None,
+    # "timepicker": {},
     "timezone": "",
     "title": "New dashboard",
     "version": 0,
