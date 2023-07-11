@@ -1,7 +1,7 @@
 Common subdirectories: ../misc/model_generation/raw_generated/__pycache__ and ../grafana_dashboard/model/__pycache__
 diff -Nau ../misc/model_generation/raw_generated/dashboard_types_gen.py ../grafana_dashboard/model/dashboard_types_gen.py
 --- ../misc/model_generation/raw_generated/dashboard_types_gen.py	2023-07-11 14:03:28.000000000 +0800
-+++ ../grafana_dashboard/model/dashboard_types_gen.py	2023-07-11 14:32:10.000000000 +0800
++++ ../grafana_dashboard/model/dashboard_types_gen.py	2023-07-11 14:34:14.000000000 +0800
 @@ -6,9 +6,13 @@
  from enum import Enum
  from typing import Any, Dict, List, Optional, Union
@@ -29,7 +29,21 @@ diff -Nau ../misc/model_generation/raw_generated/dashboard_types_gen.py ../grafa
  
  
  class Threshold(MyBaseModel):
-@@ -535,7 +540,7 @@
+@@ -514,7 +519,12 @@
+         None, description='The behavior when clicking on a result'
+     )
+     noValue: Optional[str] = Field(None, description='Alternative to empty string')
+-    custom: Optional[Dict[str, Any]] = Field(
++    # NOTE MODIFIED
++    # TODO add other panel options...
++    custom: Optional[Union[
++        timeseriespanelcfg_types_gen.GraphFieldConfig,
++        Dict[str, Any]
++    ]] = Field(
+         None,
+         description='custom is specified by the PanelFieldConfig field\nin panel plugin schemas.',
+     )
+@@ -535,7 +545,7 @@
          description='FIXME this almost certainly has to be changed in favor of scuemata versions',
      )
      tags: Optional[List[str]] = Field(None, description='TODO docs')
@@ -38,7 +52,7 @@ diff -Nau ../misc/model_generation/raw_generated/dashboard_types_gen.py ../grafa
      title: Optional[str] = Field(None, description='Panel title.')
      description: Optional[str] = Field(None, description='Description.')
      transparent: Optional[bool] = Field(
-@@ -574,7 +579,12 @@
+@@ -574,7 +584,12 @@
          None, description='TODO docs\nTODO tighter constraint'
      )
      libraryPanel: Optional[LibraryPanelRef] = None

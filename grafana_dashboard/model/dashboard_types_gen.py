@@ -519,7 +519,12 @@ class FieldConfig(MyBaseModel):
         None, description='The behavior when clicking on a result'
     )
     noValue: Optional[str] = Field(None, description='Alternative to empty string')
-    custom: Optional[Dict[str, Any]] = Field(
+    # NOTE MODIFIED
+    # TODO add other panel options...
+    custom: Optional[Union[
+        timeseriespanelcfg_types_gen.GraphFieldConfig,
+        Dict[str, Any]
+    ]] = Field(
         None,
         description='custom is specified by the PanelFieldConfig field\nin panel plugin schemas.',
     )
