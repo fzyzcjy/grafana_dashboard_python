@@ -597,15 +597,15 @@ class Panel(MyBaseModel):
 
 
 class RowPanel(MyBaseModel):
-    type: Type2
+    type: Type2 = 'row'  # NOTE MODIFIED
     collapsed: Optional[bool] = False
     title: Optional[str] = None
     datasource: Optional[Datasource] = Field(
         None, description='Name of default datasource.'
     )
     gridPos: Optional[GridPos] = None
-    id: conint(ge=0, le=4294967295)
-    panels: List[Union[Panel, GraphPanel, HeatmapPanel]]
+    id: Optional[conint(ge=0, le=4294967295)] = None  # NOTE MODIFIED
+    panels: List[Union[Panel, GraphPanel, HeatmapPanel]] = []  # NOTE MODIFIED
     repeat: Optional[str] = Field(
         None, description='Name of template variable to repeat for.'
     )

@@ -1,7 +1,7 @@
 Common subdirectories: ../misc/model_generation/raw_generated/__pycache__ and ../grafana_dashboard/model/__pycache__
 diff -Nau ../misc/model_generation/raw_generated/dashboard_types_gen.py ../grafana_dashboard/model/dashboard_types_gen.py
 --- ../misc/model_generation/raw_generated/dashboard_types_gen.py	2023-07-11 14:03:28.000000000 +0800
-+++ ../grafana_dashboard/model/dashboard_types_gen.py	2023-07-11 14:34:14.000000000 +0800
++++ ../grafana_dashboard/model/dashboard_types_gen.py	2023-07-11 14:54:39.000000000 +0800
 @@ -6,9 +6,13 @@
  from enum import Enum
  from typing import Any, Dict, List, Optional, Union
@@ -65,4 +65,22 @@ diff -Nau ../misc/model_generation/raw_generated/dashboard_types_gen.py ../grafa
 +    ] = Field(
          ...,
          description='options is specified by the PanelOptions field in panel\nplugin schemas.',
+     )
+@@ -582,7 +597,7 @@
+ 
+ 
+ class RowPanel(MyBaseModel):
+-    type: Type2
++    type: Type2 = 'row'  # NOTE MODIFIED
+     collapsed: Optional[bool] = False
+     title: Optional[str] = None
+     datasource: Optional[Datasource] = Field(
+@@ -590,7 +605,7 @@
+     )
+     gridPos: Optional[GridPos] = None
+     id: conint(ge=0, le=4294967295)
+-    panels: List[Union[Panel, GraphPanel, HeatmapPanel]]
++    panels: List[Union[Panel, GraphPanel, HeatmapPanel]] = []  # NOTE MODIFIED
+     repeat: Optional[str] = Field(
+         None, description='Name of template variable to repeat for.'
      )
