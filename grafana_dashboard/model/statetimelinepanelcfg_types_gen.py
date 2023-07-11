@@ -1,8 +1,7 @@
 # AUTO GENERATED, PLEASE DO NOT MODIFY BY HAND
 from __future__ import annotations
 
-from enum import Enum
-from typing import Any, List, Optional, Union
+from typing import Any, Union
 
 from pydantic import Field, confloat, conint
 
@@ -18,12 +17,6 @@ class HideSeriesConfig(MyBaseModel):
 
 class HideableFieldConfig(MyBaseModel):
     hideFrom: Optional[HideSeriesConfig] = None
-
-
-class SortOrder(Enum):
-    asc = 'asc'
-    desc = 'desc'
-    none = 'none'
 
 
 class PanelFieldConfig(HideableFieldConfig):
@@ -48,21 +41,10 @@ class TimelineValueAlignment(Enum):
     right = 'right'
 
 
-class TooltipDisplayMode(Enum):
-    single = 'single'
-    multi = 'multi'
-    none = 'none'
-
-
 class VisibilityMode(Enum):
     auto = 'auto'
     never = 'never'
     always = 'always'
-
-
-class VizTooltipOptions(MyBaseModel):
-    mode: TooltipDisplayMode
-    sort: SortOrder
 
 
 class OptionsWithLegend(MyBaseModel):

@@ -1,8 +1,7 @@
 # AUTO GENERATED, PLEASE DO NOT MODIFY BY HAND
 from __future__ import annotations
 
-from enum import Enum
-from typing import Any, List, Optional, Union
+from typing import Any, Union
 
 from pydantic import Field
 
@@ -112,12 +111,6 @@ class ScaleDistributionConfig(MyBaseModel):
     linearThreshold: Optional[float] = None
 
 
-class SortOrder(Enum):
-    asc = 'asc'
-    desc = 'desc'
-    none = 'none'
-
-
 class StackingMode(Enum):
     none = 'none'
     normal = 'normal'
@@ -135,21 +128,10 @@ class TimeZone(MyBaseModel):
     )
 
 
-class TooltipDisplayMode(Enum):
-    single = 'single'
-    multi = 'multi'
-    none = 'none'
-
-
 class VisibilityMode(Enum):
     auto = 'auto'
     never = 'never'
     always = 'always'
-
-
-class VizTooltipOptions(MyBaseModel):
-    mode: TooltipDisplayMode = TooltipDisplayMode.single  # NOTE MODIFIED
-    sort: SortOrder = SortOrder.none  # NOTE MODIFIED
 
 
 class AxisConfig(MyBaseModel):

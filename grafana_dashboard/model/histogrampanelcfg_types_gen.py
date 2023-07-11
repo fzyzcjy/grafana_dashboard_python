@@ -1,9 +1,6 @@
 # AUTO GENERATED, PLEASE DO NOT MODIFY BY HAND
 from __future__ import annotations
 
-from enum import Enum
-from typing import Optional
-
 from pydantic import Field, conint
 
 from grafana_dashboard.extracted_generated_common_models import *
@@ -52,23 +49,6 @@ class ScaleDistributionConfig(MyBaseModel):
     type: ScaleDistribution
     log: Optional[float] = None
     linearThreshold: Optional[float] = None
-
-
-class SortOrder(Enum):
-    asc = 'asc'
-    desc = 'desc'
-    none = 'none'
-
-
-class TooltipDisplayMode(Enum):
-    single = 'single'
-    multi = 'multi'
-    none = 'none'
-
-
-class VizTooltipOptions(MyBaseModel):
-    mode: TooltipDisplayMode
-    sort: SortOrder
 
 
 class AxisConfig(MyBaseModel):

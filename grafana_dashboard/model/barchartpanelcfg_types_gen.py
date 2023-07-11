@@ -1,9 +1,6 @@
 # AUTO GENERATED, PLEASE DO NOT MODIFY BY HAND
 from __future__ import annotations
 
-from enum import Enum
-from typing import Optional
-
 from pydantic import Field, confloat, conint
 
 from grafana_dashboard.extracted_generated_common_models import *
@@ -64,22 +61,10 @@ class ScaleDistributionConfig(MyBaseModel):
     linearThreshold: Optional[float] = None
 
 
-class SortOrder(Enum):
-    asc = 'asc'
-    desc = 'desc'
-    none = 'none'
-
-
 class StackingMode(Enum):
     none = 'none'
     normal = 'normal'
     percent = 'percent'
-
-
-class TooltipDisplayMode(Enum):
-    single = 'single'
-    multi = 'multi'
-    none = 'none'
 
 
 class VisibilityMode(Enum):
@@ -97,11 +82,6 @@ class VizOrientation(Enum):
 class VizTextDisplayOptions(MyBaseModel):
     titleSize: Optional[float] = Field(None, description='Explicit title text size')
     valueSize: Optional[float] = Field(None, description='Explicit value text size')
-
-
-class VizTooltipOptions(MyBaseModel):
-    mode: TooltipDisplayMode
-    sort: SortOrder
 
 
 class AxisConfig(MyBaseModel):

@@ -1,9 +1,6 @@
 # AUTO GENERATED, PLEASE DO NOT MODIFY BY HAND
 from __future__ import annotations
 
-from enum import Enum
-from typing import List, Optional
-
 from pydantic import Field
 
 from grafana_dashboard.extracted_generated_common_models import *
@@ -48,18 +45,6 @@ class ReduceDataOptions(MyBaseModel):
     )
 
 
-class SortOrder(Enum):
-    asc = 'asc'
-    desc = 'desc'
-    none = 'none'
-
-
-class TooltipDisplayMode(Enum):
-    single = 'single'
-    multi = 'multi'
-    none = 'none'
-
-
 class VizOrientation(Enum):
     auto = 'auto'
     vertical = 'vertical'
@@ -69,11 +54,6 @@ class VizOrientation(Enum):
 class VizTextDisplayOptions(MyBaseModel):
     titleSize: Optional[float] = Field(None, description='Explicit title text size')
     valueSize: Optional[float] = Field(None, description='Explicit value text size')
-
-
-class VizTooltipOptions(MyBaseModel):
-    mode: TooltipDisplayMode = TooltipDisplayMode.single  # NOTE MODIFIED
-    sort: SortOrder = SortOrder.none  # NOTE MODIFIED
 
 
 class OptionsWithTextFormatting(MyBaseModel):

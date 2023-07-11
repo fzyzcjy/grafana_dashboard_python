@@ -27,3 +27,20 @@ class VizLegendOptions(MyBaseModel):
     sortDesc: Optional[bool] = None
     width: Optional[float] = None
     calcs: List[str] = []  # NOTE MODIFIED
+
+
+class TooltipDisplayMode(Enum):
+    single = 'single'
+    multi = 'multi'
+    none = 'none'
+
+
+class SortOrder(Enum):
+    asc = 'asc'
+    desc = 'desc'
+    none = 'none'
+
+
+class VizTooltipOptions(MyBaseModel):
+    mode: TooltipDisplayMode = TooltipDisplayMode.single  # NOTE MODIFIED
+    sort: SortOrder = SortOrder.none  # NOTE MODIFIED
