@@ -512,10 +512,10 @@ class FieldConfig(MyBaseModel):
     min: Optional[float] = None
     max: Optional[float] = None
     mappings: Optional[List[ValueMapping]] = Field(
-        None, description='Convert input values into a display string'
+        [], description='Convert input values into a display string'  # NOTE MODIFIED
     )
     thresholds: Optional[ThresholdsConfig] = None
-    color: Optional[FieldColor] = None
+    color: Optional[FieldColor] = FieldColor(mode=ModeEnum.palette_classic)  # NOTE MODIFIED
     links: Optional[List] = Field(
         None, description='The behavior when clicking on a result'
     )

@@ -31,14 +31,14 @@ class BarAlignment(Enum):
 
 
 class BarConfig(MyBaseModel):
-    barAlignment: Optional[BarAlignment] = None
+    barAlignment: Optional[BarAlignment] = BarAlignment.integer_0  # NOTE MODIFIED
     barWidthFactor: Optional[float] = None
     barMaxWidth: Optional[float] = None
 
 
 class FillConfig(MyBaseModel):
     fillColor: Optional[str] = None
-    fillOpacity: Optional[float] = None
+    fillOpacity: Optional[float] = 0  # NOTE MODIFIED
     fillBelowTo: Optional[str] = None
 
 
@@ -71,13 +71,13 @@ class GraphTresholdsStyleMode(Enum):
 
 
 class HideSeriesConfig(MyBaseModel):
-    tooltip: bool
-    legend: bool
-    viz: bool
+    tooltip: bool = False  # NOTE MODIFIED
+    legend: bool = False  # NOTE MODIFIED
+    viz: bool = False  # NOTE MODIFIED
 
 
 class HideableFieldConfig(MyBaseModel):
-    hideFrom: Optional[HideSeriesConfig] = None
+    hideFrom: Optional[HideSeriesConfig] = HideSeriesConfig()  # NOTE MODIFIED
 
 
 class LegendDisplayMode(Enum):
@@ -118,8 +118,8 @@ class ScaleDistribution(Enum):
 
 
 class ScaleDistributionConfig(MyBaseModel):
-    type: ScaleDistribution
-    log: Optional[float] = None
+    type: ScaleDistribution = ScaleDistribution.linear  # NOTE MODIFIED
+    log: Optional[float] = 2  # NOTE MODIFIED
     linearThreshold: Optional[float] = None
 
 
@@ -176,28 +176,28 @@ class VizTooltipOptions(MyBaseModel):
 
 
 class AxisConfig(MyBaseModel):
-    axisPlacement: Optional[AxisPlacement] = None
+    axisPlacement: Optional[AxisPlacement] = AxisPlacement.auto  # NOTE MODIFIED
     axisColorMode: Optional[AxisColorMode] = None
-    axisLabel: Optional[str] = None
+    axisLabel: Optional[str] = ''  # NOTE MODIFIED
     axisWidth: Optional[float] = None
     axisSoftMin: Optional[float] = None
     axisSoftMax: Optional[float] = None
     axisGridShow: Optional[bool] = None
-    scaleDistribution: Optional[ScaleDistributionConfig] = None
+    scaleDistribution: Optional[ScaleDistributionConfig] = ScaleDistributionConfig()  # NOTE MODIFIED
     axisCenteredZero: Optional[bool] = None
 
 
 class GraphThresholdsStyleConfig(MyBaseModel):
-    mode: GraphTresholdsStyleMode
+    mode: GraphTresholdsStyleMode = GraphTresholdsStyleMode.off  # NOTE MODIFIED
 
 
 class LineConfig(MyBaseModel):
     lineColor: Optional[str] = None
-    lineWidth: Optional[float] = None
-    lineInterpolation: Optional[LineInterpolation] = None
+    lineWidth: Optional[float] = 1  # NOTE MODIFIED
+    lineInterpolation: Optional[LineInterpolation] = LineInterpolation.linear  # NOTE MODIFIED
     lineStyle: Optional[LineStyle] = None
     spanNulls: Optional[Union[bool, float]] = Field(
-        None,
+        False,  # NOTE MODIFIED
         description='Indicate if null values should be treated as gaps or connected.\nWhen the value is a number, it represents the maximum delta in the\nX axis that should be considered connected.  For timeseries, this is milliseconds',
     )
 
@@ -207,8 +207,8 @@ class OptionsWithTimezones(MyBaseModel):
 
 
 class PointsConfig(MyBaseModel):
-    showPoints: Optional[VisibilityMode] = None
-    pointSize: Optional[float] = None
+    showPoints: Optional[VisibilityMode] = VisibilityMode.auto  # NOTE MODIFIED
+    pointSize: Optional[float] = 5  # NOTE MODIFIED
     pointColor: Optional[str] = None
     pointSymbol: Optional[str] = None
 
@@ -224,7 +224,7 @@ class PanelOptions(OptionsWithTimezones):
 
 
 class StackableFieldConfig(MyBaseModel):
-    stacking: Optional[StackingConfig] = None
+    stacking: Optional[StackingConfig] = StackingConfig()  # NOTE MODIFIED
 
 
 class GraphFieldConfig(
@@ -236,9 +236,9 @@ class GraphFieldConfig(
     StackableFieldConfig,
     HideableFieldConfig,
 ):
-    drawStyle: Optional[GraphDrawStyle] = None
-    gradientMode: Optional[GraphGradientMode] = None
-    thresholdsStyle: Optional[GraphThresholdsStyleConfig] = None
+    drawStyle: Optional[GraphDrawStyle] = GraphDrawStyle.line  # NOTE MODIFIED
+    gradientMode: Optional[GraphGradientMode] = GraphGradientMode.none  # NOTE MODIFIED
+    thresholdsStyle: Optional[GraphThresholdsStyleConfig] = GraphThresholdsStyleConfig()  # NOTE MODIFIED
     transform: Optional[GraphTransform] = None
 
 
