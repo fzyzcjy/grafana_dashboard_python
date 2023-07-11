@@ -1,7 +1,7 @@
 Common subdirectories: ../misc/model_generation/raw_generated/__pycache__ and ../grafana_dashboard/model/__pycache__
 diff -Nau ../misc/model_generation/raw_generated/dashboard_types_gen.py ../grafana_dashboard/model/dashboard_types_gen.py
 --- ../misc/model_generation/raw_generated/dashboard_types_gen.py	2023-07-11 14:03:28.000000000 +0800
-+++ ../grafana_dashboard/model/dashboard_types_gen.py	2023-07-11 15:30:22.000000000 +0800
++++ ../grafana_dashboard/model/dashboard_types_gen.py	2023-07-11 15:56:11.000000000 +0800
 @@ -6,9 +6,13 @@
  from enum import Enum
  from typing import Any, Dict, List, Optional, Union
@@ -48,7 +48,17 @@ diff -Nau ../misc/model_generation/raw_generated/dashboard_types_gen.py ../grafa
  
  
  class FieldConfig(MyBaseModel):
-@@ -514,7 +520,12 @@
+@@ -506,23 +512,28 @@
+     min: Optional[float] = None
+     max: Optional[float] = None
+     mappings: Optional[List[ValueMapping]] = Field(
+-        None, description='Convert input values into a display string'
++        [], description='Convert input values into a display string'  # NOTE MODIFIED
+     )
+     thresholds: Optional[ThresholdsConfig] = None
+-    color: Optional[FieldColor] = None
++    color: Optional[FieldColor] = FieldColor(mode=ModeEnum.palette_classic)  # NOTE MODIFIED
+     links: Optional[List] = Field(
          None, description='The behavior when clicking on a result'
      )
      noValue: Optional[str] = Field(None, description='Alternative to empty string')
@@ -62,6 +72,16 @@ diff -Nau ../misc/model_generation/raw_generated/dashboard_types_gen.py ../grafa
          None,
          description='custom is specified by the PanelFieldConfig field\nin panel plugin schemas.',
      )
+ 
+ 
+ class FieldConfigSource(MyBaseModel):
+-    defaults: FieldConfig
+-    overrides: List[Override]
++    defaults: FieldConfig = FieldConfig()  # NOTE MODIFIED
++    overrides: List[Override] = []  # NOTE MODIFIED
+ 
+ 
+ class Panel(MyBaseModel):
 @@ -535,7 +546,12 @@
          description='FIXME this almost certainly has to be changed in favor of scuemata versions',
      )
@@ -232,7 +252,7 @@ diff -Nau ../misc/model_generation/raw_generated/prometheusdataquery_types_gen.p
      hide: Optional[bool] = Field(
 diff -Nau ../misc/model_generation/raw_generated/timeseriespanelcfg_types_gen.py ../grafana_dashboard/model/timeseriespanelcfg_types_gen.py
 --- ../misc/model_generation/raw_generated/timeseriespanelcfg_types_gen.py	2023-07-11 14:03:34.000000000 +0800
-+++ ../grafana_dashboard/model/timeseriespanelcfg_types_gen.py	2023-07-11 15:13:33.000000000 +0800
++++ ../grafana_dashboard/model/timeseriespanelcfg_types_gen.py	2023-07-11 15:54:55.000000000 +0800
 @@ -5,9 +5,10 @@
  from enum import Enum
  from typing import Any, List, Optional, Union
@@ -245,11 +265,61 @@ diff -Nau ../misc/model_generation/raw_generated/timeseriespanelcfg_types_gen.py
  
  class AxisColorMode(Enum):
      text = 'text'
-@@ -160,13 +161,13 @@
+@@ -30,14 +31,14 @@
+ 
+ 
+ class BarConfig(MyBaseModel):
+-    barAlignment: Optional[BarAlignment] = None
++    barAlignment: Optional[BarAlignment] = BarAlignment.integer_0  # NOTE MODIFIED
+     barWidthFactor: Optional[float] = None
+     barMaxWidth: Optional[float] = None
+ 
+ 
+ class FillConfig(MyBaseModel):
+     fillColor: Optional[str] = None
+-    fillOpacity: Optional[float] = None
++    fillOpacity: Optional[float] = 0  # NOTE MODIFIED
+     fillBelowTo: Optional[str] = None
+ 
+ 
+@@ -70,13 +71,13 @@
+ 
+ 
+ class HideSeriesConfig(MyBaseModel):
+-    tooltip: bool
+-    legend: bool
+-    viz: bool
++    tooltip: bool = False  # NOTE MODIFIED
++    legend: bool = False  # NOTE MODIFIED
++    viz: bool = False  # NOTE MODIFIED
+ 
+ 
+ class HideableFieldConfig(MyBaseModel):
+-    hideFrom: Optional[HideSeriesConfig] = None
++    hideFrom: Optional[HideSeriesConfig] = HideSeriesConfig()  # NOTE MODIFIED
+ 
+ 
+ class LegendDisplayMode(Enum):
+@@ -117,8 +118,8 @@
+ 
+ 
+ class ScaleDistributionConfig(MyBaseModel):
+-    type: ScaleDistribution
+-    log: Optional[float] = None
++    type: ScaleDistribution = ScaleDistribution.linear  # NOTE MODIFIED
++    log: Optional[float] = 2  # NOTE MODIFIED
+     linearThreshold: Optional[float] = None
+ 
+ 
+@@ -158,45 +159,45 @@
+ 
+ 
  class VizLegendOptions(MyBaseModel):
-     displayMode: LegendDisplayMode
-     placement: LegendPlacement
+-    displayMode: LegendDisplayMode
+-    placement: LegendPlacement
 -    showLegend: bool
++    displayMode: LegendDisplayMode = LegendDisplayMode.list  # NOTE MODIFIED
++    placement: LegendPlacement = LegendPlacement.bottom  # NOTE MODIFIED
 +    showLegend: bool = True  # NOTE MODIFIED
      asTable: Optional[bool] = None
      isVisible: Optional[bool] = None
@@ -261,3 +331,82 @@ diff -Nau ../misc/model_generation/raw_generated/timeseriespanelcfg_types_gen.py
  
  
  class VizTooltipOptions(MyBaseModel):
+-    mode: TooltipDisplayMode
+-    sort: SortOrder
++    mode: TooltipDisplayMode = TooltipDisplayMode.single  # NOTE MODIFIED
++    sort: SortOrder = SortOrder.none  # NOTE MODIFIED
+ 
+ 
+ class AxisConfig(MyBaseModel):
+-    axisPlacement: Optional[AxisPlacement] = None
++    axisPlacement: Optional[AxisPlacement] = AxisPlacement.auto  # NOTE MODIFIED
+     axisColorMode: Optional[AxisColorMode] = None
+-    axisLabel: Optional[str] = None
++    axisLabel: Optional[str] = ''  # NOTE MODIFIED
+     axisWidth: Optional[float] = None
+     axisSoftMin: Optional[float] = None
+     axisSoftMax: Optional[float] = None
+     axisGridShow: Optional[bool] = None
+-    scaleDistribution: Optional[ScaleDistributionConfig] = None
++    scaleDistribution: Optional[ScaleDistributionConfig] = ScaleDistributionConfig()  # NOTE MODIFIED
+     axisCenteredZero: Optional[bool] = None
+ 
+ 
+ class GraphThresholdsStyleConfig(MyBaseModel):
+-    mode: GraphTresholdsStyleMode
++    mode: GraphTresholdsStyleMode = GraphTresholdsStyleMode.off  # NOTE MODIFIED
+ 
+ 
+ class LineConfig(MyBaseModel):
+     lineColor: Optional[str] = None
+-    lineWidth: Optional[float] = None
+-    lineInterpolation: Optional[LineInterpolation] = None
++    lineWidth: Optional[float] = 1  # NOTE MODIFIED
++    lineInterpolation: Optional[LineInterpolation] = LineInterpolation.linear  # NOTE MODIFIED
+     lineStyle: Optional[LineStyle] = None
+     spanNulls: Optional[Union[bool, float]] = Field(
+-        None,
++        False,  # NOTE MODIFIED
+         description='Indicate if null values should be treated as gaps or connected.\nWhen the value is a number, it represents the maximum delta in the\nX axis that should be considered connected.  For timeseries, this is milliseconds',
+     )
+ 
+@@ -206,8 +207,8 @@
+ 
+ 
+ class PointsConfig(MyBaseModel):
+-    showPoints: Optional[VisibilityMode] = None
+-    pointSize: Optional[float] = None
++    showPoints: Optional[VisibilityMode] = VisibilityMode.auto  # NOTE MODIFIED
++    pointSize: Optional[float] = 5  # NOTE MODIFIED
+     pointColor: Optional[str] = None
+     pointSymbol: Optional[str] = None
+ 
+@@ -218,12 +219,12 @@
+ 
+ 
+ class PanelOptions(OptionsWithTimezones):
+-    legend: VizLegendOptions
+-    tooltip: VizTooltipOptions
++    legend: VizLegendOptions = VizLegendOptions()  # NOTE MODIFIED
++    tooltip: VizTooltipOptions = VizTooltipOptions()  # NOTE MODIFIED
+ 
+ 
+ class StackableFieldConfig(MyBaseModel):
+-    stacking: Optional[StackingConfig] = None
++    stacking: Optional[StackingConfig] = StackingConfig()  # NOTE MODIFIED
+ 
+ 
+ class GraphFieldConfig(
+@@ -235,9 +236,9 @@
+     StackableFieldConfig,
+     HideableFieldConfig,
+ ):
+-    drawStyle: Optional[GraphDrawStyle] = None
+-    gradientMode: Optional[GraphGradientMode] = None
+-    thresholdsStyle: Optional[GraphThresholdsStyleConfig] = None
++    drawStyle: Optional[GraphDrawStyle] = GraphDrawStyle.line  # NOTE MODIFIED
++    gradientMode: Optional[GraphGradientMode] = GraphGradientMode.none  # NOTE MODIFIED
++    thresholdsStyle: Optional[GraphThresholdsStyleConfig] = GraphThresholdsStyleConfig()  # NOTE MODIFIED
+     transform: Optional[GraphTransform] = None
+ 
+ 
