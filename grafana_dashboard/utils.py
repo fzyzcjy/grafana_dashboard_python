@@ -35,7 +35,7 @@ def _repr_should_keep_arg(cls, k: str, v):
     if v is None:
         return False
 
-    info = cls.schema()['properties'].get(k)
+    info = cls.schema().get('properties', {}).get(k)
     # print(f'hi cls={cls} k={k} v={v} info={info}')
 
     if info is None or 'default' not in info:
