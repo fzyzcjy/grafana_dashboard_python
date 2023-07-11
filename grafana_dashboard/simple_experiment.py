@@ -149,18 +149,24 @@ sample_dashboard = Spec.parse_obj(sample_json)
 print(sample_dashboard)
 print(repr(sample_dashboard))
 
+# HACK REGEX
+# <(\w+\.\w+): .+>
+# $1
+
 copied_repr_of_sample_dashboard = Spec(id=None, uid=None, title='New dashboard', description=None, revision=None,
                                        gnetId=None, tags=[], style=Style.dark, timezone='', editable=True,
-                                       graphTooltip=DashboardCursorSync.integer_0,
-                                       # NOTE HACK `Time`
-                                       time=Time.parse_obj({'from': 'now-6h', 'to': 'now'}),
-                                       timepicker=None, fiscalYearStartMonth=0, liveNow=False, weekStart='',
-                                       refresh=None, schemaVersion=37, version=0, panels=[
+                                       graphTooltip=DashboardCursorSync.integer_0, time=Time(from_='now-6h', to='now'),
+                                       timepicker=Timepicker(collapse=False, enable=True, hidden=False,
+                                                             refresh_intervals=['5s', '10s', '30s', '1m', '5m', '15m',
+                                                                                '30m', '1h', '2h', '1d'],
+                                                             time_options=['5m', '15m', '1h', '6h', '12h', '24h', '2d',
+                                                                           '7d', '30d']), fiscalYearStartMonth=0,
+                                       liveNow=False, weekStart='', refresh=None, schemaVersion=37, version=0, panels=[
         Panel(type='timeseries', id=2, pluginVersion=None, tags=None, targets=[Target()], title='Panel Title',
               description=None, transparent=False, datasource=Datasource(type='prometheus', uid='PBFA97CFB590B2093'),
-              gridPos=GridPos(h=9, w=12, x=0, y=0, static=None), links=None, repeat=None,
-              repeatDirection=RepeatDirection.h, repeatPanelId=None, maxDataPoints=None, thresholds=None,
-              timeRegions=None, transformations=[], interval=None, timeFrom=None, timeShift=None, libraryPanel=None,
+              gridPos=GridPos(h=9, w=12, x=0, y=0, static=None), links=None, repeat=None, repeatDirection='h',
+              repeatPanelId=None, maxDataPoints=None, thresholds=None, timeRegions=None, transformations=[],
+              interval=None, timeFrom=None, timeShift=None, libraryPanel=None,
               options={'legend': {'calcs': [], 'displayMode': 'list', 'placement': 'bottom', 'showLegend': True},
                        'tooltip': {'mode': 'single', 'sort': 'none'}}, fieldConfig=FieldConfigSource(
                 defaults=FieldConfig(displayName=None, displayNameFromDS=None, description=None, path=None,
