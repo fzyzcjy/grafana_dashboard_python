@@ -5,8 +5,9 @@ from __future__ import annotations
 from enum import Enum
 from typing import List, Optional
 
-from grafana_dashboard.utils import MyBaseModel
 from pydantic import Field, conint
+
+from grafana_dashboard.utils import MyBaseModel
 
 
 class BarGaugeDisplayMode(Enum):
@@ -55,7 +56,7 @@ class SingleStatBaseOptions(OptionsWithTextFormatting):
 
 class PanelOptions(SingleStatBaseOptions):
     displayMode: BarGaugeDisplayMode
-    valueMode: BarGaugeValueMode
+    valueMode: Optional[BarGaugeValueMode] = None  # NOTE MODIFIED
     showUnfilled: bool
     minVizWidth: conint(ge=0, le=4294967295)
     minVizHeight: conint(ge=0, le=4294967295)
