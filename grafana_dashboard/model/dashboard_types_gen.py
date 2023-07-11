@@ -600,7 +600,7 @@ class Panel(MyBaseModel):
         ...,
         description='options is specified by the PanelOptions field in panel\nplugin schemas.',
     )
-    fieldConfig: FieldConfigSource = None  # NOTE MODIFIED
+    fieldConfig: FieldConfigSource = FieldConfig()  # NOTE MODIFIED
 
 
 class RowPanel(MyBaseModel):

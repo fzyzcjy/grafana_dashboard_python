@@ -6,9 +6,9 @@ from grafana_dashboard.model.dashboard_types_gen import Panel
 
 class _DefaultPanel(Panel):
     def __init__(self, **kwargs):
-        _dict_nested_fill_default_value(
-            kwargs, ['fieldConfig', 'defaults', 'custom'], self.__class__._default_field_config_custom())
         super().__init__(**kwargs)
+        if self.fieldConfig.defaults.custom is None:
+            self.fieldConfig.defaults.custom = self._default_field_config_custom()
 
     @classmethod
     def _default_field_config_custom(cls):
