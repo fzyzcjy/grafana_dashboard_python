@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from enum import Enum
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Extra
 
 
 class MyBaseModel(BaseModel):
@@ -11,6 +11,9 @@ class MyBaseModel(BaseModel):
             for k, v in super().__repr_args__()
             if _repr_should_keep_arg(self.__class__, k, v)
         ]
+
+    class Config:
+        extra = Extra.forbid
 
 
 def _repr_transform_arg_value(v):
