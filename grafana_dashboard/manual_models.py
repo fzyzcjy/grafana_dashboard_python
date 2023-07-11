@@ -6,14 +6,14 @@ from grafana_dashboard.model.dashboard_types_gen import Panel
 
 class TimeSeries(Panel):
     type: Literal['timeseries'] = 'timeseries'
-    options: timeseriespanelcfg_types_gen.PanelOptions
+    options: timeseriespanelcfg_types_gen.PanelOptions = timeseriespanelcfg_types_gen.PanelOptions
 
 
 class PieChart(Panel):
     type: Literal['piechart'] = 'piechart'
-    options: piechartpanelcfg_types_gen.PanelOptions
+    options: piechartpanelcfg_types_gen.PanelOptions = piechartpanelcfg_types_gen.PanelOptions
 
 
 class Table(Panel):
     type: Literal['table'] = 'table'
-    options: tablepanelcfg_types_gen.PanelOptions
+    options: tablepanelcfg_types_gen.PanelOptions = tablepanelcfg_types_gen.PanelOptions

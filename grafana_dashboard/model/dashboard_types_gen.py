@@ -532,8 +532,8 @@ class FieldConfig(MyBaseModel):
 
 
 class FieldConfigSource(MyBaseModel):
-    defaults: FieldConfig
-    overrides: List[Override]
+    defaults: FieldConfig = FieldConfig()  # NOTE MODIFIED
+    overrides: List[Override] = []  # NOTE MODIFIED
 
 
 class Panel(MyBaseModel):

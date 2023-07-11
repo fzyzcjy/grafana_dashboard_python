@@ -159,8 +159,8 @@ class VisibilityMode(Enum):
 
 
 class VizLegendOptions(MyBaseModel):
-    displayMode: LegendDisplayMode
-    placement: LegendPlacement
+    displayMode: LegendDisplayMode = LegendDisplayMode.list  # NOTE MODIFIED
+    placement: LegendPlacement = LegendPlacement.bottom  # NOTE MODIFIED
     showLegend: bool = True  # NOTE MODIFIED
     asTable: Optional[bool] = None
     isVisible: Optional[bool] = None
@@ -171,8 +171,8 @@ class VizLegendOptions(MyBaseModel):
 
 
 class VizTooltipOptions(MyBaseModel):
-    mode: TooltipDisplayMode
-    sort: SortOrder
+    mode: TooltipDisplayMode = TooltipDisplayMode.single  # NOTE MODIFIED
+    sort: SortOrder = SortOrder.none  # NOTE MODIFIED
 
 
 class AxisConfig(MyBaseModel):
@@ -219,8 +219,8 @@ class StackingConfig(MyBaseModel):
 
 
 class PanelOptions(OptionsWithTimezones):
-    legend: VizLegendOptions
-    tooltip: VizTooltipOptions
+    legend: VizLegendOptions = VizLegendOptions()  # NOTE MODIFIED
+    tooltip: VizTooltipOptions = VizTooltipOptions()  # NOTE MODIFIED
 
 
 class StackableFieldConfig(MyBaseModel):
