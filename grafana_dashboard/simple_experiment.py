@@ -274,7 +274,8 @@ print('copied_repr_of_sample_dashboard', repr(copied_repr_of_sample_dashboard))
 # https://github.com/fzyzcjy/yplusplus/issues/10116#issuecomment-1630070853
 # assert sample_dashboard == copied_repr_of_sample_dashboard
 
-sample_dashboard_json = json.loads(sample_dashboard.json())
+# NOTE need by_alias for `Time.from_` #10119
+sample_dashboard_json = json.loads(sample_dashboard.json(by_alias=True))
 
 print('sample_json', json.dumps(sample_json))
 print('sample_dashboard.json', json.dumps(sample_dashboard_json))
