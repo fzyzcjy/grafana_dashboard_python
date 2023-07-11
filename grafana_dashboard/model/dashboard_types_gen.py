@@ -656,7 +656,7 @@ class Spec(BaseModel):
         description='Version of the dashboard, incremented each time the dashboard is updated.',
     )
     panels: Optional[List[Union[Panel, RowPanel, GraphPanel, HeatmapPanel]]] = None
-    templating: Optional[Templating] = Field(None, description='TODO docs')
+    templating: Optional[Templating] = Field(None, description='hello world test test test')
     annotations: Optional[AnnotationContainer] = None
     links: Optional[List[DashboardLink]] = Field(None, description='TODO docs')
     snapshot: Optional[Snapshot] = None

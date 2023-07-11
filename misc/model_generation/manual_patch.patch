@@ -1,0 +1,10 @@
+diff ../misc/model_generation/raw_generated/cloudwatchdataquery_types_gen.py ../grafana_dashboard/model/cloudwatchdataquery_types_gen.py
+251c251
+<     limit: Optional[int] = Field(None, description='LIMIT part of the SQL expression')
+---
+>     limit: Optional[int] = Field(None, description='test222 LIMIT part of the SQL expression')
+diff ../misc/model_generation/raw_generated/dashboard_types_gen.py ../grafana_dashboard/model/dashboard_types_gen.py
+659c659
+<     templating: Optional[Templating] = Field(None, description='TODO docs')
+---
+>     templating: Optional[Templating] = Field(None, description='hello world test test test')
