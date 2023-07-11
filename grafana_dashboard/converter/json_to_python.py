@@ -17,6 +17,11 @@ def convert(
 
     buf = StringIO()
     rich.console.Console(file=buf).print(dashboard, overflow='ignore', width=100000000, crop=False)
-    python_code = buf.getvalue()
+    python_dashboard_code = buf.getvalue()
+
+    python_code = '\n'.join([
+        f'dashboard = {python_dashboard_code}',
+        '',
+    ])
 
     python_path.write_text(python_code)
