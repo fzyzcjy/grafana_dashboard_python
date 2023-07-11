@@ -22,6 +22,10 @@ def _repr_transform_arg_value(v):
 
 
 def _repr_should_keep_arg(cls, k: str, v):
+    # https://github.com/fzyzcjy/yplusplus/issues/10117#issuecomment-1630217216
+    if v is None:
+        return False
+
     info = cls.schema()['properties'].get(k)
     # print(f'hi cls={cls} k={k} v={v} info={info}')
 
