@@ -51,3 +51,9 @@ More importantly, you can always check the output JSON to see whether there is a
 ## Relation with Grafanalib
 
 I do hope that I can simply PR to Grafanalib and add the "convert any JSON into Python" feature. However, in my humble opinion it is quite hard: Grafanalib's API differs a lot from Grafana's JSON API. Therefore, though I can easily convert JSON to Python dict or object constructor, it is time-consuming and error-prone to further convert it into valid Grafanalib code.
+
+## How it works
+
+Pretty simple. When using it, it is nothing but a series of `Pydantic` models, with almost no logic except that. So you are indeed using the serialization and deserialization feature of Pydantic.
+
+As for how the Pydantic code is created: It is generated automatically from Grafana's official [schema](https://github.com/grafana/grok), and then manually tweaked for a better developer experience (e.g. provide more sensible defaults, make types looser). All changes are recorded in a patch file, so the package can be easily upgraded when Grafana upgrades, and always keep the definition accurate.
