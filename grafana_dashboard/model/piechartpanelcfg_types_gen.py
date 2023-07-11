@@ -1,5 +1,4 @@
 # AUTO GENERATED, PLEASE DO NOT MODIFY BY HAND
-
 from __future__ import annotations
 
 from enum import Enum
@@ -7,6 +6,7 @@ from typing import List, Optional
 
 from pydantic import Field
 
+from grafana_dashboard.extracted_generated_common_models import *
 from grafana_dashboard.utils import MyBaseModel
 
 
@@ -18,17 +18,6 @@ class HideSeriesConfig(MyBaseModel):
 
 class HideableFieldConfig(MyBaseModel):
     hideFrom: Optional[HideSeriesConfig] = None
-
-
-class LegendDisplayMode(Enum):
-    list = 'list'
-    table = 'table'
-    hidden = 'hidden'
-
-
-class LegendPlacement(Enum):
-    bottom = 'bottom'
-    right = 'right'
 
 
 class PieChartLabels(Enum):
@@ -69,18 +58,6 @@ class TooltipDisplayMode(Enum):
     single = 'single'
     multi = 'multi'
     none = 'none'
-
-
-class VizLegendOptions(MyBaseModel):
-    displayMode: LegendDisplayMode = LegendDisplayMode.list  # NOTE MODIFIED
-    placement: LegendPlacement = LegendPlacement.bottom  # NOTE MODIFIED
-    showLegend: bool = True  # NOTE MODIFIED
-    asTable: Optional[bool] = None
-    isVisible: Optional[bool] = None
-    sortBy: Optional[str] = None
-    sortDesc: Optional[bool] = None
-    width: Optional[float] = None
-    calcs: List[str] = []  # NOTE MODIFIED
 
 
 class VizOrientation(Enum):

@@ -1,12 +1,13 @@
 # AUTO GENERATED, PLEASE DO NOT MODIFY BY HAND
-
 from __future__ import annotations
 
 from enum import Enum
-from typing import List, Optional
+from typing import Optional
 
-from grafana_dashboard.utils import MyBaseModel
 from pydantic import Field, confloat, conint
+
+from grafana_dashboard.extracted_generated_common_models import *
+from grafana_dashboard.utils import MyBaseModel
 
 
 class AxisColorMode(Enum):
@@ -50,17 +51,6 @@ class HideableFieldConfig(MyBaseModel):
     hideFrom: Optional[HideSeriesConfig] = None
 
 
-class LegendDisplayMode(Enum):
-    list = 'list'
-    table = 'table'
-    hidden = 'hidden'
-
-
-class LegendPlacement(Enum):
-    bottom = 'bottom'
-    right = 'right'
-
-
 class ScaleDistribution(Enum):
     linear = 'linear'
     log = 'log'
@@ -96,18 +86,6 @@ class VisibilityMode(Enum):
     auto = 'auto'
     never = 'never'
     always = 'always'
-
-
-class VizLegendOptions(MyBaseModel):
-    displayMode: LegendDisplayMode
-    placement: LegendPlacement
-    showLegend: bool
-    asTable: Optional[bool] = None
-    isVisible: Optional[bool] = None
-    sortBy: Optional[str] = None
-    sortDesc: Optional[bool] = None
-    width: Optional[float] = None
-    calcs: List[str]
 
 
 class VizOrientation(Enum):
