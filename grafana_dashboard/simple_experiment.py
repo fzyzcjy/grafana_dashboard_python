@@ -163,7 +163,7 @@ copied_repr_of_sample_dashboard = Spec(
     tags=[],
     style=Style.dark,
     timezone='',
-    graphTooltip=DashboardCursorSync.integer_0,
+    graphTooltip=DashboardCursorSync.not_shared,
     time=Time(from_='now-6h'),
     timepicker=Timepicker(),
     liveNow=False,

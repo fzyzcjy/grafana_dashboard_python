@@ -48,9 +48,10 @@ class AnnotationTarget(MyBaseModel):
 
 
 class DashboardCursorSync(Enum):
-    integer_0 = 0
-    integer_1 = 1
-    integer_2 = 2
+    # NOTE RENAMED
+    not_shared = 0
+    shared_crosshair = 1
+    shared_tooltip = 2
 
 
 class DashboardLinkType(Enum):
