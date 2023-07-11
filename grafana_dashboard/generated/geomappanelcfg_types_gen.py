@@ -25,7 +25,7 @@ class FrameGeometrySourceMode(Enum):
 
 
 class MapViewConfig(BaseModel):
-    id: str
+    id: Optional[str] = 'zero'
     lat: Optional[conint(ge=-9223372036854775808, le=9223372036854775807)] = 0
     lon: Optional[conint(ge=-9223372036854775808, le=9223372036854775807)] = 0
     zoom: Optional[conint(ge=-9223372036854775808, le=9223372036854775807)] = 1

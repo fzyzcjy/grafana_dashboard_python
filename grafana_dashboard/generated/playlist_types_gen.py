@@ -52,8 +52,8 @@ class Spec(BaseModel):
         description='Unique playlist identifier. Generated on creation, either by the\ncreator of the playlist of by the application.',
     )
     name: str = Field(..., description='Name of the playlist.')
-    interval: str = Field(
-        ...,
+    interval: Optional[str] = Field(
+        '5m',
         description='Interval sets the time between switching views in a playlist.\nFIXME: Is this based on a standardized format or what options are available? Can datemath be used?',
     )
     items: Optional[List[PlaylistItem]] = Field(

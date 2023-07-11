@@ -59,7 +59,7 @@ class DataSourceRef(BaseModel):
 
 
 class DynamicConfigValue(BaseModel):
-    id: str
+    id: Optional[str] = ''
     value: Optional[Any] = None
 
 
@@ -90,7 +90,7 @@ class Type(Enum):
 
 
 class Legend(BaseModel):
-    show: bool
+    show: Optional[bool] = True
     sort: Optional[str] = None
     sortDesc: Optional[bool] = None
 
@@ -103,10 +103,10 @@ class GraphPanel(BaseModel):
 
 
 class GridPos(BaseModel):
-    h: conint(le=4294967295, gt=0) = Field(..., description='Panel')
-    w: conint(le=24, gt=0) = Field(..., description='Panel')
-    x: conint(ge=0, lt=24) = Field(..., description='Panel x')
-    y: conint(ge=0, le=4294967295) = Field(..., description='Panel y')
+    h: Optional[conint(le=4294967295, gt=0)] = Field(9, description='Panel')
+    w: Optional[conint(le=24, gt=0)] = Field(12, description='Panel')
+    x: Optional[conint(ge=0, lt=24)] = Field(0, description='Panel x')
+    y: Optional[conint(ge=0, le=4294967295)] = Field(0, description='Panel y')
     static: Optional[bool] = Field(None, description='true if fixed')
 
 
@@ -139,7 +139,7 @@ class MappingType(Enum):
 
 
 class MatcherConfig(BaseModel):
-    id: str
+    id: Optional[str] = ''
     options: Optional[Any] = None
 
 
@@ -254,18 +254,28 @@ class Style(Enum):
 
 
 class Time(BaseModel):
-    from_: str = Field(..., alias='from')
-    to: str
+    from_: Optional[str] = Field('now-6h', alias='from')
+    to: Optional[str] = 'now'
 
 
 class Timepicker(BaseModel):
-    collapse: bool = Field(..., description='Whether timepicker is collapsed or not.')
-    enable: bool = Field(..., description='Whether timepicker is enabled or not.')
-    hidden: bool = Field(..., description='Whether timepicker is visible or not.')
-    refresh_intervals: List[str] = Field(
-        ..., description='Selectable intervals for auto-refresh.'
+    collapse: Optional[bool] = Field(
+        False, description='Whether timepicker is collapsed or not.'
     )
-    time_options: List[str] = Field(..., description='TODO docs')
+    enable: Optional[bool] = Field(
+        True, description='Whether timepicker is enabled or not.'
+    )
+    hidden: Optional[bool] = Field(
+        False, description='Whether timepicker is visible or not.'
+    )
+    refresh_intervals: Optional[List[str]] = Field(
+        ['5s', '10s', '30s', '1m', '5m', '15m', '30m', '1h', '2h', '1d'],
+        description='Selectable intervals for auto-refresh.',
+    )
+    time_options: Optional[List[str]] = Field(
+        ['5m', '15m', '1h', '6h', '12h', '24h', '2d', '7d', '30d'],
+        description='TODO docs',
+    )
 
 
 class RefreshEnum(Enum):
@@ -317,8 +327,8 @@ class StatusOperatorState(BaseModel):
 class AnnotationQuery(BaseModel):
     name: str = Field(..., description='Name of annotation.')
     datasource: Datasource = Field(..., description='TODO: Should be DataSourceRef')
-    enable: bool = Field(
-        ...,
+    enable: Optional[bool] = Field(
+        True,
         description='When enabled the annotation query is issued with every dashboard refresh',
     )
     hide: Optional[bool] = Field(
@@ -343,10 +353,10 @@ class DashboardLink(BaseModel):
     tooltip: str
     url: str
     tags: List[str]
-    asDropdown: bool
-    targetBlank: bool
-    includeVars: bool
-    keepTime: bool
+    asDropdown: Optional[bool] = False
+    targetBlank: Optional[bool] = False
+    includeVars: Optional[bool] = False
+    keepTime: Optional[bool] = False
 
 
 class DataTransformerConfig(BaseModel):
@@ -429,15 +439,15 @@ class ValueMapping(BaseModel):
 
 
 class VariableModel(BaseModel):
-    id: str
+    id: Optional[str] = '00000000-0000-0000-0000-000000000000'
     type: VariableType
     name: str
     label: Optional[str] = None
     rootStateKey: Optional[str] = None
-    global_: bool = Field(..., alias='global')
+    global_: Optional[bool] = Field(False, alias='global')
     hide: VariableHide
-    skipUrlSync: bool
-    index: conint(ge=-2147483648, le=2147483647)
+    skipUrlSync: Optional[bool] = False
+    index: Optional[conint(ge=-2147483648, le=2147483647)] = -1
     state: LoadingState
     error: Optional[Dict[str, Any]] = None
     description: Optional[str] = None
@@ -527,8 +537,8 @@ class Panel(BaseModel):
     targets: Optional[List[Target]] = Field(None, description='TODO docs')
     title: Optional[str] = Field(None, description='Panel title.')
     description: Optional[str] = Field(None, description='Description.')
-    transparent: bool = Field(
-        ..., description='Whether to display the panel without a background.'
+    transparent: Optional[bool] = Field(
+        False, description='Whether to display the panel without a background.'
     )
     datasource: Optional[Datasource] = Field(
         None, description='The datasource used in all targets.'
@@ -541,8 +551,8 @@ class Panel(BaseModel):
     repeat: Optional[str] = Field(
         None, description='Name of template variable to repeat for.'
     )
-    repeatDirection: RepeatDirection = Field(
-        ...,
+    repeatDirection: Optional[RepeatDirection] = Field(
+        'h',
         description='Direction to repeat in if \'repeat\' is set.\n"h" for horizontal, "v" for vertical.\nTODO this is probably optional',
     )
     repeatPanelId: Optional[int] = Field(None, description='Id of the repeating panel.')
@@ -572,7 +582,7 @@ class Panel(BaseModel):
 
 class RowPanel(BaseModel):
     type: Type2
-    collapsed: bool
+    collapsed: Optional[bool] = False
     title: Optional[str] = None
     datasource: Optional[Datasource] = Field(
         None, description='Name of default datasource.'
@@ -607,12 +617,14 @@ class Spec(BaseModel):
     tags: Optional[List[str]] = Field(
         None, description='Tags associated with dashboard.'
     )
-    style: Style = Field(..., description='Theme of dashboard.')
+    style: Optional[Style] = Field('dark', description='Theme of dashboard.')
     timezone: Optional[str] = Field(
         'browser',
         description='Timezone of dashboard. Accepts IANA TZDB zone ID or "browser" or "utc".',
     )
-    editable: bool = Field(..., description='Whether a dashboard is editable or not.')
+    editable: Optional[bool] = Field(
+        True, description='Whether a dashboard is editable or not.'
+    )
     graphTooltip: DashboardCursorSync
     time: Optional[Time] = Field(
         None,
@@ -635,8 +647,8 @@ class Spec(BaseModel):
         None,
         description='Refresh rate of dashboard. Represented via interval string, e.g. "5s", "1m", "1h", "1d".',
     )
-    schemaVersion: conint(ge=0, le=65535) = Field(
-        ...,
+    schemaVersion: Optional[conint(ge=0, le=65535)] = Field(
+        36,
         description="Version of the JSON schema, incremented each time a Grafana update brings\nchanges to said schema.\nTODO this is the existing schema numbering system. It will be replaced by Thema's themaVersion",
     )
     version: Optional[conint(ge=0, le=4294967295)] = Field(

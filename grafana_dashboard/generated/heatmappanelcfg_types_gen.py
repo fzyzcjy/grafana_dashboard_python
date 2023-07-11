@@ -224,8 +224,15 @@ class PanelOptions(BaseModel):
         False, description='Controls if the heatmap should be calculated from data'
     )
     calculation: Optional[HeatmapCalculationOptions] = None
-    color: Union[HeatmapColorOptions, ColorItem] = Field(
-        ..., description='Controls the color options'
+    color: Optional[Union[HeatmapColorOptions, ColorItem]] = Field(
+        {
+            'scheme': 'Oranges',
+            'fill': 'dark-orange',
+            'reverse': False,
+            'exponent': 0.5,
+            'steps': 64,
+        },
+        description='Controls the color options',
     )
     filterValues: Optional[Union[FilterValueRange, FilterValue]] = Field(
         {'le': '1e-09'}, description='Filters values between a given range'

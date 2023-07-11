@@ -22,8 +22,8 @@ class CodeLanguage(Enum):
 
 class CodeOptions(BaseModel):
     language: CodeLanguage
-    showLineNumbers: bool
-    showMiniMap: bool
+    showLineNumbers: Optional[bool] = False
+    showMiniMap: Optional[bool] = False
 
 
 class TextMode(Enum):
@@ -35,11 +35,13 @@ class TextMode(Enum):
 class PanelOptions(BaseModel):
     mode: TextMode
     code: Optional[CodeOptions] = None
-    content: str
+    content: Optional[
+        str
+    ] = '# Title\n\nFor markdown syntax help: [commonmark.org/help](https://commonmark.org/help/)'
 
 
 class TextPanelCfg(BaseModel):
     TextMode: TextMode
-    CodeLanguage: CodeLanguage
+    CodeLanguage: Optional[CodeLanguage] = 'plaintext'
     CodeOptions: CodeOptions
     PanelOptions: PanelOptions

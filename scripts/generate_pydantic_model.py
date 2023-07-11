@@ -13,7 +13,8 @@ def _execute_datamodel_codegen(
         f'--input {path_input} '
         '--input-file-type openapi '
         f'--output {path_output} '
-        "--custom-file-header '# AUTO GENERATED, PLEASE DO NOT MODIFY BY HAND'"
+        "--custom-file-header '# AUTO GENERATED, PLEASE DO NOT MODIFY BY HAND' "
+        '--use-default'  # #10115
     )
     if ret != 0:
         print('ERROR WHEN EXECUTING CODEGEN!')

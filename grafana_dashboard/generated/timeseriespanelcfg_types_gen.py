@@ -138,8 +138,8 @@ class TimeZoneEnum(Enum):
 
 
 class TimeZone(BaseModel):
-    __root__: Union[TimeZoneEnum, Any] = Field(
-        ...,
+    __root__: Optional[Union[TimeZoneEnum, Any]] = Field(
+        'browser',
         description='A specific timezone from https://en.wikipedia.org/wiki/Tz_database',
     )
 

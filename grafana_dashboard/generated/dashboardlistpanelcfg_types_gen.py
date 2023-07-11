@@ -8,14 +8,14 @@ from pydantic import BaseModel
 
 
 class PanelOptions(BaseModel):
-    keepTime: bool
-    includeVars: bool
-    showStarred: bool
-    showRecentlyViewed: bool
-    showSearch: bool
-    showHeadings: bool
-    maxItems: int
-    query: str
+    keepTime: Optional[bool] = False
+    includeVars: Optional[bool] = False
+    showStarred: Optional[bool] = True
+    showRecentlyViewed: Optional[bool] = False
+    showSearch: Optional[bool] = False
+    showHeadings: Optional[bool] = True
+    maxItems: Optional[int] = 10
+    query: Optional[str] = ''
     folderId: Optional[int] = None
     tags: List[str]
 

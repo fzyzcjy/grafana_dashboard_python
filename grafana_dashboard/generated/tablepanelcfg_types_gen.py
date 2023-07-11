@@ -55,11 +55,11 @@ class TableSortByFieldState(BaseModel):
 
 
 class PanelOptions(BaseModel):
-    frameIndex: float = Field(
-        ..., description='Represents the index of the selected frame'
+    frameIndex: Optional[float] = Field(
+        0, description='Represents the index of the selected frame'
     )
-    showHeader: bool = Field(
-        ..., description='Controls whether the panel should show the header'
+    showHeader: Optional[bool] = Field(
+        True, description='Controls whether the panel should show the header'
     )
     showTypeIcons: Optional[bool] = Field(
         False,
