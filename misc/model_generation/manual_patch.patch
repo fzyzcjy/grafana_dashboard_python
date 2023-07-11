@@ -1,10 +1,24 @@
-diff ../misc/model_generation/raw_generated/cloudwatchdataquery_types_gen.py ../grafana_dashboard/model/cloudwatchdataquery_types_gen.py
-251c251
-<     limit: Optional[int] = Field(None, description='LIMIT part of the SQL expression')
----
->     limit: Optional[int] = Field(None, description='test222 LIMIT part of the SQL expression')
-diff ../misc/model_generation/raw_generated/dashboard_types_gen.py ../grafana_dashboard/model/dashboard_types_gen.py
-659c659
-<     templating: Optional[Templating] = Field(None, description='TODO docs')
----
->     templating: Optional[Templating] = Field(None, description='hello world test test test')
+diff -Naur ../misc/model_generation/raw_generated/cloudwatchdataquery_types_gen.py ../grafana_dashboard/model/cloudwatchdataquery_types_gen.py
+--- ../misc/model_generation/raw_generated/cloudwatchdataquery_types_gen.py	2023-07-11 13:22:35.000000000 +0800
++++ ../grafana_dashboard/model/cloudwatchdataquery_types_gen.py	2023-07-11 13:38:38.000000000 +0800
+@@ -248,7 +248,7 @@
+     orderByDirection: Optional[str] = Field(
+         None, description='The sort order of the SQL expression, `ASC` or `DESC`'
+     )
+-    limit: Optional[int] = Field(None, description='LIMIT part of the SQL expression')
++    limit: Optional[int] = Field(None, description='test222 LIMIT part of the SQL expression')
+ 
+ 
+ CloudWatchMetricsQuery.update_forward_refs()
+diff -Naur ../misc/model_generation/raw_generated/dashboard_types_gen.py ../grafana_dashboard/model/dashboard_types_gen.py
+--- ../misc/model_generation/raw_generated/dashboard_types_gen.py	2023-07-11 13:22:31.000000000 +0800
++++ ../grafana_dashboard/model/dashboard_types_gen.py	2023-07-11 13:37:46.000000000 +0800
+@@ -656,7 +656,7 @@
+         description='Version of the dashboard, incremented each time the dashboard is updated.',
+     )
+     panels: Optional[List[Union[Panel, RowPanel, GraphPanel, HeatmapPanel]]] = None
+-    templating: Optional[Templating] = Field(None, description='TODO docs')
++    templating: Optional[Templating] = Field(None, description='hello world test test test')
+     annotations: Optional[AnnotationContainer] = None
+     links: Optional[List[DashboardLink]] = Field(None, description='TODO docs')
+     snapshot: Optional[Snapshot] = None
