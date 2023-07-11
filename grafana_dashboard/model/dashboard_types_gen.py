@@ -573,7 +573,7 @@ class Panel(MyBaseModel):
         description='TODO docs - seems to be an old field from old dashboard alerts?',
     )
     timeRegions: Optional[List] = Field(None, description='TODO docs')
-    transformations: List[DataTransformerConfig]
+    transformations: List[DataTransformerConfig] = []  # NOTE MODIFIED
     interval: Optional[str] = Field(
         None, description='TODO docs\nTODO tighter constraint'
     )
