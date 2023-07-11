@@ -31,11 +31,6 @@ sample_json = {
     "liveNow": False,
     "panels": [
         {
-            # NOTE HACK START (maybe b/c grafana 10 add fields?
-            "transparent": False,
-            "repeatDirection": 'h',
-            "transformations": [],
-            # NOTE HACK END
             "datasource": {
                 "type": "prometheus",
                 "uid": "PBFA97CFB590B2093"
@@ -138,9 +133,7 @@ sample_json = {
         "from": "now-6h",
         "to": "now"
     },
-    # NOTE HACK
-    "timerpicker": None,
-    # "timepicker": {},
+    "timepicker": {},
     "timezone": "",
     "title": "New dashboard",
     "version": 0,
