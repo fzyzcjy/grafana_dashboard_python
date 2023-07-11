@@ -1,4 +1,7 @@
 import json
+from io import StringIO
+
+import rich
 
 from grafana_dashboard.model.dashboard_types_gen import *
 from grafana_dashboard.model.prometheusdataquery_types_gen import *
@@ -205,3 +208,10 @@ sample_dashboard_json = json.loads(sample_dashboard.json())
 print('sample_json', json.dumps(sample_json))
 print('sample_dashboard.json', json.dumps(sample_dashboard_json))
 assert sample_json == sample_dashboard_json
+
+# %%
+
+buf = StringIO()
+rich.print(sample_dashboard, file=buf)
+s = buf.getvalue()
+print(s)
