@@ -13,8 +13,10 @@ class MyBaseModel(BaseModel):
 
 
 def _transform_repr_arg_value(v):
+    # #10118
     if isinstance(v, Enum):
         return _Reprable(str(v))
+
     return v
 
 
