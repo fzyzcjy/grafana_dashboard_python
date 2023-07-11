@@ -17,8 +17,7 @@
               "$ref": "#/components/schemas/AnnotationQuery"
             }
           }
-        },
-        "$schema": "http://json-schema.org/draft-04/schema#"
+        }
       },
       "AnnotationPanelFilter": {
         "type": "object",
@@ -40,8 +39,7 @@
               "maximum": 255
             }
           }
-        },
-        "$schema": "http://json-schema.org/draft-04/schema#"
+        }
       },
       "AnnotationQuery": {
         "description": "TODO docs\nFROM: AnnotationQuery in grafana-data/src/types/annotations.ts",
@@ -93,8 +91,7 @@
             "description": "TODO -- this should not exist here, it is based on the --grafana-- datasource",
             "type": "string"
           }
-        },
-        "$schema": "http://json-schema.org/draft-04/schema#"
+        }
       },
       "AnnotationTarget": {
         "description": "TODO: this should be a regular DataQuery that depends on the selected dashboard\nthese match the properties of the \"grafana\" datasouce that is default in most dashboards",
@@ -126,8 +123,7 @@
             "description": "Only required/valid for the grafana datasource...\nbut code+tests is already depending on it so hard to change",
             "type": "string"
           }
-        },
-        "$schema": "http://json-schema.org/draft-04/schema#"
+        }
       },
       "DashboardCursorSync": {
         "description": "0 for no shared crosshair or tooltip (default).\n1 for shared crosshair.\n2 for shared crosshair AND shared tooltip.",
@@ -137,8 +133,7 @@
           1,
           2
         ],
-        "default": 0,
-        "$schema": "http://json-schema.org/draft-04/schema#"
+        "default": 0
       },
       "DashboardLink": {
         "description": "FROM public/app/features/dashboard/state/DashboardModels.ts - ish\nTODO docs",
@@ -193,8 +188,7 @@
             "type": "boolean",
             "default": false
           }
-        },
-        "$schema": "http://json-schema.org/draft-04/schema#"
+        }
       },
       "DashboardLinkType": {
         "description": "TODO docs",
@@ -202,8 +196,7 @@
         "enum": [
           "link",
           "dashboards"
-        ],
-        "$schema": "http://json-schema.org/draft-04/schema#"
+        ]
       },
       "DataSourceRef": {
         "description": "Ref to a DataSource instance",
@@ -217,8 +210,7 @@
             "description": "Specific datasource instance",
             "type": "string"
           }
-        },
-        "$schema": "http://json-schema.org/draft-04/schema#"
+        }
       },
       "DataTransformerConfig": {
         "description": "TODO docs",
@@ -242,8 +234,7 @@
           "options": {
             "description": "Options to be passed to the transformer\nValid options depend on the transformer id"
           }
-        },
-        "$schema": "http://json-schema.org/draft-04/schema#"
+        }
       },
       "DynamicConfigValue": {
         "type": "object",
@@ -256,8 +247,7 @@
             "default": ""
           },
           "value": {}
-        },
-        "$schema": "http://json-schema.org/draft-04/schema#"
+        }
       },
       "FieldColor": {
         "description": "TODO docs",
@@ -289,8 +279,7 @@
           "seriesBy": {
             "$ref": "#/components/schemas/FieldColorSeriesByMode"
           }
-        },
-        "$schema": "http://json-schema.org/draft-04/schema#"
+        }
       },
       "FieldColorModeId": {
         "description": "TODO docs",
@@ -301,8 +290,7 @@
           "palette-saturated",
           "continuous-GrYlRd",
           "fixed"
-        ],
-        "$schema": "http://json-schema.org/draft-04/schema#"
+        ]
       },
       "FieldColorSeriesByMode": {
         "description": "TODO docs",
@@ -311,8 +299,7 @@
           "min",
           "max",
           "last"
-        ],
-        "$schema": "http://json-schema.org/draft-04/schema#"
+        ]
       },
       "FieldConfig": {
         "type": "object",
@@ -381,8 +368,7 @@
             "description": "custom is specified by the PanelFieldConfig field\nin panel plugin schemas.",
             "type": "object"
           }
-        },
-        "$schema": "http://json-schema.org/draft-04/schema#"
+        }
       },
       "FieldConfigSource": {
         "type": "object",
@@ -415,8 +401,7 @@
               }
             }
           }
-        },
-        "$schema": "http://json-schema.org/draft-04/schema#"
+        }
       },
       "GraphPanel": {
         "description": "Support for legacy graph and heatmap panels.",
@@ -450,8 +435,7 @@
               }
             }
           }
-        },
-        "$schema": "http://json-schema.org/draft-04/schema#"
+        }
       },
       "GridPos": {
         "type": "object",
@@ -497,8 +481,7 @@
             "description": "true if fixed",
             "type": "boolean"
           }
-        },
-        "$schema": "http://json-schema.org/draft-04/schema#"
+        }
       },
       "HeatmapPanel": {
         "type": "object",
@@ -512,8 +495,7 @@
               "heatmap"
             ]
           }
-        },
-        "$schema": "http://json-schema.org/draft-04/schema#"
+        }
       },
       "LibraryPanelRef": {
         "type": "object",
@@ -528,8 +510,7 @@
           "uid": {
             "type": "string"
           }
-        },
-        "$schema": "http://json-schema.org/draft-04/schema#"
+        }
       },
       "LoadingState": {
         "type": "string",
@@ -539,8 +520,7 @@
           "Streaming",
           "Done",
           "Error"
-        ],
-        "$schema": "http://json-schema.org/draft-04/schema#"
+        ]
       },
       "MappingType": {
         "description": "TODO docs",
@@ -550,8 +530,7 @@
           "range",
           "regex",
           "special"
-        ],
-        "$schema": "http://json-schema.org/draft-04/schema#"
+        ]
       },
       "MatcherConfig": {
         "type": "object",
@@ -564,8 +543,7 @@
             "default": ""
           },
           "options": {}
-        },
-        "$schema": "http://json-schema.org/draft-04/schema#"
+        }
       },
       "Panel": {
         "description": "Dashboard panels. Panels are canonically defined inline\nbecause they share a version timeline with the dashboard\nschema; they do not evolve independently.",
@@ -703,8 +681,7 @@
           "fieldConfig": {
             "$ref": "#/components/schemas/FieldConfigSource"
           }
-        },
-        "$schema": "http://json-schema.org/draft-04/schema#"
+        }
       },
       "RangeMap": {
         "description": "TODO docs",
@@ -749,8 +726,7 @@
               }
             }
           }
-        },
-        "$schema": "http://json-schema.org/draft-04/schema#"
+        }
       },
       "RegexMap": {
         "description": "TODO docs",
@@ -788,8 +764,7 @@
               }
             }
           }
-        },
-        "$schema": "http://json-schema.org/draft-04/schema#"
+        }
       },
       "RowPanel": {
         "description": "Row panel",
@@ -855,8 +830,7 @@
             "description": "Name of template variable to repeat for.",
             "type": "string"
           }
-        },
-        "$schema": "http://json-schema.org/draft-04/schema#"
+        }
       },
       "Snapshot": {
         "description": "TODO docs",
@@ -926,8 +900,7 @@
             "minimum": 0,
             "maximum": 4294967295
           }
-        },
-        "$schema": "http://json-schema.org/draft-04/schema#"
+        }
       },
       "SpecialValueMap": {
         "description": "TODO docs",
@@ -973,8 +946,7 @@
               }
             }
           }
-        },
-        "$schema": "http://json-schema.org/draft-04/schema#"
+        }
       },
       "SpecialValueMatch": {
         "description": "TODO docs",
@@ -986,13 +958,11 @@
           "nan",
           "null+nan",
           "empty"
-        ],
-        "$schema": "http://json-schema.org/draft-04/schema#"
+        ]
       },
       "Target": {
         "description": "Schema for panel targets is specified by datasource\nplugins. We use a placeholder definition, which the Go\nschema loader either left open/as-is with the Base\nvariant of the Dashboard and Panel families, or filled\nwith types derived from plugins in the Instance variant.\nWhen working directly from CUE, importers can extend this\ntype directly to achieve the same effect.",
-        "type": "object",
-        "$schema": "http://json-schema.org/draft-04/schema#"
+        "type": "object"
       },
       "Threshold": {
         "description": "TODO docs",
@@ -1018,8 +988,7 @@
             "description": "TODO docs\nTODO are the values here enumerable into a disjunction?\nSome seem to be listed in typescript comment",
             "type": "string"
           }
-        },
-        "$schema": "http://json-schema.org/draft-04/schema#"
+        }
       },
       "ThresholdsConfig": {
         "type": "object",
@@ -1038,16 +1007,14 @@
               "$ref": "#/components/schemas/Threshold"
             }
           }
-        },
-        "$schema": "http://json-schema.org/draft-04/schema#"
+        }
       },
       "ThresholdsMode": {
         "type": "string",
         "enum": [
           "absolute",
           "percentage"
-        ],
-        "$schema": "http://json-schema.org/draft-04/schema#"
+        ]
       },
       "ValueMap": {
         "description": "TODO docs",
@@ -1076,8 +1043,7 @@
               "$ref": "#/components/schemas/ValueMappingResult"
             }
           }
-        },
-        "$schema": "http://json-schema.org/draft-04/schema#"
+        }
       },
       "ValueMapping": {
         "description": "TODO docs",
@@ -1095,8 +1061,7 @@
           {
             "$ref": "#/components/schemas/SpecialValueMap"
           }
-        ],
-        "$schema": "http://json-schema.org/draft-04/schema#"
+        ]
       },
       "ValueMappingResult": {
         "description": "TODO docs",
@@ -1115,8 +1080,7 @@
             "type": "integer",
             "format": "int32"
           }
-        },
-        "$schema": "http://json-schema.org/draft-04/schema#"
+        }
       },
       "VariableHide": {
         "type": "integer",
@@ -1124,8 +1088,7 @@
           0,
           1,
           2
-        ],
-        "$schema": "http://json-schema.org/draft-04/schema#"
+        ]
       },
       "VariableModel": {
         "description": "FROM: packages/grafana-data/src/types/templateVars.ts\nTODO docs\nTODO what about what's in public/app/features/types.ts?\nTODO there appear to be a lot of different kinds of [template] vars here? if so need a disjunction",
@@ -1197,8 +1160,7 @@
           "datasource": {
             "$ref": "#/components/schemas/DataSourceRef"
           }
-        },
-        "$schema": "http://json-schema.org/draft-04/schema#"
+        }
       },
       "VariableType": {
         "description": "FROM: packages/grafana-data/src/types/templateVars.ts\nTODO docs\nTODO this implies some wider pattern/discriminated union, probably?",
@@ -1212,8 +1174,7 @@
           "textbox",
           "custom",
           "system"
-        ],
-        "$schema": "http://json-schema.org/draft-04/schema#"
+        ]
       },
       "_kubeObjectMetadata": {
         "description": "_kubeObjectMetadata is metadata found in a kubernetes object's metadata field.\nIt is not exhaustive and only includes fields which may be relevant to a kind's implementation,\nAs it is also intended to be generic enough to function with any API Server.",
@@ -1252,8 +1213,7 @@
               "type": "string"
             }
           }
-        },
-        "$schema": "http://json-schema.org/draft-04/schema#"
+        }
       },
       "dashboard": {
         "type": "object",
@@ -1560,8 +1520,7 @@
               "spec"
             ]
           }
-        ],
-        "$schema": "http://json-schema.org/draft-04/schema#"
+        ]
       },
       "joinSchema.status.#OperatorState": {
         "type": "object",
@@ -1591,8 +1550,7 @@
             "description": "details contains any extra information that is operator-specific",
             "type": "object"
           }
-        },
-        "$schema": "http://json-schema.org/draft-04/schema#"
+        }
       },
       "status.#OperatorState": {
         "type": "object",
@@ -1622,8 +1580,7 @@
             "description": "details contains any extra information that is operator-specific",
             "type": "object"
           }
-        },
-        "$schema": "http://json-schema.org/draft-04/schema#"
+        }
       }
     }
   }
