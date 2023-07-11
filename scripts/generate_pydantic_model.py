@@ -8,13 +8,15 @@ def _execute_datamodel_codegen(
         path_input: Path,
         path_output: Path,
 ):
-    os.system(
+    ret = os.system(
         'datamodel-codegen '
         f'--input {path_input} '
         '--input-file-type openapi '
         f'--output {path_output} '
         "--custom-file-header '# AUTO GENERATED, PLEASE DO NOT MODIFY BY HAND'"
     )
+    if ret != 0:
+        print('ERROR WHEN EXECUTING CODEGEN!')
 
 
 def _ensure_python_package(d: Path):
@@ -61,9 +63,9 @@ _ensure_python_package(dir_target)
 p_temp = Path('/tmp/generate_pydantic_model_temp.json')
 
 for p_src in dir_src.glob('**/*.json'):
-    # TODO temp
-    if p_src.name != 'dashboard_types_gen.json':
-        continue
+    # temp
+    # if p_src.name != 'dashboard_types_gen.json':
+    #     continue
 
     p_target = dir_target / f'{p_src.stem}.py'
     print(f'Handle: {p_src} -> {p_target}')

@@ -140,7 +140,7 @@ class ColorItem(BaseModel):
 
 
 class Le(Enum):
-    field_1E_9 = '1E-9'
+    field_1e_09 = '1e-09'
 
 
 class FilterValue(BaseModel):
@@ -228,7 +228,7 @@ class PanelOptions(BaseModel):
         ..., description='Controls the color options'
     )
     filterValues: Optional[Union[FilterValueRange, FilterValue]] = Field(
-        {'le': '1E-9'}, description='Filters values between a given range'
+        {'le': '1e-09'}, description='Filters values between a given range'
     )
     rowsFrame: Optional[RowsHeatmapOptions] = None
     showValue: VisibilityMode = Field(
