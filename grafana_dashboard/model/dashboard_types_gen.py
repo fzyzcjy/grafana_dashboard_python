@@ -8,6 +8,9 @@ from typing import Any, Dict, List, Optional, Union
 
 from pydantic import BaseModel, Field, conint, constr
 
+from grafana_dashboard.model.lokidataquery_types_gen import LokiDataQuery
+from grafana_dashboard.model.prometheusdataquery_types_gen import PrometheusDataQuery
+
 
 class AnnotationPanelFilter(BaseModel):
     exclude: Optional[bool] = Field(
@@ -180,8 +183,9 @@ class SpecialValueMatch(Enum):
     empty = 'empty'
 
 
-class Target(BaseModel):
-    pass
+# NOTE REMOVED
+# class Target(BaseModel):
+#     pass
 
 
 class Threshold(BaseModel):
@@ -534,7 +538,7 @@ class Panel(BaseModel):
         description='FIXME this almost certainly has to be changed in favor of scuemata versions',
     )
     tags: Optional[List[str]] = Field(None, description='TODO docs')
-    targets: Optional[List[Target]] = Field(None, description='TODO docs')
+    targets: Optional[List[Union[PrometheusDataQuery, LokiDataQuery, Dict]]] = Field(None)  # NOTE MODIFIED
     title: Optional[str] = Field(None, description='Panel title.')
     description: Optional[str] = Field(None, description='Description.')
     transparent: Optional[bool] = Field(
