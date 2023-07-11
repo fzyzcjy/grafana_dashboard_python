@@ -687,11 +687,20 @@ class Spec(MyBaseModel):
     links: Optional[List[DashboardLink]] = Field(None, description='TODO docs')
     snapshot: Optional[Snapshot] = None
 
-    # NOTE MODIFIED
+    # NOTE MODIFIED add
     def auto_panel_ids(self):
         from grafana_dashboard.utils import dashboard_auto_panel_ids
         dashboard_auto_panel_ids(self)
         return self
+
+    # NOTE MODIFIED add
+    def to_grafana_json(self):
+        return self.json(
+            # NOTE need by_alias for `Time.from_` #10119
+            by_alias=True,
+            sort_keys=True,
+            indent=2,
+        )
 
 
 class Dashboard(MyBaseModel):
