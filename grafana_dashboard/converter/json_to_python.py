@@ -20,6 +20,8 @@ def convert(
     python_dashboard_code = buf.getvalue()
 
     python_code = '\n'.join([
+        'from grafana_dashboard.model.dashboard_types_gen import *',
+        '',
         f'dashboard = {python_dashboard_code}',
         '',
     ])
