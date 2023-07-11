@@ -4,24 +4,14 @@ from grafana_dashboard.model import piechartpanelcfg_types_gen, timeseriespanelc
 from grafana_dashboard.model.dashboard_types_gen import Panel
 
 
-class _DefaultPanel(Panel):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        if self.fieldConfig.defaults.custom is None:
-            self.fieldConfig.defaults.custom = self._default_field_config_custom()
-
-    @classmethod
-    def _default_field_config_custom(cls):
-        raise NotImplementedError
-
-
-class TimeSeries(_DefaultPanel):
+class TimeSeries(Panel):
     type: Literal['timeseries'] = 'timeseries'
     options: timeseriespanelcfg_types_gen.PanelOptions = timeseriespanelcfg_types_gen.PanelOptions()
 
-    @classmethod
-    def _default_field_config_custom(cls):
-        return timeseriespanelcfg_types_gen.GraphFieldConfig()
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        if self.fieldConfig.defaults.custom is None:
+            self.fieldConfig.defaults.custom = timeseriespanelcfg_types_gen.GraphFieldConfig()
 
 
 class PieChart(Panel):
