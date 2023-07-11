@@ -51,7 +51,7 @@ class ReduceDataOptions(MyBaseModel):
     values: Optional[bool] = Field(None, description='If true show each row value')
     limit: Optional[float] = Field(None, description='if showing all values limit')
     calcs: List[str] = Field(
-        ..., description='When !values, pick one value for the whole field'
+        [], description='When !values, pick one value for the whole field'  # NOTE MODIFIED
     )
     fields: Optional[str] = Field(
         None,
@@ -95,8 +95,8 @@ class VizTextDisplayOptions(MyBaseModel):
 
 
 class VizTooltipOptions(MyBaseModel):
-    mode: TooltipDisplayMode
-    sort: SortOrder
+    mode: TooltipDisplayMode = TooltipDisplayMode.single  # NOTE MODIFIED
+    sort: SortOrder = SortOrder.none  # NOTE MODIFIED
 
 
 class OptionsWithTextFormatting(MyBaseModel):
@@ -104,7 +104,7 @@ class OptionsWithTextFormatting(MyBaseModel):
 
 
 class OptionsWithTooltip(MyBaseModel):
-    tooltip: Optional[VizTooltipOptions] = None  # NOTE MODIFIED
+    tooltip: VizTooltipOptions = VizTooltipOptions()  # NOTE MODIFIED
 
 
 class PieChartLegendOptions(VizLegendOptions):
@@ -112,7 +112,7 @@ class PieChartLegendOptions(VizLegendOptions):
 
 
 class SingleStatBaseOptions(OptionsWithTextFormatting):
-    reduceOptions: Optional[ReduceDataOptions] = None  # NOTE MODIFIED
+    reduceOptions: Optional[ReduceDataOptions] = ReduceDataOptions()  # NOTE MODIFIED
     orientation: Optional[VizOrientation] = None  # NOTE MODIFIED
 
 
