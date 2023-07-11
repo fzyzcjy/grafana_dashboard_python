@@ -1,8 +1,6 @@
 # AUTO GENERATED, PLEASE DO NOT MODIFY BY HAND
-from __future__ import annotations
 
-from enum import Enum
-from typing import Any, List, Optional, Union
+from typing import Any, Union
 
 from pydantic import Field, confloat, conint
 
