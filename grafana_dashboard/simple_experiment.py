@@ -5,6 +5,7 @@ import rich.console
 
 from grafana_dashboard.model.dashboard_types_gen import *
 from grafana_dashboard.model.prometheusdataquery_types_gen import *
+from grafana_dashboard.model.timeseriespanelcfg_types_gen import *
 
 # experiment, just create one from GUI and copy it here
 sample_json = {
@@ -190,15 +191,18 @@ copied_repr_of_sample_dashboard = Spec(
             datasource=Datasource(type='prometheus', uid='PBFA97CFB590B2093'),
             gridPos=GridPos(),
             transformations=[],
-            options={
-                'legend': {
-                    'calcs': [],
-                    'displayMode': 'list',
-                    'placement': 'bottom',
-                    'showLegend': True
-                },
-                'tooltip': {'mode': 'single', 'sort': 'none'}
-            },
+            options=PanelOptions(
+                legend=VizLegendOptions(
+                    displayMode=LegendDisplayMode.list,
+                    placement=LegendPlacement.bottom,
+                    showLegend=True,
+                    calcs=[]
+                ),
+                tooltip=VizTooltipOptions(
+                    mode=TooltipDisplayMode.single,
+                    sort=SortOrder.none
+                )
+            ),
             fieldConfig=FieldConfigSource(
                 defaults=FieldConfig(
                     mappings=[],
@@ -210,29 +214,36 @@ copied_repr_of_sample_dashboard = Spec(
                         ]
                     ),
                     color=FieldColor(mode=ModeEnum.palette_classic),
-                    custom={
-                        'axisCenteredZero': False,
-                        'axisColorMode': 'text',
-                        'axisLabel': '',
-                        'axisPlacement': 'auto',
-                        'barAlignment': 0,
-                        'drawStyle': 'line',
-                        'fillOpacity': 0,
-                        'gradientMode': 'none',
-                        'hideFrom': {
-                            'legend': False,
-                            'tooltip': False,
-                            'viz': False
-                        },
-                        'lineInterpolation': 'linear',
-                        'lineWidth': 1,
-                        'pointSize': 5,
-                        'scaleDistribution': {'type': 'linear'},
-                        'showPoints': 'auto',
-                        'spanNulls': False,
-                        'stacking': {'group': 'A', 'mode': 'none'},
-                        'thresholdsStyle': {'mode': 'off'}
-                    }
+                    custom=GraphFieldConfig(
+                        hideFrom=HideSeriesConfig(
+                            tooltip=False,
+                            legend=False,
+                            viz=False
+                        ),
+                        stacking=StackingConfig(
+                            mode=StackingMode.none,
+                            group='A'
+                        ),
+                        barAlignment=BarAlignment.integer_0,
+                        axisPlacement=AxisPlacement.auto,
+                        axisColorMode=AxisColorMode.text,
+                        axisLabel='',
+                        scaleDistribution=ScaleDistributionConfig(
+                            type=ScaleDistribution.linear
+                        ),
+                        axisCenteredZero=False,
+                        showPoints=VisibilityMode.auto,
+                        pointSize=5.0,
+                        fillOpacity=0.0,
+                        lineWidth=1.0,
+                        lineInterpolation=LineInterpolation.linear,
+                        spanNulls=False,
+                        drawStyle=GraphDrawStyle.line,
+                        gradientMode=GraphGradientMode.none,
+                        thresholdsStyle=GraphThresholdsStyleConfig(
+                            mode=GraphTresholdsStyleMode.off
+                        )
+                    )
                 ),
                 overrides=[]
             )
