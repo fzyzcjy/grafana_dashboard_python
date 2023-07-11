@@ -354,11 +354,11 @@ class AnnotationQuery(MyBaseModel):
 
 class DashboardLink(MyBaseModel):
     title: str
-    type: DashboardLinkType
-    icon: str
-    tooltip: str
+    type: DashboardLinkType = None  # NOTE MODIFIED
+    icon: str = []  # NOTE MODIFIED
+    tooltip: str = []  # NOTE MODIFIED
     url: str
-    tags: List[str]
+    tags: List[str] = []  # NOTE MODIFIED
     asDropdown: Optional[bool] = False
     targetBlank: Optional[bool] = False
     includeVars: Optional[bool] = False
