@@ -248,7 +248,7 @@ class SQLExpression(BaseModel):
     orderByDirection: Optional[str] = Field(
         None, description='The sort order of the SQL expression, `ASC` or `DESC`'
     )
-    limit: Optional[int] = Field(None, description='test222 LIMIT part of the SQL expression')
+    limit: Optional[int] = Field(None, description='LIMIT part of the SQL expression')
 
 
 CloudWatchMetricsQuery.update_forward_refs()
