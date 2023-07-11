@@ -545,7 +545,12 @@ class Panel(MyBaseModel):
         description='FIXME this almost certainly has to be changed in favor of scuemata versions',
     )
     tags: Optional[List[str]] = Field(None, description='TODO docs')
-    targets: Optional[List[Union[PrometheusDataQuery, LokiDataQuery, Dict]]] = Field(None)  # NOTE MODIFIED
+    # NOTE MODIFIED, originally it is (empty class) `Target`
+    targets: Optional[List[Union[
+        PrometheusDataQuery,
+        LokiDataQuery,
+        Dict[str, Any]
+    ]]] = Field(None)
     title: Optional[str] = Field(None, description='Panel title.')
     description: Optional[str] = Field(None, description='Description.')
     transparent: Optional[bool] = Field(
