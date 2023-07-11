@@ -684,6 +684,12 @@ class Spec(MyBaseModel):
     links: Optional[List[DashboardLink]] = Field(None, description='TODO docs')
     snapshot: Optional[Snapshot] = None
 
+    # NOTE MODIFIED
+    def auto_panel_ids(self):
+        from grafana_dashboard.utils import dashboard_auto_panel_ids
+        dashboard_auto_panel_ids(self)
+        return self
+
 
 class Dashboard(MyBaseModel):
     metadata: Metadata = Field(

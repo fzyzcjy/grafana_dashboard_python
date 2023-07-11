@@ -1,7 +1,12 @@
+import itertools
 from dataclasses import dataclass
 from enum import Enum
+from typing import TYPE_CHECKING
 
 from pydantic import BaseModel, Extra
+
+if TYPE_CHECKING:
+    from grafana_dashboard.model.dashboard_types_gen import Spec
 
 
 class MyBaseModel(BaseModel):
@@ -44,3 +49,11 @@ class _Reprable:
 
     def __repr__(self):
         return self.content
+
+
+def dashboard_auto_panel_ids(dashboard: 'Spec'):
+    ids = set([panel.id for panel in dashboard.panels if panel.id])
+    auto_ids = (i for i in itertools.count(1) if i not in ids)
+    for panel in dashboard.panels:
+        if panel.id is None:
+            panel.id = next(auto_ids)
