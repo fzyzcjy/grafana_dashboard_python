@@ -72,8 +72,8 @@ class TooltipDisplayMode(Enum):
 
 
 class VizLegendOptions(MyBaseModel):
-    displayMode: LegendDisplayMode
-    placement: LegendPlacement
+    displayMode: LegendDisplayMode = LegendDisplayMode.list  # NOTE MODIFIED
+    placement: LegendPlacement = LegendPlacement.bottom  # NOTE MODIFIED
     showLegend: bool = True  # NOTE MODIFIED
     asTable: Optional[bool] = None
     isVisible: Optional[bool] = None
@@ -108,7 +108,7 @@ class OptionsWithTooltip(MyBaseModel):
 
 
 class PieChartLegendOptions(VizLegendOptions):
-    values: List[PieChartLegendValues]
+    values: List[PieChartLegendValues] = []  # NOTE MODIFIED
 
 
 class SingleStatBaseOptions(OptionsWithTextFormatting):
@@ -117,9 +117,9 @@ class SingleStatBaseOptions(OptionsWithTextFormatting):
 
 
 class PanelOptions(OptionsWithTooltip, SingleStatBaseOptions):
-    pieType: PieChartType
-    displayLabels: List[PieChartLabels]
-    legend: PieChartLegendOptions
+    pieType: PieChartType = PieChartType.pie  # NOTE MODIFIED
+    displayLabels: List[PieChartLabels] = []  # NOTE MODIFIED
+    legend: PieChartLegendOptions = PieChartLegendOptions()  # NOTE MODIFIED
 
 
 class PieChartPanelCfg(MyBaseModel):
