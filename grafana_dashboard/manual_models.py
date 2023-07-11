@@ -1,7 +1,7 @@
 from typing import Literal, Dict, List
 
 from grafana_dashboard.model import piechartpanelcfg_types_gen, timeseriespanelcfg_types_gen, tablepanelcfg_types_gen
-from grafana_dashboard.model.dashboard_types_gen import Panel
+from grafana_dashboard.model.dashboard_types_gen import Panel, ModeEnum, FieldColor
 
 
 class TimeSeries(Panel):
@@ -12,6 +12,8 @@ class TimeSeries(Panel):
         super().__init__(**kwargs)
         if self.fieldConfig.defaults.custom is None:
             self.fieldConfig.defaults.custom = timeseriespanelcfg_types_gen.GraphFieldConfig()
+        if self.fieldConfig.defaults.color is None:
+            self.fieldConfig.defaults.color = FieldColor(mode=ModeEnum.palette_classic)
 
 
 class PieChart(Panel):
@@ -22,6 +24,11 @@ class PieChart(Panel):
 class Table(Panel):
     type: Literal['table'] = 'table'
     options: tablepanelcfg_types_gen.PanelOptions = tablepanelcfg_types_gen.PanelOptions()
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        if self.fieldConfig.defaults.color is None:
+            self.fieldConfig.defaults.color = FieldColor(mode=ModeEnum.thresholds)
 
 
 def _dict_nested_fill_default_value(d: Dict, keys: List[str], value):

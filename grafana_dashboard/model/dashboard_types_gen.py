@@ -515,7 +515,7 @@ class FieldConfig(MyBaseModel):
         [], description='Convert input values into a display string'  # NOTE MODIFIED
     )
     thresholds: Optional[ThresholdsConfig] = None
-    color: Optional[FieldColor] = FieldColor(mode=ModeEnum.palette_classic)  # NOTE MODIFIED
+    color: Optional[FieldColor] = None
     links: Optional[List] = Field(
         None, description='The behavior when clicking on a result'
     )
