@@ -577,7 +577,7 @@ class Panel(MyBaseModel):
     )
     repeatPanelId: Optional[int] = Field(None, description='Id of the repeating panel.')
     maxDataPoints: Optional[float] = Field(None, description='TODO docs')
-    thresholds: Optional[List] = Field(
+    thresholds: Optional[Any] = Field(  # NOTE MODIFIED List->Any, since see double in production
         None,
         description='TODO docs - seems to be an old field from old dashboard alerts?',
     )
@@ -610,7 +610,7 @@ class RowPanel(MyBaseModel):
     type: Type2 = 'row'  # NOTE MODIFIED
     collapsed: Optional[bool] = False
     title: Optional[str] = None
-    datasource: Optional[Datasource] = Field(
+    datasource: Optional[Union[Datasource, str]] = Field(  # NOTE MODIFIED add `str`
         None, description='Name of default datasource.'
     )
     gridPos: Optional[GridPos] = None
