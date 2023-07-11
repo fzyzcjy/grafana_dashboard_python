@@ -1,7 +1,7 @@
 Common subdirectories: ../misc/model_generation/raw_generated/__pycache__ and ../grafana_dashboard/model/__pycache__
 diff -Nau ../misc/model_generation/raw_generated/dashboard_types_gen.py ../grafana_dashboard/model/dashboard_types_gen.py
 --- ../misc/model_generation/raw_generated/dashboard_types_gen.py	2023-07-11 14:03:28.000000000 +0800
-+++ ../grafana_dashboard/model/dashboard_types_gen.py	2023-07-11 15:18:33.000000000 +0800
++++ ../grafana_dashboard/model/dashboard_types_gen.py	2023-07-11 15:30:22.000000000 +0800
 @@ -6,9 +6,13 @@
  from enum import Enum
  from typing import Any, Dict, List, Optional, Union
@@ -29,7 +29,26 @@ diff -Nau ../misc/model_generation/raw_generated/dashboard_types_gen.py ../grafa
  
  
  class Threshold(MyBaseModel):
-@@ -514,7 +519,12 @@
+@@ -459,7 +464,7 @@
+ 
+ 
+ class Templating(MyBaseModel):
+-    list: Optional[List[VariableModel]] = None
++    list: List[VariableModel]  # NOTE MODIFIED
+ 
+ 
+ class Status(MyBaseModel):
+@@ -473,7 +478,8 @@
+ 
+ 
+ class AnnotationContainer(MyBaseModel):
+-    list: Optional[List[AnnotationQuery]] = None
++    # NOTE MODIFIED - should allow any dict for custom data source
++    list: Optional[List[Union[AnnotationQuery, Dict[str, Any]]]] = None
+ 
+ 
+ class FieldConfig(MyBaseModel):
+@@ -514,7 +520,12 @@
          None, description='The behavior when clicking on a result'
      )
      noValue: Optional[str] = Field(None, description='Alternative to empty string')
@@ -43,7 +62,7 @@ diff -Nau ../misc/model_generation/raw_generated/dashboard_types_gen.py ../grafa
          None,
          description='custom is specified by the PanelFieldConfig field\nin panel plugin schemas.',
      )
-@@ -535,7 +545,12 @@
+@@ -535,7 +546,12 @@
          description='FIXME this almost certainly has to be changed in favor of scuemata versions',
      )
      tags: Optional[List[str]] = Field(None, description='TODO docs')
@@ -57,7 +76,7 @@ diff -Nau ../misc/model_generation/raw_generated/dashboard_types_gen.py ../grafa
      title: Optional[str] = Field(None, description='Panel title.')
      description: Optional[str] = Field(None, description='Description.')
      transparent: Optional[bool] = Field(
-@@ -563,7 +578,7 @@
+@@ -563,7 +579,7 @@
          description='TODO docs - seems to be an old field from old dashboard alerts?',
      )
      timeRegions: Optional[List] = Field(None, description='TODO docs')
@@ -66,7 +85,7 @@ diff -Nau ../misc/model_generation/raw_generated/dashboard_types_gen.py ../grafa
      interval: Optional[str] = Field(
          None, description='TODO docs\nTODO tighter constraint'
      )
-@@ -574,23 +589,29 @@
+@@ -574,23 +590,29 @@
          None, description='TODO docs\nTODO tighter constraint'
      )
      libraryPanel: Optional[LibraryPanelRef] = None
@@ -101,9 +120,28 @@ diff -Nau ../misc/model_generation/raw_generated/dashboard_types_gen.py ../grafa
      repeat: Optional[str] = Field(
          None, description='Name of template variable to repeat for.'
      )
+@@ -657,11 +679,17 @@
+         description='Version of the dashboard, incremented each time the dashboard is updated.',
+     )
+     panels: Optional[List[Union[Panel, RowPanel, GraphPanel, HeatmapPanel]]] = None
+-    templating: Optional[Templating] = Field(None, description='TODO docs')
++    templating: Templating = Field(Templating(list=[]), description='TODO docs')  # NOTE MODIFIED
+     annotations: Optional[AnnotationContainer] = None
+     links: Optional[List[DashboardLink]] = Field(None, description='TODO docs')
+     snapshot: Optional[Snapshot] = None
+ 
++    # NOTE MODIFIED
++    def auto_panel_ids(self):
++        from grafana_dashboard.utils import dashboard_auto_panel_ids
++        dashboard_auto_panel_ids(self)
++        return self
++
+ 
+ class Dashboard(MyBaseModel):
+     metadata: Metadata = Field(
 diff -Nau ../misc/model_generation/raw_generated/piechartpanelcfg_types_gen.py ../grafana_dashboard/model/piechartpanelcfg_types_gen.py
 --- ../misc/model_generation/raw_generated/piechartpanelcfg_types_gen.py	2023-07-11 14:03:36.000000000 +0800
-+++ ../grafana_dashboard/model/piechartpanelcfg_types_gen.py	2023-07-11 15:18:00.000000000 +0800
++++ ../grafana_dashboard/model/piechartpanelcfg_types_gen.py	2023-07-11 15:33:38.000000000 +0800
 @@ -5,9 +5,10 @@
  from enum import Enum
  from typing import List, Optional
@@ -116,6 +154,15 @@ diff -Nau ../misc/model_generation/raw_generated/piechartpanelcfg_types_gen.py .
  
  class HideSeriesConfig(MyBaseModel):
      tooltip: bool
+@@ -50,7 +51,7 @@
+     values: Optional[bool] = Field(None, description='If true show each row value')
+     limit: Optional[float] = Field(None, description='if showing all values limit')
+     calcs: List[str] = Field(
+-        ..., description='When !values, pick one value for the whole field'
++        [], description='When !values, pick one value for the whole field'  # NOTE MODIFIED
+     )
+     fields: Optional[str] = Field(
+         None,
 @@ -73,13 +74,13 @@
  class VizLegendOptions(MyBaseModel):
      displayMode: LegendDisplayMode
@@ -132,12 +179,23 @@ diff -Nau ../misc/model_generation/raw_generated/piechartpanelcfg_types_gen.py .
  
  
  class VizOrientation(Enum):
+@@ -94,8 +95,8 @@
+ 
+ 
+ class VizTooltipOptions(MyBaseModel):
+-    mode: TooltipDisplayMode
+-    sort: SortOrder
++    mode: TooltipDisplayMode = TooltipDisplayMode.single  # NOTE MODIFIED
++    sort: SortOrder = SortOrder.none  # NOTE MODIFIED
+ 
+ 
+ class OptionsWithTextFormatting(MyBaseModel):
 @@ -103,7 +104,7 @@
  
  
  class OptionsWithTooltip(MyBaseModel):
 -    tooltip: VizTooltipOptions
-+    tooltip: Optional[VizTooltipOptions] = None  # NOTE MODIFIED
++    tooltip: VizTooltipOptions = VizTooltipOptions()  # NOTE MODIFIED
  
  
  class PieChartLegendOptions(VizLegendOptions):
@@ -147,7 +205,7 @@ diff -Nau ../misc/model_generation/raw_generated/piechartpanelcfg_types_gen.py .
  class SingleStatBaseOptions(OptionsWithTextFormatting):
 -    reduceOptions: ReduceDataOptions
 -    orientation: VizOrientation
-+    reduceOptions: Optional[ReduceDataOptions] = None  # NOTE MODIFIED
++    reduceOptions: Optional[ReduceDataOptions] = ReduceDataOptions()  # NOTE MODIFIED
 +    orientation: Optional[VizOrientation] = None  # NOTE MODIFIED
  
  
