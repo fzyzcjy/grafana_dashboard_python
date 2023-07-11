@@ -446,7 +446,8 @@ class ValueMapping(MyBaseModel):
 
 
 class VariableModel(MyBaseModel):
-    id: Optional[str] = '00000000-0000-0000-0000-000000000000'
+    # NOTE MODIFIED https://github.com/fzyzcjy/yplusplus/issues/10127#issuecomment-1630624655
+    id: Optional[str] = None
     type: VariableType
     name: str
     label: Optional[str] = None
@@ -454,7 +455,8 @@ class VariableModel(MyBaseModel):
     global_: Optional[bool] = Field(False, alias='global')
     hide: VariableHide
     skipUrlSync: Optional[bool] = False
-    index: Optional[conint(ge=-2147483648, le=2147483647)] = -1
+    # NOTE MODIFIED https://github.com/fzyzcjy/yplusplus/issues/10127#issuecomment-1630624655
+    index: Optional[conint(ge=-2147483648, le=2147483647)] = 0
     state: LoadingState = None  # NOTE MODIFIED
     error: Optional[Dict[str, Any]] = None
     description: Optional[str] = None
