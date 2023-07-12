@@ -634,7 +634,8 @@ class RowPanel(MyBaseModel):
     )
 
 
-class Spec(MyBaseModel):
+# NOTE MODIFIED rename "Spec" -> "Dashboard" to avoid confusion
+class Dashboard(MyBaseModel):
     id: Optional[int] = Field(
         None,
         description='Unique numeric identifier for the dashboard.\nTODO must isolate or remove identifiers local to a Grafana instance...?',
@@ -715,11 +716,5 @@ class Spec(MyBaseModel):
             indent=2,
         )
 
-
-class Dashboard(MyBaseModel):
-    metadata: Metadata = Field(
-        ...,
-        description='metadata contains embedded CommonMetadata and can be extended with custom string fields\nTODO: use CommonMetadata instead of redefining here; currently needs to be defined here\nwithout external reference as using the CommonMetadata reference breaks thema codegen.',
-    )
-    spec: Spec
-    status: Status
+# NOTE MODIFIED rm this "Dashboard" to avoid confusion
+# class Dashboard(MyBaseModel):

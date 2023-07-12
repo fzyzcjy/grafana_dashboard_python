@@ -116,7 +116,7 @@ diff -Nau ../misc/model_generation/raw_generated/bargaugepanelcfg_types_gen.py .
      minVizHeight: conint(ge=0, le=4294967295)
 diff -Nau ../misc/model_generation/raw_generated/dashboard_types_gen.py ../grafana_dashboard/model/dashboard_types_gen.py
 --- ../misc/model_generation/raw_generated/dashboard_types_gen.py	2023-07-11 14:03:28.000000000 +0800
-+++ ../grafana_dashboard/model/dashboard_types_gen.py	2023-07-11 21:41:55.000000000 +0800
++++ ../grafana_dashboard/model/dashboard_types_gen.py	2023-07-12 08:35:02.000000000 +0800
 @@ -6,9 +6,13 @@
  from enum import Enum
  from typing import Any, Dict, List, Optional, Union
@@ -300,7 +300,7 @@ diff -Nau ../misc/model_generation/raw_generated/dashboard_types_gen.py ../grafa
      interval: Optional[str] = Field(
          None, description='TODO docs\nTODO tighter constraint'
      )
-@@ -574,23 +606,29 @@
+@@ -574,29 +606,36 @@
          None, description='TODO docs\nTODO tighter constraint'
      )
      libraryPanel: Optional[LibraryPanelRef] = None
@@ -336,7 +336,15 @@ diff -Nau ../misc/model_generation/raw_generated/dashboard_types_gen.py ../grafa
      repeat: Optional[str] = Field(
          None, description='Name of template variable to repeat for.'
      )
-@@ -657,11 +695,26 @@
+ 
+ 
+-class Spec(MyBaseModel):
++# NOTE MODIFIED rename "Spec" -> "Dashboard" to avoid confusion
++class Dashboard(MyBaseModel):
+     id: Optional[int] = Field(
+         None,
+         description='Unique numeric identifier for the dashboard.\nTODO must isolate or remove identifiers local to a Grafana instance...?',
+@@ -657,16 +696,25 @@
          description='Version of the dashboard, incremented each time the dashboard is updated.',
      )
      panels: Optional[List[Union[Panel, RowPanel, GraphPanel, HeatmapPanel]]] = None
@@ -361,10 +369,16 @@ diff -Nau ../misc/model_generation/raw_generated/dashboard_types_gen.py ../grafa
 +            sort_keys=True,
 +            indent=2,
 +        )
-+
  
- class Dashboard(MyBaseModel):
-     metadata: Metadata = Field(
+-class Dashboard(MyBaseModel):
+-    metadata: Metadata = Field(
+-        ...,
+-        description='metadata contains embedded CommonMetadata and can be extended with custom string fields\nTODO: use CommonMetadata instead of redefining here; currently needs to be defined here\nwithout external reference as using the CommonMetadata reference breaks thema codegen.',
+-    )
+-    spec: Spec
+-    status: Status
++# NOTE MODIFIED rm this "Dashboard" to avoid confusion
++# class Dashboard(MyBaseModel):
 diff -Nau ../misc/model_generation/raw_generated/dashboardlistpanelcfg_types_gen.py ../grafana_dashboard/model/dashboardlistpanelcfg_types_gen.py
 --- ../misc/model_generation/raw_generated/dashboardlistpanelcfg_types_gen.py	2023-07-11 14:03:43.000000000 +0800
 +++ ../grafana_dashboard/model/dashboardlistpanelcfg_types_gen.py	2023-07-11 18:42:23.000000000 +0800

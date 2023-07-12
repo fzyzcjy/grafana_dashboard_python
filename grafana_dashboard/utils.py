@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING
 from pydantic import BaseModel, Extra
 
 if TYPE_CHECKING:
-    from grafana_dashboard.model.dashboard_types_gen import Spec
+    from grafana_dashboard.model.dashboard_types_gen import Dashboard
 
 
 class MyBaseModel(BaseModel):
@@ -51,7 +51,7 @@ class _Reprable:
         return self.content
 
 
-def dashboard_auto_panel_ids(dashboard: 'Spec'):
+def dashboard_auto_panel_ids(dashboard: 'Dashboard'):
     ids = set([panel.id for panel in dashboard.panels if panel.id])
     auto_ids = (i for i in itertools.count(1) if i not in ids)
     for panel in dashboard.panels:

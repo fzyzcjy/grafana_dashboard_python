@@ -4,7 +4,7 @@ from pathlib import Path
 
 import typer
 
-from grafana_dashboard.model.dashboard_types_gen import Spec
+from grafana_dashboard.model.dashboard_types_gen import Dashboard
 
 
 def convert_package(
@@ -28,7 +28,7 @@ def convert_package(
             continue
         mod = importlib.import_module(python_package_name)
         dashboard = mod.dashboard
-        assert isinstance(dashboard, Spec)
+        assert isinstance(dashboard, Dashboard)
 
         path_json = json_dir / str(path_python.parent.relative_to(python_package_dir)).replace('_', '-') \
                     / f'{path_python.stem.replace("_", "-")}.json'
@@ -37,7 +37,7 @@ def convert_package(
         convert_single(dashboard=dashboard, json_path=path_json)
 
 
-def convert_single(dashboard: Spec, json_path: Path):
+def convert_single(dashboard: Dashboard, json_path: Path):
     json_path.write_text(dashboard.to_grafana_json())
 
 
