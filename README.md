@@ -1,4 +1,7 @@
-# grafana-dashboard-python
+# grafana_dashboard_python
+
+[![PyPI](https://img.shields.io/pypi/v/grafana-dashboard)](https://pypi.org/project/grafana-dashboard/)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/c12919fe67ca46f098bf1a57bb8adb1e)](https://app.codacy.com/gh/fzyzcjy/grafana_dashboard_python/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
 Write Grafana dashboards in Python, without losing thousands of dashboards in the zoo
 
@@ -6,12 +9,14 @@ Write Grafana dashboards in Python, without losing thousands of dashboards in th
 
 Grafana's [official best practice](https://grafana.com/docs/grafana/latest/dashboards/build-dashboards/best-practices/#high---optimized-use) recommends **using scripts to generate dashboards**, instead of creating it in GUI manually. This avoids a lot of repetition, and also ensures consistency.
 
-[Grafanalib](https://github.com/weaveworks/grafanalib) is a library for that purpose, and I have enjoyed it in my system. However, I also want to **use (download and customize) the dashboards already built by other people** (https://grafana.com/grafana/dashboards/). Therefore, I create this small tool.
+[Grafanalib](https://github.com/weaveworks/grafanalib) is a library for that purpose, and I have enjoyed it in my system. However, I also want to **download and customize the dashboards already built by other people** (https://grafana.com/grafana/dashboards/). Therefore, I create this small tool.
+
+In the following sections, I assume you are familiar with Grafanalib, and want to use dashboards in the world.
 
 ## Installation
 
 ```py
-pip install grafana-dashboard
+pip install grafana_dashboard
 ```
 
 ## Sample workflow 1: Customize an existing dashboard
@@ -59,6 +64,8 @@ More importantly, you can always check the output JSON to see whether there is a
 Examples can be found at `/examples`.
 
 ## Relation with Grafanalib
+
+Firstly, thank you Grafanlib for the helpful tool!
 
 I do hope that I can simply PR to Grafanalib and add the "convert any JSON into Python" feature. However, in my humble opinion it is quite hard: Grafanalib's API differs a lot from Grafana's JSON API. Therefore, though I can easily convert JSON to Python dict or object constructor, it is time-consuming and error-prone to further convert it into valid Grafanalib code.
 
