@@ -33,5 +33,10 @@ def python_to_json(
     )
 
 
-if __name__ == '__main__':
+# https://github.com/tiangolo/typer/issues/34
+def run():
     app()
+
+
+if __name__ == "__main__":
+    run()

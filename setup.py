@@ -55,4 +55,9 @@ setup(
         exclude=["test", "test.*", "examples", "examples.*", "docs", "docs.*"]
     ),
     install_requires=get_install_requires(),
+    entry_points={
+        'console_scripts': [
+            'grafana_dashboard = grafana_dashboard.grafana_dashboard:run',
+        ],
+    },
 )
