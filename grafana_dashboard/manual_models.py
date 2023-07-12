@@ -37,6 +37,10 @@ class DashboardList(Panel):
     options: dashboardlistpanelcfg_types_gen.PanelOptions = dashboardlistpanelcfg_types_gen.PanelOptions()
 
 
+class AlertList(Panel):
+    type: Literal['alertlist'] = 'alertlist'
+
+
 class Text(Panel):
     type: Literal['text'] = 'text'
     options: textpanelcfg_types_gen.PanelOptions = textpanelcfg_types_gen.PanelOptions()
