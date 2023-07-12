@@ -655,7 +655,7 @@ class Dashboard(MyBaseModel):
         description='For dashboards imported from the https://grafana.com/grafana/dashboards/ portal',
     )
     tags: Optional[List[str]] = Field(
-        None, description='Tags associated with dashboard.'
+        [], description='Tags associated with dashboard.'  # NOTE MODIFIED
     )
     style: Optional[Style] = Field('dark', description='Theme of dashboard.')
     timezone: Optional[str] = Field(
@@ -665,7 +665,7 @@ class Dashboard(MyBaseModel):
     editable: Optional[bool] = Field(
         True, description='Whether a dashboard is editable or not.'
     )
-    graphTooltip: DashboardCursorSync
+    graphTooltip: DashboardCursorSync = DashboardCursorSync.not_shared  # NOTE MODIFIED
     time: Optional[Time] = Field(
         None,
         description='Time range for dashboard, e.g. last 6 hours, last 7 days, etc',

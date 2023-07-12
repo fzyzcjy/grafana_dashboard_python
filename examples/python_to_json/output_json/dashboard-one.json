@@ -1,0 +1,163 @@
+{
+  "annotations": {
+    "list": []
+  },
+  "description": null,
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": null,
+  "links": null,
+  "liveNow": null,
+  "panels": [
+    {
+      "datasource": null,
+      "description": null,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": null,
+            "mode": "palette-classic",
+            "seriesBy": null
+          },
+          "custom": {
+            "axisCenteredZero": null,
+            "axisColorMode": null,
+            "axisGridShow": null,
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "axisSoftMax": null,
+            "axisSoftMin": null,
+            "axisWidth": null,
+            "barAlignment": 0,
+            "barMaxWidth": null,
+            "barWidthFactor": null,
+            "drawStyle": "line",
+            "fillBelowTo": null,
+            "fillColor": null,
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineColor": null,
+            "lineInterpolation": "linear",
+            "lineStyle": null,
+            "lineWidth": 1,
+            "pointColor": null,
+            "pointSize": 5,
+            "pointSymbol": null,
+            "scaleDistribution": {
+              "linearThreshold": null,
+              "log": 2,
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": null,
+              "mode": null
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            },
+            "transform": null
+          },
+          "decimals": null,
+          "description": null,
+          "displayName": null,
+          "displayNameFromDS": null,
+          "filterable": null,
+          "links": null,
+          "mappings": [],
+          "max": null,
+          "min": null,
+          "noValue": null,
+          "path": null,
+          "thresholds": null,
+          "unit": null,
+          "writeable": null
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "static": null,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "interval": null,
+      "libraryPanel": null,
+      "links": null,
+      "maxDataPoints": null,
+      "options": {
+        "legend": {
+          "asTable": null,
+          "calcs": [],
+          "displayMode": "list",
+          "isVisible": null,
+          "placement": "bottom",
+          "showLegend": true,
+          "sortBy": null,
+          "sortDesc": null,
+          "width": null
+        },
+        "timezone": null,
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": null,
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatPanelId": null,
+      "tags": null,
+      "targets": [
+        {
+          "datasource": "Prometheus",
+          "editorMode": null,
+          "exemplar": null,
+          "expr": "avg(1 - rate(node_cpu_seconds_total{mode=\"idle\"}[$__rate_interval])) by (instance, job)",
+          "format": null,
+          "hide": null,
+          "instant": null,
+          "intervalFactor": null,
+          "legendFormat": "{{instance}}",
+          "queryType": null,
+          "range": null,
+          "refId": ""
+        }
+      ],
+      "thresholds": null,
+      "timeFrom": null,
+      "timeRegions": null,
+      "timeShift": null,
+      "title": "Panel Title",
+      "transformations": [],
+      "transparent": false,
+      "type": "timeseries"
+    }
+  ],
+  "refresh": null,
+  "revision": null,
+  "schemaVersion": 36,
+  "snapshot": null,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": null,
+  "timepicker": null,
+  "timezone": "browser",
+  "title": "Dashboard One",
+  "uid": null,
+  "version": null,
+  "weekStart": null
+}
