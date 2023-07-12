@@ -8,6 +8,12 @@ Grafana's [official best practice](https://grafana.com/docs/grafana/latest/dashb
 
 [Grafanalib](https://github.com/weaveworks/grafanalib) is a library for that purpose, and I have enjoyed it in my system. However, I also want to **use (download and customize) the dashboards already built by other people** (https://grafana.com/grafana/dashboards/). Therefore, I create this small tool.
 
+## Installation
+
+```py
+pip install grafana-dashboard
+```
+
 ## Sample workflow 1: Customize an existing dashboard
 
 ### Step 1: Convert standard Grafana dashboard into Python code
