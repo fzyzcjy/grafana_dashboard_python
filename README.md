@@ -5,6 +5,8 @@
 
 Write Grafana dashboards in Python, without losing thousands of dashboards in the zoo
 
+![](doc/logo.svg)
+
 ## Introduction
 
 Grafana's [official best practice](https://grafana.com/docs/grafana/latest/dashboards/build-dashboards/best-practices/#high---optimized-use) recommends **using scripts to generate dashboards**, instead of creating it in GUI manually. This avoids a lot of repetition, and also ensures consistency.
