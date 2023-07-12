@@ -48,6 +48,10 @@ If you see a bug, feel free to create an issue or PR, and I usually reply quickl
 
 More importantly, you can always check the output JSON to see whether there is an unexpected output. For example, in my own workflow, I let Git track the JSON. Then, if anything changes, I have a clear diff.
 
+## Examples
+
+Examples can be found at `/examples`.
+
 ## Relation with Grafanalib
 
 I do hope that I can simply PR to Grafanalib and add the "convert any JSON into Python" feature. However, in my humble opinion it is quite hard: Grafanalib's API differs a lot from Grafana's JSON API. Therefore, though I can easily convert JSON to Python dict or object constructor, it is time-consuming and error-prone to further convert it into valid Grafanalib code.
