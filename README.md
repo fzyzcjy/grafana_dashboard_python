@@ -5,7 +5,7 @@
 
 Write Grafana dashboards in Python, without losing thousands of dashboards in the zoo
 
-![](doc/logo.svg)
+![](https://github.com/fzyzcjy/grafana_dashboard_python/blob/master/doc/simple_explain.png?raw=true)
 
 ## Introduction
 
