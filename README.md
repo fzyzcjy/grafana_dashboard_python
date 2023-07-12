@@ -57,3 +57,8 @@ I do hope that I can simply PR to Grafanalib and add the "convert any JSON into 
 Pretty simple. When using it, it is nothing but a series of `Pydantic` models, with almost no logic except that. So you are indeed using the serialization and deserialization feature of Pydantic.
 
 As for how the Pydantic code is created: It is generated automatically from Grafana's official [schema](https://github.com/grafana/grok), and then manually tweaked for a better developer experience (e.g. provide more sensible defaults, make types looser). All changes are recorded in a patch file, so the package can be easily upgraded when Grafana upgrades, and always keep the definition accurate.
+
+## Tips
+
+* You can (auto) migrate the JSON to latest `schemaVersion` by importing the JSON into Grafana and download/save JSON from the imported dashboard. Doing so may make your code a bit cleaner.
+* If the Python generated from JSON gives weird results, it is trivial to debug: Just compare the newly generated JSON with the original JSON, and fix any noticeable differences.
