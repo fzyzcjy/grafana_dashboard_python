@@ -9,6 +9,7 @@ def convert_package(
         python_base_dir: Path,
         python_base_package: str,
         json_dir: Path,
+        check_uid: bool = False,
 ):
     assert python_base_dir.is_dir()
     assert json_dir.is_dir()
@@ -30,6 +31,9 @@ def convert_package(
 
         path_json = json_dir / str(path_python.parent.relative_to(python_package_dir)).replace('_', '-') \
                     / f'{path_python.stem.replace("_", "-")}.json'
+
+        if check_uid:
+            assert dashboard.uid, f'check_uid failed: {path_python} dashboard does not have non-empty uid'
 
         print(f'convert_package generate {path_python} -> {path_json}')
         convert_single(dashboard=dashboard, json_path=path_json)
