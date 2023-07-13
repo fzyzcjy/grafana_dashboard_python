@@ -402,7 +402,7 @@ class Options(MyBaseModel):
 
 
 class RangeMap(MyBaseModel):
-    type: MappingType
+    type: MappingType = MappingType.range  # NOTE MODIFIED
     options: Options
 
 
@@ -412,7 +412,7 @@ class Options1(MyBaseModel):
 
 
 class RegexMap(MyBaseModel):
-    type: MappingType
+    type: MappingType = MappingType.regex  # NOTE MODIFIED
     options: Options1
 
 
@@ -423,7 +423,7 @@ class Options2(MyBaseModel):
 
 
 class SpecialValueMap(MyBaseModel):
-    type: MappingType
+    type: MappingType = MappingType.special  # NOTE MODIFIED
     options: Options2
 
 
@@ -435,7 +435,7 @@ class ThresholdsConfig(MyBaseModel):
 
 
 class ValueMap(MyBaseModel):
-    type: MappingType
+    type: MappingType = MappingType.value  # NOTE MODIFIED
     options: Dict[str, ValueMappingResult]
 
 
@@ -443,6 +443,23 @@ class ValueMapping(MyBaseModel):
     __root__: Union[ValueMap, RangeMap, RegexMap, SpecialValueMap] = Field(
         ..., description='TODO docs'
     )
+
+    # NOTE MODIFIED add
+    @staticmethod
+    def value(options: Dict[str, ValueMappingResult]):
+        return ValueMapping(__root__=ValueMap(options=options))
+
+    @staticmethod
+    def range(options: Options):
+        return ValueMapping(__root__=RangeMap(options=options))
+
+    @staticmethod
+    def regex(options: Options1):
+        return ValueMapping(__root__=RegexMap(options=options))
+
+    @staticmethod
+    def special_value(options: Options2):
+        return ValueMapping(__root__=SpecialValueMap(options=options))
 
 
 class VariableModel(MyBaseModel):
