@@ -19,6 +19,8 @@ class MyBaseModel(BaseModel):
 
     class Config:
         extra = Extra.allow  # #10131
+        # https://github.com/fzyzcjy/yplusplus/issues/10176#issuecomment-1634063216
+        allow_population_by_field_name = True
 
 
 def _repr_transform_arg_value(v):
