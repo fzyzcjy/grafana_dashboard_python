@@ -2,15 +2,13 @@ import importlib
 import sys
 from pathlib import Path
 
-import typer
-
 from grafana_dashboard.model.dashboard_types_gen import Dashboard
 
 
 def convert_package(
-        python_base_dir: Path = typer.Option(...),
-        python_base_package: str = typer.Option(...),
-        json_dir: Path = typer.Option(...),
+        python_base_dir: Path,
+        python_base_package: str,
+        json_dir: Path,
 ):
     assert python_base_dir.is_dir()
     assert json_dir.is_dir()

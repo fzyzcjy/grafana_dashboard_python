@@ -3,14 +3,13 @@ from io import StringIO
 from pathlib import Path
 
 import rich
-import typer
 
 from grafana_dashboard.model.dashboard_types_gen import Dashboard
 
 
 def convert(
-        json_path: Path = typer.Option(...),
-        python_path: Path = typer.Option(...),
+        json_path: Path,
+        python_path: Path,
 ):
     json_dict = json.loads(json_path.read_text())
     dashboard = Dashboard.parse_obj(json_dict)
