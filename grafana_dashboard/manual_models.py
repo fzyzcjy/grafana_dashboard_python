@@ -1,7 +1,7 @@
 from typing import Literal, Dict, List
 
 from grafana_dashboard.model import piechartpanelcfg_types_gen, timeseriespanelcfg_types_gen, tablepanelcfg_types_gen, \
-    dashboardlistpanelcfg_types_gen, textpanelcfg_types_gen, logspanelcfg_types_gen
+    dashboardlistpanelcfg_types_gen, textpanelcfg_types_gen, logspanelcfg_types_gen, statetimelinepanelcfg_types_gen
 from grafana_dashboard.model.dashboard_types_gen import Panel, ModeEnum, FieldColor
 
 
@@ -49,6 +49,11 @@ class Text(Panel):
 class Logs(Panel):
     type: Literal['logs'] = 'logs'
     options: logspanelcfg_types_gen.PanelOptions = logspanelcfg_types_gen.PanelOptions()
+
+
+class StateTimeline(Panel):
+    type: Literal['state-timeline'] = 'state-timeline'
+    options: statetimelinepanelcfg_types_gen.PanelOptions = statetimelinepanelcfg_types_gen.PanelOptions()
 
 
 # TODO other types

@@ -48,7 +48,7 @@ class VisibilityMode(Enum):
 
 
 class OptionsWithLegend(MyBaseModel):
-    legend: VizLegendOptions
+    legend: VizLegendOptions = VizLegendOptions()  # NOTE MODIFIED
 
 
 class OptionsWithTimezones(MyBaseModel):
@@ -56,17 +56,17 @@ class OptionsWithTimezones(MyBaseModel):
 
 
 class OptionsWithTooltip(MyBaseModel):
-    tooltip: VizTooltipOptions
+    tooltip: VizTooltipOptions = VizTooltipOptions()  # NOTE MODIFIED
 
 
 class PanelOptions(OptionsWithLegend, OptionsWithTooltip, OptionsWithTimezones):
-    showValue: VisibilityMode = Field(..., description='Show timeline values on chart')
-    rowHeight: confloat(le=1.0) = Field(..., description='Controls the row height')
+    showValue: VisibilityMode = Field(VisibilityMode.auto, description='Show timeline values on chart')  # NOTE MODIFIED
+    rowHeight: confloat(le=1.0) = Field(0.9, description='Controls the row height')  # NOTE MODIFIED
     mergeValues: Optional[bool] = Field(
         True, description='Merge equal consecutive values'
     )
     alignValue: Optional[TimelineValueAlignment] = Field(
-        None, description='Controls value alignment on the timelines'
+        TimelineValueAlignment.left, description='Controls value alignment on the timelines'  # NOTE MODIFIED
     )
 
 
