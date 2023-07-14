@@ -366,6 +366,7 @@ class DashboardLink(MyBaseModel):
     keepTime: Optional[bool] = False
 
 
+# noinspection PyPep8Naming
 class DataTransformerConfig(MyBaseModel):
     id: str = Field(..., description='Unique identifier of transformer')
     disabled: Optional[bool] = Field(
@@ -376,6 +377,37 @@ class DataTransformerConfig(MyBaseModel):
         ...,
         description='Options to be passed to the transformer\nValid options depend on the transformer id',
     )
+
+    # NOTE MODIFIED add
+    @staticmethod
+    def rename_by_regex(regex: str, renamePattern: str):
+        return DataTransformerConfig(
+            id='renameByRegex',
+            options={
+                'regex': regex,
+                'renamePattern': renamePattern,
+            },
+        )
+
+    @staticmethod
+    def merge(reducers: Optional[List[Any]] = None):
+        return DataTransformerConfig(
+            id='merge',
+            options={
+                'reducers': reducers or [],
+            },
+        )
+
+    @staticmethod
+    def organize(excludeByName: Dict, indexByName: Dict, renameByName: Dict):
+        return DataTransformerConfig(
+            id='organize',
+            options={
+                'excludeByName': excludeByName,
+                'indexByName': indexByName,
+                'renameByName': renameByName,
+            },
+        )
 
 
 class FieldColor(MyBaseModel):
