@@ -409,6 +409,31 @@ class DataTransformerConfig(MyBaseModel):
             },
         )
 
+    @staticmethod
+    def groupingToMatrix(columnField: str, rowField: str, valueField: str):
+        return DataTransformerConfig(
+            id='groupingToMatrix',
+            options={
+                'columnField': columnField,
+                'rowField': rowField,
+                'valueField': valueField,
+            },
+        )
+
+    @staticmethod
+    def convertFieldType(targetField: str, destinationType: str):
+        return DataTransformerConfig(
+            id='convertFieldType',
+            options={
+                'conversions': [
+                    {
+                        "destinationType": destinationType,
+                        "targetField": targetField,
+                    },
+                ],
+            },
+        )
+
 
 class FieldColor(MyBaseModel):
     mode: Union[ModeEnum, Any] = Field(..., description='The main color scheme mode')
