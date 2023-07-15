@@ -616,7 +616,7 @@ class FieldConfig(MyBaseModel):
         timeseriespanelcfg_types_gen.GraphFieldConfig,
         Dict[str, Any]
     ]] = Field(
-        None,
+        {},  # NOTE MODIFIED
         description='custom is specified by the PanelFieldConfig field\nin panel plugin schemas.',
     )
 
