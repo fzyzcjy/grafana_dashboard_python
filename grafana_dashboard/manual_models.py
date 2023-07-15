@@ -1,7 +1,8 @@
 from typing import Literal, Dict, List
 
 from grafana_dashboard.model import piechartpanelcfg_types_gen, timeseriespanelcfg_types_gen, tablepanelcfg_types_gen, \
-    dashboardlistpanelcfg_types_gen, textpanelcfg_types_gen, logspanelcfg_types_gen, statetimelinepanelcfg_types_gen
+    dashboardlistpanelcfg_types_gen, textpanelcfg_types_gen, logspanelcfg_types_gen, statetimelinepanelcfg_types_gen, \
+    heatmappanelcfg_types_gen
 from grafana_dashboard.model.dashboard_types_gen import Panel, ModeEnum, FieldColor
 
 
@@ -20,6 +21,11 @@ class TimeSeries(Panel):
 class PieChart(Panel):
     type: Literal['piechart'] = 'piechart'
     options: piechartpanelcfg_types_gen.PanelOptions = piechartpanelcfg_types_gen.PanelOptions()
+
+
+class Heatmap(Panel):
+    type: Literal['heatmap'] = 'heatmap'
+    options: heatmappanelcfg_types_gen.PanelOptions = heatmappanelcfg_types_gen.PanelOptions()
 
 
 class Table(Panel):

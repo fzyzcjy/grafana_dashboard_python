@@ -5,8 +5,9 @@ from __future__ import annotations
 from enum import Enum
 from typing import Any, Optional, Union
 
-from grafana_dashboard.utils import MyBaseModel
 from pydantic import Field, conint
+
+from grafana_dashboard.utils import MyBaseModel
 
 
 class AxisColorMode(Enum):
@@ -31,7 +32,7 @@ class CellValues(MyBaseModel):
 
 
 class ExemplarConfig(MyBaseModel):
-    color: str = Field(..., description='Sets the color of the exemplar markers')
+    color: str = Field('rgba(255,0,255,0.7)', description='Sets the color of the exemplar markers')  # NOTE MODIFIED
 
 
 class FilterValueRange(MyBaseModel):
@@ -68,7 +69,7 @@ class HeatmapColorScale(Enum):
 
 
 class HeatmapLegend(MyBaseModel):
-    show: bool = Field(..., description='Controls if the legend is shown')
+    show: bool = Field(True, description='Controls if the legend is shown')  # NOTE MODIFIED
 
 
 class HeatmapColorOptions(MyBaseModel):
@@ -92,7 +93,7 @@ class HeatmapColorOptions(MyBaseModel):
 
 
 class HeatmapTooltip(MyBaseModel):
-    show: bool = Field(..., description='Controls if the tooltip is shown')
+    show: bool = Field(True, description='Controls if the tooltip is shown')  # NOTE MODIFIED
     yHistogram: Optional[bool] = Field(
         None,
         description='Controls if the tooltip shows a histogram of the y-axis values',
@@ -240,7 +241,7 @@ class PanelOptions(MyBaseModel):
     )
     rowsFrame: Optional[RowsHeatmapOptions] = None
     showValue: VisibilityMode = Field(
-        ...,
+        VisibilityMode.auto,  # NOTE MODIFIED
         description='| *{\n\tlayout: ui.HeatmapCellLayout & "auto" // TODO: fix after remove when https://github.com/grafana/cuetsy/issues/74 is fixed\n}\nControls the display of the value in the cell',
     )
     cellGap: Optional[conint(ge=0, le=25)] = Field(
@@ -250,10 +251,10 @@ class PanelOptions(MyBaseModel):
     cellValues: Optional[Union[CellValues, Any]] = Field(
         {}, description='Controls cell value unit'
     )
-    yAxis: YAxisConfig
-    legend: HeatmapLegend
-    tooltip: HeatmapTooltip
-    exemplars: ExemplarConfig
+    yAxis: YAxisConfig = YAxisConfig()  # NOTE MODIFIED
+    legend: HeatmapLegend = HeatmapLegend()  # NOTE MODIFIED
+    tooltip: HeatmapTooltip = HeatmapTooltip()  # NOTE MODIFIED
+    exemplars: ExemplarConfig = ExemplarConfig()  # NOTE MODIFIED
 
 
 class HeatmapPanelCfg(MyBaseModel):
