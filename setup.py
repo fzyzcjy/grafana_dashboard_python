@@ -16,7 +16,7 @@ def get_version() -> str:
 
 def get_install_requires():
     return [
-        "pydantic>=1.10.2",
+        "pydantic>=1.10.2,<2",
         "rich>=13.4.2",
         "typer>=0.6.1",
     ]
