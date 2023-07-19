@@ -333,7 +333,7 @@ class StatusOperatorState(MyBaseModel):
 
 class AnnotationQuery(MyBaseModel):
     name: str = Field(..., description='Name of annotation.')
-    datasource: Datasource = Field(..., description='TODO: Should be DataSourceRef')
+    datasource: Union[str, Datasource] = Field(..., description='TODO: Should be DataSourceRef')  # NOTE MODIFIED
     enable: Optional[bool] = Field(
         True,
         description='When enabled the annotation query is issued with every dashboard refresh',
@@ -527,7 +527,7 @@ class VariableModel(MyBaseModel):
     label: Optional[str] = None
     rootStateKey: Optional[str] = None
     global_: Optional[bool] = Field(False, alias='global')
-    hide: VariableHide
+    hide: VariableHide = VariableHide.integer_0  # NOTE MODIFIED
     skipUrlSync: Optional[bool] = False
     # NOTE MODIFIED https://github.com/fzyzcjy/yplusplus/issues/10127#issuecomment-1630624655
     index: Optional[conint(ge=-2147483648, le=2147483647)] = 0
