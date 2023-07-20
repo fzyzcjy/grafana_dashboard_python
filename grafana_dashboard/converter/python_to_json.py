@@ -40,6 +40,7 @@ def convert_package(
 
 
 def convert_single(dashboard: Dashboard, json_path: Path):
+    json_path.parent.mkdir(parents=True, exist_ok=True)
     json_path.write_text(dashboard.to_grafana_json())
 
 
