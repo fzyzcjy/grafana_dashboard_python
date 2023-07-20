@@ -357,7 +357,7 @@ class DashboardLink(MyBaseModel):
     title: str
     type: DashboardLinkType = None  # NOTE MODIFIED
     icon: str = ''  # NOTE MODIFIED
-    tooltip: str = []  # NOTE MODIFIED
+    tooltip: str = ''  # NOTE MODIFIED
     url: str = ''  # NOTE MODIFIED
     tags: List[str] = []  # NOTE MODIFIED
     asDropdown: Optional[bool] = False
