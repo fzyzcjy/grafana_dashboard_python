@@ -535,7 +535,7 @@ class VariableModel(MyBaseModel):
     error: Optional[Dict[str, Any]] = None
     description: Optional[str] = None
     query: Optional[Union[str, Dict[str, Any]]] = Field(
-        None, description='TODO: Move this into a separated QueryVariableModel type'
+        '', description='TODO: Move this into a separated QueryVariableModel type'
     )
     datasource: Optional[Union[DataSourceRef, str]] = None  # NOTE MODIFIED add `str`
 
