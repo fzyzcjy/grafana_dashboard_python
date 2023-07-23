@@ -3,7 +3,7 @@ from typing import Literal, Dict, List
 from grafana_dashboard.model import piechartpanelcfg_types_gen, timeseriespanelcfg_types_gen, tablepanelcfg_types_gen, \
     dashboardlistpanelcfg_types_gen, textpanelcfg_types_gen, logspanelcfg_types_gen, statetimelinepanelcfg_types_gen, \
     heatmappanelcfg_types_gen, statpanelcfg_types_gen
-from grafana_dashboard.model.dashboard_types_gen import Panel, ModeEnum, FieldColor
+from grafana_dashboard.model.dashboard_types_gen import Panel, ModeEnum, FieldColor, ThresholdsConfig
 
 
 class TimeSeries(Panel):
@@ -60,6 +60,13 @@ class Logs(Panel):
 class Stat(Panel):
     type: Literal['stat'] = 'stat'
     options: statpanelcfg_types_gen.PanelOptions = statpanelcfg_types_gen.PanelOptions()
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        if self.fieldConfig.defaults.color is None:
+            self.fieldConfig.defaults.color = FieldColor(mode=ModeEnum.thresholds)
+        if self.fieldConfig.defaults.thresholds is None:
+            self.fieldConfig.defaults.thresholds = ThresholdsConfig()
 
 
 class StateTimeline(Panel):

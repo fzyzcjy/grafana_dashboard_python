@@ -485,9 +485,14 @@ class SpecialValueMap(MyBaseModel):
 
 
 class ThresholdsConfig(MyBaseModel):
-    mode: ThresholdsMode
+    mode: ThresholdsMode = ThresholdsMode.absolute  # NOTE MODIFIED ADD
     steps: List[Threshold] = Field(
-        ..., description="Must be sorted by 'value', first value is always -Infinity"
+        # NOTE MODIFIED ADD
+        [
+            Threshold(value=None, color='green'),
+            Threshold(value=80, color='red'),
+        ],
+        description="Must be sorted by 'value', first value is always -Infinity"
     )
 
 
