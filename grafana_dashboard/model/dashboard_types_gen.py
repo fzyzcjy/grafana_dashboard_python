@@ -220,9 +220,13 @@ class ValueMappingResult(MyBaseModel):
 
 
 class VariableHide(Enum):
-    integer_0 = 0
-    integer_1 = 1
-    integer_2 = 2
+    # NOTE MODIFIED
+    labelAndValue = 0
+    value = 1
+    nothing = 2
+    # integer_0 = 0
+    # integer_1 = 1
+    # integer_2 = 2
 
 
 class VariableType(Enum):
@@ -532,7 +536,7 @@ class VariableModel(MyBaseModel):
     label: Optional[str] = None
     rootStateKey: Optional[str] = None
     global_: Optional[bool] = Field(False, alias='global')
-    hide: VariableHide = VariableHide.integer_0  # NOTE MODIFIED
+    hide: VariableHide = VariableHide.labelAndValue  # NOTE MODIFIED
     skipUrlSync: Optional[bool] = False
     # NOTE MODIFIED https://github.com/fzyzcjy/yplusplus/issues/10127#issuecomment-1630624655
     index: Optional[conint(ge=-2147483648, le=2147483647)] = 0
