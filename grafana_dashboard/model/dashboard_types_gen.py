@@ -370,6 +370,12 @@ class DashboardLink(MyBaseModel):
     keepTime: Optional[bool] = False
 
 
+class ConfigFromDataOptions(MyBaseModel):
+    configRefId: str
+    mappings: List[Any]
+    applyTo: Dict[str, Any]
+
+
 # noinspection PyPep8Naming
 class DataTransformerConfig(MyBaseModel):
     id: str = Field(..., description='Unique identifier of transformer')
@@ -436,6 +442,13 @@ class DataTransformerConfig(MyBaseModel):
                     },
                 ],
             },
+        )
+
+    @staticmethod
+    def configFromData(options: ConfigFromDataOptions):
+        return DataTransformerConfig(
+            id='configFromData',
+            options=options,
         )
 
 
